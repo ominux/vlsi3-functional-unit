@@ -1,0 +1,379 @@
+
+Synopsys Module Compiler Report
+MC Version: B-2008.09-SP1
+Input File: /usr/nikola/groups/vlsi/pkgs/synopsys_syn/.current/mc/lib/dp//dplite//ShiftLR.comp.dpa
+Module Name: ShiftLR
+Parameters: Name=ShiftLR,Width=32
+Date: Fri Dec  4 19:01:36 2009
+
+
+Options
+	Technology Lib Dir: .
+	Technology: cp65npksdst_tt1p2v25c
+	Operating Condition: synlibcond
+	Operating Temperature: 25
+	Operating Voltage:  1.20
+	Wireload Model: synlinear2.5
+	Tree Type: worst_case_tree
+
+	Optimization Criterion: speed
+
+	Logic Optimization Steps (-1)
+		Synthesis Logic Min: on
+		Gate Eater: on
+		Rule: on
+		Reorder: on
+		Logic Min 1: on
+		Logic Min 2: on
+		Logic Min 3: on
+		Logic Min 4: on
+		Logic Min 5: on
+		Timing: on
+		Area: on
+		Synthesis Min Slack: on
+		Compute/Drive: on
+	Local Opt Iterations: 4
+	Global Opt Iterations: 2
+	Equalization Passes: 1
+	Pipelining Margin: 0
+
+	Clock Frequency for Power: 500
+
+	Default Input Max Load: 400
+	Default Output Load: 30
+	Default Operand Format: unsigned
+	Top Level Mode: off
+	Behavioral Model File: ./ShiftLR.bvrl
+	Logic Model File: ./ShiftLR.vrl
+
+
+Summary
+
+                   DESIGN   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+                  ShiftLR    0.6     0.6    0   244   3199     0
+
+
+Design: ShiftLR
+-------------------------------------------------------------------------------
+	           Number of instances:      244
+	                  Number of ff:        0
+	                Number of nets:      283
+	                Number of pins:      938
+	                 pin/net ratio:      3.3
+	                          Area:     3199
+	       Longest final path (nS):     0.59
+	    Longest internal path (nS):     0.59
+	                       Latency:        0
+-------------------------------------------------------------------------------
+
+	Critical Path Summary ... 
+	Path Ends at: Z_1_[30] Z[30] 
+	Endpoint is in group: misc, slack:  -0.587, delay goal:   0.001
+                                              delta  delay   rise   fall   load  gload   pins 
+                                     setup:    0.00   0.59   0.59   0.55
+ /Z_1_[30]/I273/SEN_MUXI2_DG_5(D0->X)/N536:    0.05   0.59   0.59   0.55    5.5    3.0     2
+/Z_X3_[1]/I204/SEN_MUXI2_DG_10(D1->X)/N485:    0.05   0.53   0.51   0.53   25.6   20.6     3
+ /Z_X3_[1]/I165/SEN_MUXI2_DG_8(D1->X)/N465:    0.08   0.48   0.48   0.44   26.7   21.7     3
+ /Z_X3_[1]/I126/SEN_MUXI2_DG_3(D0->X)/N788:    0.06   0.40   0.38   0.40   12.1    9.6     2
+   /Z_X3_[5]/I91/SEN_MUXI2_DG_4(S->X)/N732:    0.19   0.33   0.33   0.31   18.3   13.3     3
+        /S[3]/I85/SEN_INV_AS_10(A->X)/N878:    0.15   0.15   0.15   0.14  472.1  392.1    33
+                                     /S[3]:    0.00   0.00   0.00   0.00   14.2   11.7     2
+-------------------------------------------------------------------------------
+
+	Slack Histogram ...
+	slack   %   num
+	-0.75 100    32:********************************
+	-0.50 100     0:
+	-0.25 100     0:
+	 0.00 100     0:
+	 0.25 100     0:
+	 0.50 100     0:
+	 0.75 100     0:
+	 1.00 100     0:
+	 1.25 100     0:
+	 1.50 100     0:
+	 1.75 100     0:
+	 2.00 100     0:
+	 2.25 100     0:
+	 2.50 100     0:
+	 2.75 100     0:
+	 3.00 100     0:
+	 3.25 100     0:
+	 3.50 100     0:
+	 3.75 100     0:
+	 4.00 100     0:
+
+
+Input Summary
+-------------------------------------------------------------------------------
+	CLK[0:0] (signed)
+	       Bit   Load      Maxload   Fanout    Delay  Relative Slack
+	         0    0.0   99999999.0      0       0.00   100000.00
+
+	LEFT[0:0] (unsigned)
+	       Bit   Load      Maxload   Fanout    Delay  Relative Slack
+	         0   15.6         40.0      1       0.00      0.00
+
+	LOG[0:0] (unsigned)
+	       Bit   Load      Maxload   Fanout    Delay  Relative Slack
+	         0    4.0         40.0      1       0.00      0.06
+
+	S[4:0] (unsigned)
+	       Bit   Load      Maxload   Fanout    Delay  Relative Slack
+	         0   11.6         40.0      1       0.00      0.14
+	         1   11.6         40.0      1       0.00      0.06
+	         2   14.2         40.0      1       0.00      0.06
+	         3   14.2         40.0      1       0.00      0.00
+	         4   11.6         40.0      1       0.00      0.02
+
+	X[31:0] (unsigned)
+	       Bit   Load      Maxload   Fanout    Delay  Relative Slack
+	         0    9.7         40.0      2       0.00      0.12
+	         1    9.7         40.0      2       0.00      0.12
+	         2    9.7         40.0      2       0.00      0.12
+	         3    9.7         40.0      2       0.00      0.12
+	         4    9.7         40.0      2       0.00      0.11
+	         5    9.7         40.0      2       0.00      0.12
+	         6    9.7         40.0      2       0.00      0.12
+	         7    9.9         40.0      2       0.00      0.12
+	         8    9.7         40.0      2       0.00      0.11
+	         9   10.8         40.0      2       0.00      0.13
+	        10   10.8         40.0      2       0.00      0.13
+	        11   10.8         40.0      2       0.00      0.12
+	        12   10.8         40.0      2       0.00      0.12
+	        13   10.8         40.0      2       0.00      0.12
+	        14   10.8         40.0      2       0.00      0.12
+	        15   10.8         40.0      2       0.00      0.13
+	        16   10.9         40.0      2       0.00      0.13
+	        17   10.9         40.0      2       0.00      0.13
+	        18   10.9         40.0      2       0.00      0.13
+	        19   10.9         40.0      2       0.00      0.13
+	        20   10.9         40.0      2       0.00      0.12
+	        21   10.9         40.0      2       0.00      0.13
+	        22   10.9         40.0      2       0.00      0.13
+	        23    9.8         40.0      2       0.00      0.12
+	        24   10.0         40.0      2       0.00      0.12
+	        25    9.8         40.0      2       0.00      0.12
+	        26    9.8         40.0      2       0.00      0.12
+	        27    9.8         40.0      2       0.00      0.12
+	        28    9.8         40.0      2       0.00      0.12
+	        29    9.8         40.0      2       0.00      0.11
+	        30    9.8         40.0      2       0.00      0.12
+	        31   28.1         40.0      3       0.00      0.12
+
+
+
+Output Summary
+-------------------------------------------------------------------------------
+	Z[31:0] (unsigned)
+	      Bit    Load    Int   Total  Slack  Latency Path 
+	                    Delay  Delay                 Start
+	        0     5.5    0.58   0.58  -0.58    0      S[3]
+	        1     5.5    0.58   0.58  -0.58    0      S[3]
+	        2     5.5    0.58   0.58  -0.58    0      LEFT
+	        3     5.5    0.58   0.58  -0.58    0      LEFT
+	        4     5.5    0.58   0.58  -0.58    0      LEFT
+	        5     5.5    0.56   0.56  -0.56    0      LEFT
+	        6     5.5    0.56   0.56  -0.56    0      LEFT
+	        7     5.5    0.56   0.56  -0.56    0      LEFT
+	        8     5.5    0.56   0.56  -0.56    0      LEFT
+	        9     5.5    0.56   0.56  -0.56    0      S[3]
+	       10     5.5    0.56   0.56  -0.55    0      LEFT
+	       11     5.5    0.56   0.56  -0.55    0      LEFT
+	       12     5.5    0.54   0.54  -0.54    0      LEFT
+	       13     5.5    0.55   0.55  -0.54    0      LEFT
+	       14     5.5    0.55   0.55  -0.55    0      LEFT
+	       15     5.5    0.54   0.54  -0.54    0      LEFT
+	       16     5.5    0.54   0.54  -0.54    0      LEFT
+	       17     5.5    0.55   0.55  -0.55    0      LEFT
+	       18     5.5    0.55   0.55  -0.55    0      LEFT
+	       19     5.5    0.55   0.55  -0.55    0      LEFT
+	       20     5.5    0.56   0.56  -0.56    0      LEFT
+	       21     5.5    0.56   0.56  -0.56    0      LEFT
+	       22     5.5    0.56   0.56  -0.56    0      S[3]
+	       23     5.5    0.56   0.56  -0.56    0      LEFT
+	       24     5.5    0.56   0.56  -0.56    0      LEFT
+	       25     5.5    0.57   0.57  -0.56    0      LEFT
+	       26     5.5    0.57   0.57  -0.57    0      LEFT
+	       27     5.5    0.58   0.58  -0.58    0      LEFT
+	       28     5.5    0.58   0.58  -0.58    0      LEFT
+	       29     5.5    0.58   0.58  -0.58    0      LEFT
+	       30     5.5    0.59   0.59  -0.59    0      S[3]
+	       31     5.5    0.59   0.59  -0.59    0      S[3]
+
+Clock/Pipeline Stall Pin Summary
+-------------------------------------------------------------------------------
+           Clock Pin    Fanout    Gate Load   Total Load
+                 CLK       0         0.00         0.00
+
+
+===============================================================================
+
+
+Internal Rounding Error Analysis
+                                 Relative                 Absolute       
+                  name  Rnd   Max    Min     Av      Max      Min       Av
+--------------------------------------------------------------------------
+
+
+===============================================================================
+
+
+Operand Summary
+
+           USER CONSTANTS  BIT RANGE               FORMAT   
+------------------------------------------------------------------------------
+               const_1_0_      [0:0]                  0x0
+                  dpa_one      [0:0]                  0x1
+                 dpa_zero      [0:0]                  0x0
+
+           INPUT OPERANDS  BIT RANGE               FORMAT   
+------------------------------------------------------------------------------
+                      CLK      [0:0]               signed
+                     LEFT      [0:0]             unsigned
+                      LOG      [0:0]             unsigned
+                        S      [4:0]             unsigned
+                        X     [31:0]             unsigned
+
+          OUTPUT OPERANDS  BIT RANGE               FORMAT   
+------------------------------------------------------------------------------
+                        Z     [31:0]             unsigned
+
+        COMPUTED OPERANDS  BIT RANGE               FORMAT   
+------------------------------------------------------------------------------
+                     Z_1_     [31:0]             unsigned
+                     Z_4_      [0:0]             unsigned
+                  Z_SIGN_      [0:0]             unsigned
+               Z_SIGN__3_      [0:0]             unsigned
+                    Z_X1_     [31:0]             unsigned
+                 Z_X1__2_      [0:0]             unsigned
+                   Z_X2A_     [32:0]               signed
+                    Z_X2_     [32:0]             unsigned
+                 Z_X2_Z1_     [32:0]             unsigned
+                    Z_X3_     [32:0]               signed
+                    Z_X4_     [31:0]             unsigned
+                    Z_X5_     [31:0]             unsigned
+                    Z_XR_     [31:0]             unsigned
+
+          UNUSED OPERANDS  BIT RANGE               FORMAT   
+------------------------------------------------------------------------------
+
+           USER CONSTANTS   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+               const_1_0_   0.0     0.0    0     0      0     0
+                  dpa_one   0.0     0.0    0     0      0     0
+                 dpa_zero   0.0     0.0    0     0      0     0
+
+           INPUT OPERANDS   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+                      CLK   0.0     0.0    0     0      0     0
+                     LEFT   0.1     0.0    0     7    108     0
+                      LOG   0.0     0.0    0     1      1     0
+                        S   0.2     0.0    0     5     23     0
+                        X   0.0     0.0    0     0      0     0
+
+          OUTPUT OPERANDS   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+                        Z   0.6     0.0    0     0      0     0
+
+        COMPUTED OPERANDS   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+                     Z_1_   0.0     0.6    0    32    487     0
+                     Z_4_   0.0     0.0    0     0      0     0
+                  Z_SIGN_   0.0     0.0    0     3     41     0
+               Z_SIGN__3_   0.0     0.0    0     1     10     0
+                    Z_X1_   0.0     0.0    0    32    185     0
+                 Z_X1__2_   0.0     0.0    0     0      0     0
+                   Z_X2A_   0.0     0.0    0     0      0     0
+                    Z_X2_   0.0     0.0    0     0      0     0
+                 Z_X2_Z1_   0.0     0.0    0     0      0     0
+                    Z_X3_   0.0     0.0    0   163   2344     0
+                    Z_X4_   0.0     0.0    0     0      0     0
+                    Z_X5_   0.0     0.0    0     0      0     0
+                    Z_XR_   0.0     0.0    0     0      0     0
+
+          UNUSED OPERANDS   TIMING (ns)      AREA       LATENCY
+                     name  final internal  ff  inst   area   cycles
+----------------------------------------------------------------------
+
+
+===============================================================================
+
+
+Cell Use Summary
+
+	By Group:
+	count (  %)      Group         total (  %)
+	  244 (100)       Comb       3198.60 (100)
+
+	Core Sorted by die area:
+	count (  %)            cell   area     total (  %)
+	   95 ( 39)  SEN_MUXI2_DG_8  17.28   1641.60 ( 51)
+	   31 ( 13)  SEN_MUXI2_DG_5  11.52    357.12 ( 11)
+	   10 (  4) SEN_MUXI2_DG_10  21.60    216.00 (  7)
+	   15 (  6)    SEN_MUX2_G_6  11.16    167.40 (  5)
+	    6 (  2) SEN_MUXI2_DG_12  25.56    153.36 (  5)
+	   16 (  7)   SEN_MUXI2_S_3   7.20    115.20 (  4)
+	    8 (  3)  SEN_MUXI2_DG_6  13.68    109.44 (  3)
+	    5 (  2)      SEN_BUF_24  15.48     77.40 (  2)
+	    3 (  1)      SEN_BUF_20  14.76     44.28 (  1)
+	    7 (  3)   SEN_MUXI2_S_2   5.76     40.32 (  1)
+	    4 (  2)  SEN_MUXI2_DG_3   7.56     30.24 (  1)
+	    3 (  1)  SEN_MUXI2_DG_4   9.36     28.08 (  1)
+	    8 (  3)   SEN_MUXI2_S_1   3.24     25.92 (  1)
+	    4 (  2)   SEN_MUX2_DG_4   5.76     23.04 (  1)
+	    4 (  2)    SEN_MUX2_G_2   4.68     18.72 (  1)
+	    3 (  1)      SEN_INV_10   5.40     16.20 (  1)
+	    1 (  0)   SEN_MUXI2_S_8  15.84     15.84 (  0)
+	    1 (  0)      SEN_INV_32  15.48     15.48 (  0)
+	    4 (  2)   SEN_MUX2_DG_1   3.24     12.96 (  0)
+	    3 (  1)     SEN_INV_S_8   3.96     11.88 (  0)
+	    1 (  0)      SEN_ND2_12  11.88     11.88 (  0)
+	    2 (  1)  SEN_MUXI2_DG_2   5.76     11.52 (  0)
+	    1 (  0)      SEN_MUX2_4  11.16     11.16 (  0)
+	    2 (  1)   SEN_INV_AS_10   5.40     10.80 (  0)
+	    1 (  0)     SEN_AN2_S_8   9.72      9.72 (  0)
+	    2 (  1)      SEN_MUX2_1   3.96      7.92 (  0)
+	    1 (  0)    SEN_MUX2_G_4   7.56      7.56 (  0)
+	    1 (  0)    SEN_MUX2_G_1   3.24      3.24 (  0)
+	    1 (  0)   SEN_MUXI2_D_1   3.24      3.24 (  0)
+	    1 (  0)       SEN_INV_1   1.08      1.08 (  0)
+
+	Core Sorted by name:
+	count (  %)            cell   area     total (  %)
+	    1 (  0)     SEN_AN2_S_8   9.72      9.72 (  0)
+	    3 (  1)      SEN_BUF_20  14.76     44.28 (  1)
+	    5 (  2)      SEN_BUF_24  15.48     77.40 (  2)
+	    1 (  0)       SEN_INV_1   1.08      1.08 (  0)
+	    3 (  1)      SEN_INV_10   5.40     16.20 (  1)
+	    1 (  0)      SEN_INV_32  15.48     15.48 (  0)
+	    2 (  1)   SEN_INV_AS_10   5.40     10.80 (  0)
+	    3 (  1)     SEN_INV_S_8   3.96     11.88 (  0)
+	    2 (  1)      SEN_MUX2_1   3.96      7.92 (  0)
+	    1 (  0)      SEN_MUX2_4  11.16     11.16 (  0)
+	    4 (  2)   SEN_MUX2_DG_1   3.24     12.96 (  0)
+	    4 (  2)   SEN_MUX2_DG_4   5.76     23.04 (  1)
+	    1 (  0)    SEN_MUX2_G_1   3.24      3.24 (  0)
+	    4 (  2)    SEN_MUX2_G_2   4.68     18.72 (  1)
+	    1 (  0)    SEN_MUX2_G_4   7.56      7.56 (  0)
+	   15 (  6)    SEN_MUX2_G_6  11.16    167.40 (  5)
+	   10 (  4) SEN_MUXI2_DG_10  21.60    216.00 (  7)
+	    6 (  2) SEN_MUXI2_DG_12  25.56    153.36 (  5)
+	    2 (  1)  SEN_MUXI2_DG_2   5.76     11.52 (  0)
+	    4 (  2)  SEN_MUXI2_DG_3   7.56     30.24 (  1)
+	    3 (  1)  SEN_MUXI2_DG_4   9.36     28.08 (  1)
+	   31 ( 13)  SEN_MUXI2_DG_5  11.52    357.12 ( 11)
+	    8 (  3)  SEN_MUXI2_DG_6  13.68    109.44 (  3)
+	   95 ( 39)  SEN_MUXI2_DG_8  17.28   1641.60 ( 51)
+	    1 (  0)   SEN_MUXI2_D_1   3.24      3.24 (  0)
+	    8 (  3)   SEN_MUXI2_S_1   3.24     25.92 (  1)
+	    7 (  3)   SEN_MUXI2_S_2   5.76     40.32 (  1)
+	   16 (  7)   SEN_MUXI2_S_3   7.20    115.20 (  4)
+	    1 (  0)   SEN_MUXI2_S_8  15.84     15.84 (  0)
+	    1 (  0)      SEN_ND2_12  11.88     11.88 (  0)
