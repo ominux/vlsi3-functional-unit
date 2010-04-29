@@ -1,0 +1,109 @@
+Alu
+
+Summary:
+
+The Alu function provides a programmable ALU (arithmetic-logic unit) with up to
+16 instructions. During normal operation the A and B inputs are used to compute
+the output Z using INST as the number of the instruction to execute.  Several 
+flags are available which indicate special conditions.
+
+Unneeded instructions and flag bits can be individually disabled during 
+compilation to reduce the delay and area of the ALU.  When an instruction or 
+flag bit is disabled, the Z output when the instruction is selected will be 
+undefined or the flag bit will be undefined, respectively.
+
+The arithmetic instructions (0-7) utilize an adder with a type specified by 
+AdderType.  The logical instructions (8-15) do not require the adder.
+
+A four-quadrant division algorithm can be implemented in a serial manner with 
+one quotient bit computed in each step.  At the beginning of the operation, 
+the dividend is supplied on the DI inputs (B is set to zero if DI>=0 or -1 if 
+DI<0) and the divisor on the A input.  After the first cycle, the output Z is 
+fed back to the B input and the output DO is fed back to the DI output.  After 
+all iterations are completed (Width cycles), Z is the remainder and DO is the 
+quotient.  Two final processing steps are required to complete the division.  
+If the divisor is negative, the quotient must be negated.  If the remainder is 
+less than zero, the absolute value of the divisor must be added to the remainder.
+
+Extended precision operation is supported for IncA, DecA, Add, Sub, NegA and 
+NegB instructions.  The data is processed from LSB to MSB, Width bits at a time.
+In the first cycle, the signal FirstCyc is set HIGH and the CI input is ignored.
+On subsequent cycles, FirstCyc is set LOW and the FLAG[1] output (carry out) is 
+fed back to the CI input.  For other operations or when using single precision 
+operation, FirstCyc can be set HIGH and CI is ignored.  It is also possible to 
+set FirstCyc LOW for all operations, in which case, the user must supply the 
+correct carry input value on the CI input.
+
+Three flags are available.  The OVF flag indicates, when HIGH, that the two's 
+complement overflow has occurred.  If the inputs and outputs are unsigned, 
+this bit has no meaning.  The Carry flag is connected to the carry output of 
+the adder.  It is used to indicate overflow for unsigned operations and to
+provide the value for the CI input when performing extended precision 
+operations.   There OVF and Carry flags are undefined when performing logical 
+instructions.  To force these flags to zero, the outputs should be ANDed with 
+~INST[0].  The Zero flag is valid for all instructions and indicates that Z is 
+zero.
+
+Function (assuming no disabled functions or flag bits):
+    switch (INST) {
+      case 0 : Z=A+1   
+      case 1 : Z=A-1
+      case 2 : Z=A+B   
+      case 3 : Z=A-B
+      case 4 : Z=abs(A)
+      case 5 : Z=-A
+      case 6 : Z= (A[msb]==B[msb] ? (B-A) : B+A)<<1 (division iteration)
+      case 7 : Z=-B
+      case 8 : Z=A&B
+      case 9 : Z=A|B
+      case 10: Z=A^B
+      case 11: Z=~B
+      case 12: Z=A
+      case 13: Z=~A
+      case 14: Z=0
+      case 15: Z=1
+    }
+    FLAGS[0]= OVF (output has incorrect sign, two's complement overflow)
+    FLAGS[1]= Carry (adder carry output, unsigned overflow)
+    FLAGS[2]= Zero (Z is zero)
+    FLAGS[3]= reserved
+
+Signals:
+    A,B:      Width wide primary inputs
+    CI:       1-bit wide carry input signal, ignored if firstCyc is HIGH
+    Z:        Width wide output
+    DI        Dividend input (divide only)
+    DO        Dividend output (divide only)
+    INST:     4-bit wide instruction input
+    FLAG      4-bit wide condition code (flag) output
+    FirstCyc  HIGH during first cycle of extended precision operations.  
+              CI is ignored if FirstCyc is HIGH
+
+Parameters:
+    Name:       actual module name
+    Width:      width of the A,B and Z signals
+    AdderType:  type the adder ('fastcla', 'cla', 'clsa' or 'csa')
+    IncA:       select to enable A+1 instruction
+    DecA:       select to enable A-1 instruction
+    Add:        select to enable A+B instruction
+    Sub:        select to enable A-B instruction
+    Abs:        select to enable abs(A) instruction
+    NegA:       select to enable -A instruction
+    Divide:     select to enable division instruction
+    NegB:       select to enable -B instruction
+    And:        select to enable A|B instruction
+    XOR:        select t o enable A^B instruction
+    InvB:       select to enable ~B instruction
+    PassA:      select to enable A instruction
+    InvA:       select to enable A instruction
+    Zero:       select to enable the zero instruction
+    One:        select to enable the one instruction
+    OvfFlag:    select to enable the overflow flag output
+    CarryFlag:  select to enable the carry flag output
+    ZeroFlag:   select to enable the zero flag output
+
+Verilog Usage: 
+    Name(Z,A,B,DI,DO,CI,INST,FLAGS,FirstCyc); 
+
+
+$Id: Alu.help,v 1.2 1995/03/24 01:21:01 peter Exp $
