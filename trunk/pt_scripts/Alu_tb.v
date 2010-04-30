@@ -1,4 +1,6 @@
-`timescale 1ns/10ps;
+`timescale 1ns/10ps
+
+`include "Alu.v"
 
 /*
  Testbench for the ALU module
@@ -47,10 +49,10 @@ module Alu_tb();
     15: Z=1
 	*/
 
-	$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%h",instr,a_in,b_in,alu_out,flags);
 
 	// apply test vectors here
 	initial begin
+		$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%h\n",instr,a_in,b_in,alu_out,flags);
 		
 		///////////
 		// A + B //
