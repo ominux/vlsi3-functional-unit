@@ -3,10 +3,11 @@ set power_enable_analysis TRUE
 #####################################################################
 #       link design
 #####################################################################
-set search_path         " . "
-set link_library	" * cp65npksdst_tt1p2v25c.db "
+set search_path   [list ./ ../synthesis]
+set link_library	" * ../synthesis/cp65npksdst_tt1p2v25c.db "
 
-read_verilog		ShiftLR.vrl
+#read_verilog		../synthesis/ShiftLR.vh
+read_verilog		../benchmark/ShiftLR.vrl
 current_design		ShiftLR
 link
 
