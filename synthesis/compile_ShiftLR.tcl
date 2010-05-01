@@ -30,9 +30,10 @@ set my_output_delay_ns 0.1
 #/**************************************************/
 #/* No modifications needed below                  */
 #/**************************************************/
-set IBM_65nm_PDK ./
-set search_path [concat  $search_path  $IBM_65nm_PDK]
-set alib_library_analysis_path $IBM_65nm_PDK
+set current_dir ./
+set verilog_path ../verilog
+set search_path [concat  $search_path  $current_dir $verilog_path ]
+set alib_library_analysis_path $current_dir
 
 set link_library [set target_library cp65npksdst_tt1p2v25c.db]
 set target_library "cp65npksdst_tt1p2v25c.db"
