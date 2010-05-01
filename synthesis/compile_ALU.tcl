@@ -32,7 +32,7 @@ set my_output_delay_ns 0.1
 #/**************************************************/
 set current_dir ./
 set verilog_path ../verilog
-set search_path [concat  $search_path  $current_dir $verilog_path ]
+set search_path [list  $search_path  $current_dir $verilog_path ]
 set alib_library_analysis_path $current_dir
 
 set link_library [set target_library cp65npksdst_tt1p2v25c.db]

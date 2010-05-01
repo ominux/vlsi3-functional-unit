@@ -3,10 +3,12 @@ set power_enable_analysis TRUE
 #####################################################################
 #       link design
 #####################################################################
-set search_path         " . "
-set link_library	" * cp65npksdst_tt1p2v25c.db "
+#set search_path         " . "
+set search_path		[list ./ ../synthesis ../benchmark]
+set link_library	" * ../synthesis/cp65npksdst_tt1p2v25c.db "
 
-read_verilog		Alu.vrl
+#read_verilog		../synthesis/Alu.vh
+read_verilog		../benchmark/Alu.vrl
 current_design		Alu
 link
 
@@ -36,13 +38,13 @@ report_timing
 #       read switching activity file
 #####################################################################
 create_clock -name clk -period 4
-read_saif "nothing.saif" -strip_path Alu
+#read_saif "nothing.saif" -strip_path Alu
 #report_switching_activity -list_not_annotated
 
-#set_switching_activity -toggle_count 0 -static_probability 1 LEFT
-#set_switching_activity -toggle_count 0 -static_probability 1 LOG
-#set_switching_activity -toggle_count 0.25 -static_probability 0.5 X
-#set_switching_activity -toggle_count 0.25 -static_probability 0.5 S
+set_switching_activity -toggle_count 0 -static_probability 1 LEFT
+set_switching_activity -toggle_count 0 -static_probability 1 LOG
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 X
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 S
 
 #####################################################################
 #       check/update/report power
