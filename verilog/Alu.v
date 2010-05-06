@@ -1,4 +1,6 @@
 `timescale 1ns / 10 ps
+`include "adder_struct.v"
+
 module Alu( Z, A, B, DI, DO, CI, INST, FLAGS, FirstCyc );
 input [31:0] A;
 input [31:0] B;
@@ -144,9 +146,13 @@ always @ (Z_BI__15_  or Z_BI1_ or Z_BI__13_) begin
 	endcase
 end
 
-assign Z_SUM_= (Z_BI_[31:0]+Z_AI_[31:0]+Z_CarryIn_);
 
-assign Z_Z0_= (Z_SUM_[32:0]);
+//adder//
+//assign Z_SUM_= (Z_BI_[31:0]+Z_AI_[31:0]+Z_CarryIn_);
+adder a1(Z_AI_,Z_BI_,Z_CarryiIn_,Z_SUM_[31:0],Z_SUM_[32]);
+
+
+/*assign Z_Z0_= (Z_SUM_[32:0]);
 
 assign Z_Z1_= (Z_Z0_[32:0]);
 
@@ -161,8 +167,10 @@ assign Z_Z5_= (Z_Z0_[32:0]);
 assign Z_Z6_= (Z_Z0_[32:0]);
 
 assign Z_Z7_= (Z_Z0_[32:0]);
+*/
 
-assign Z_AdderOutN_= (~Z_Z0_[32:0]);
+//assign Z_AdderOutN_= (~Z_Z0_[32:0]);
+assign Z_AdderOutN_ = (~Z_SUM_[32:0]);
 
 assign Z_BA_X1_ = Z_AS_[31:0];
 
