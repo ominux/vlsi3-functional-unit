@@ -38,7 +38,7 @@ report_timing
 #       read switching activity file
 #####################################################################
 create_clock -name clk -period 4
-#read_saif "nothing.saif" -strip_path Alu
+read_saif "add.saif" -strip_path Alu
 #report_switching_activity -list_not_annotated
 
 set_switching_activity -toggle_count 0 -static_probability 1 LEFT
