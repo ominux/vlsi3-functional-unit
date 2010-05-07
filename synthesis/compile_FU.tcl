@@ -8,7 +8,7 @@
 
 #/* All verilog files, separated by spaces         */
 # for synthesis of the entire FU
-set my_verilog_files [list functional_unit.v Alu.v ShiftLR.v]
+set my_verilog_files [list functional_unit.v Alu.v ShiftLR.v MADD.v]
 
 #/* Top-level Module                               */
 set my_toplevel functional_unit
