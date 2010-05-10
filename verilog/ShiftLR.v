@@ -5,7 +5,7 @@ input [4:0] S;
 input LEFT;
 input LOG;
 output [31:0] Z;
-wire  dpa_zero, dpa_one;
+/*wire  dpa_zero, dpa_one;
 wire [31:0] Z_XR_;
 wire  Z_X1__2_;
 reg [31:0] Z_X1_;
@@ -14,7 +14,8 @@ reg  Z_SIGN_;
 wire [32:0] Z_X2_Z1_, Z_X2_, Z_X2A_, Z_X3_;
 wire [31:0] Z_X5_, Z_X4_;
 wire  Z_4_;
-reg [31:0] Z_1_;
+reg [31:0] Z_1_;*/
+/*
 assign dpa_zero= 1024'h0;
 assign dpa_one= 1024'h1;
 assign const_1_0_= 1024'h0;
@@ -67,6 +68,62 @@ always @ (Z_4_  or Z_X5_ or Z_X4_) begin
 end
 
 assign Z = Z_1_[31:0];
+*/
 
-/*User Defined Aliases */
+// intermediate wires needed
+wire [4:0] shift;
+wire [62:0] mux_in;
+wire [46:0] shift4;
+wire [38:0] shift3;
+wire [34:0] shift2;
+wire [32:0] shift1;
+wire [31:0] shift0;
+
+///////////////////////////////
+// set up inputs  to shifter //
+///////////////////////////////
+assign mux_in = (~LOG && ~LEFT) ? {31{X[31]},X} : {31'b0,X};
+
+////////////////////////////////////////////
+// set up select bits                     //
+// use 2's complement if Left is asserted //
+// else assume right shift                //
+////////////////////////////////////////////
+assign shift = LEFT ? {S[4]^(S[3]&S[2]&S[1]&S[0]),S[3]^(S[2]&S[1]&S[0]),S[2]^(S[1]&S[0]),S[1]^S[0],~S[0]} : S;
+
+/////////////////
+// LOG SHIFTER //
+/////////////////
+// 0th stage, shift by 
+assign shift4 = shift[4] ? mux_in[62:16] : mux_in[46:0];
+// 1st stage, shift by 8
+assign shift3 = shift[3] ? shift4[46:8] : shift4[38:0];
+// 2nd stage, shift by 4
+assign shift2 = shift[2] ? shift3[38:4] : shift3[34:0];
+// 3rd stage, shift by 2
+assign shift1 = shift[1] ? shift2[34:2] : shift2[32:0];
+// 4th stage, shift by 1
+assign shift0 = shift[0] ? shift1[32:1] : shift1[31:0];
+
+// final output
+assign Z = shift0[31:0];
+
+/*
+///////////////////////
+// REGISTERED OUTPUT //
+///////////////////////
+
+// would need to add inputs for clock and clk_en
+wire enabled_clock;
+assign enabled_clock = clock & clk_en;
+
+always @ (posedge enabled_clock) begin
+	if (~reset) begin
+		Z <= 32'b0;
+	end
+	else begin
+		Z <= shift4;
+	end
+end
+*/
 endmodule
