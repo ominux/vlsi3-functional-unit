@@ -1,11 +1,12 @@
-README file for using primetime with tcl scripts
+README file for using tcl scripts
 
 syntax:
 
-primetime:
+primetime: from the pt_scripts directory
 pt_shell -file <filename>.tcl
 
 design compiler: can compile just the ALU or the entire FU
+									execute this script from the synthesis directory
 dc_shell-t -f compile_<block>.tcl
 
 notes:
