@@ -9,17 +9,29 @@ output [31:0] Z;
 // intermediate wires needed
 wire [4:0] S_FLIPPED;
 wire [4:0] shift;
-wire [62:0] mux_in;
+//wire [62:0] mux_in;
+reg [62:0] mux_in;
 wire [46:0] shift4;
 wire [38:0] shift3;
 wire [34:0] shift2;
 wire [32:0] shift1;
 wire [31:0] shift0;
 
+integer i;
+
 ///////////////////////////////
 // set up inputs  to shifter //
 ///////////////////////////////
-assign mux_in = (~LOG && ~LEFT) ? {31{X[31]},X} : {31'b0,X};
+//assign mux_in = (~LOG && ~LEFT) ? {31{X[31]},X[31:0]} : {31'b0,X[31:0]};
+always @ (X) begin
+	mux_in[31:0] = X;
+	if (~LOG && ~LEFT) begin
+		for (i=32;i<63;i=i+1) begin
+			mux_in[i]=X[31];
+		end
+	end
+	else mux_in[62:32] = 0;
+end
 
 ////////////////////////////////////////////
 // set up select bits                     //

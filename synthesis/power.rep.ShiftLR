@@ -1,0 +1,43 @@
+Loading db file '/atm/mead/home/cbolson1/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : ShiftLR
+Version: B-2008.09-SP1
+Date   : Thu May 13 17:41:28 2010
+****************************************
+
+
+Library(s) Used:
+
+    cp65npksdst_tt1p2v25c (File: /atm/mead/home/cbolson1/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db)
+
+
+Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+ShiftLR                B0.1X0.1          cp65npksdst_tt1p2v25c
+
+
+Global Operating Voltage = 1.2  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+  Cell Internal Power  = 104.6482 uW   (46%)
+  Net Switching Power  = 122.9716 uW   (54%)
+                         ---------
+Total Dynamic Power    = 227.6198 uW  (100%)
+
+Cell Leakage Power     =  20.2787 nW
+
+1
