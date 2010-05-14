@@ -9,5 +9,11 @@ design compiler: can compile just the ALU or the entire FU
 									execute this script from the synthesis directory
 dc_shell-t -f compile_<block>.tcl
 
+vcs: be sure to include your design files in the testbench file, outside the module,
+									execute this from the same directory as the design files
+
+vcs +v2k <testbench_filename>.v
+then you can run the 'simv' executable that is placed in the same directory
+
 notes:
 do not place the pdk database in the SVN repository
