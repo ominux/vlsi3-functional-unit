@@ -40,13 +40,10 @@ module functional_unit(Z, FLAGS, A, B, C, INST, CI, CLOCK);
                       .FLAGS());
 		
 	// barrel shifter
-	ShiftLR shifter( .Z(BS_Z), .X(A), .S(B[4:0]), .B(B[5]), .LOG(B[6]) );
+	ShiftLR shifter( .Z(BS_Z), .X(A), .S(B[4:0]), .LOG(B[6]) );
 
 	// MADD unit
-        //MADD madd (.A(A), .B(B), .C(C), .Z(MADD_Z));
-	
-
-
+        MADD madd (.CLK(Gated_clock_MADD), .A(A), .B(B), .C(C), .Z(MADD_Z));
 
 	// CLOCK GATING
 	always @(posedge Gated_clock_ALU)
@@ -65,9 +62,7 @@ module functional_unit(Z, FLAGS, A, B, C, INST, CI, CLOCK);
 		MADD_Z1 = MADD_Z;
 	end
 
-
         // Output mux
-	assign Z = INST[3] ? (INST[4] ? MADD_Z1 : Alu_Z1) : BS_Z1;
-
+	assign Z = INST[3] ? (INST[4] ? MADD_Z : Alu_Z1) : BS_Z1;
 
 endmodule
