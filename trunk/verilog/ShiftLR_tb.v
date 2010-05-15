@@ -19,64 +19,82 @@ module ShiftLR_tb();
 	reg shift_left,logical;
 
 	// outputs from the shifter
-	wire [31:0] output_data;
+	wire signed [31:0] output_data;
 
 	// create a clock to control shifting
 	reg clk;
-
+	// latch the data for comparison with the output data
+	reg signed [31:0] clked_in;
+	reg [4:0] clked_shift_amount;
+	reg clked_left, clked_logical;
+	
 	// instantiate the barrel shifter here
 	ShiftLR inst_shift (.X(input_data),.S(shift_amount),
 											.LEFT(shift_left),.LOG(logical),
-											.Z(output_data));
+											.clock(clk), .Z(output_data));
 
 	// vary the inputs and control the outputs
 	initial begin
+		$monitor("Input data:%h, output data:%h, shift:%h, left:%b, logical:%b",
+							clked_in,output_data,clked_shift_amount,clked_left,clked_logical);
 		shift_left = 0;
+		clk = 0;
 		logical = 0;
 		
-		#500 logical = 1;
-		#500 shift_left = 1;
-		#500 logical = 0;
-		#500 $display("Shifter Test completed Successfully");
+		$display("Testing Arithmetic Shift Right...");
+		#140 logical = 1;
+		$display("Testing Logical Shift Right...");
+		#140 shift_left = 1;
+		$display("Testing Logical Shift Left...");
+		#140 logical = 0;
+		$display("Testing Arithmetic Shift Left...");
+		#140 $display("Shifter Test completed Successfully");
 		$stop;
 	end
 
-	// create the clock
-	always #50 clk <= ~clk;
+	// create the clock (700MHz ~ 1.4ns)
+	always #7 clk <= ~clk;
 
 	// change the input data and shift amount to random values
 	always @ (posedge clk) begin
-		input_data = $random;
-		shift_amount = $random;
-		$display("Testing with input data=%h, shift_amount=%h\n",input_data,shift_amount);
+		input_data <= $random;
+		shift_amount <= $random;
+	end
+
+	// output data will be delayed
+	always @ (posedge clk) begin
+		clked_in <= input_data;
+		clked_shift_amount <= shift_amount;
+		clked_logical <= logical;
+		clked_left <= shift_left;
 	end
 
 	// check that we are always doing the correct shifting
-	always @ (*) begin
+	always @ (output_data) begin
 		// check all left shifts
-		if (shift_left) begin
-			if (output_data !== input_data<<shift_amount) begin
+		if (clked_left) begin
+			if (output_data !== clked_in<<clked_shift_amount) begin
 				$display("ERROR: Shift Left Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h",
-									output_data,input_data,shift_amount);
+				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
+									output_data,clked_in,clked_shift_amount,clked_in<<clked_shift_amount);
 				$stop;
 			end
 		end
 		// logical shift right
-		else if(logical) begin
-			if (output_data !== input_data>>shift_amount) begin
+		else if(clked_logical) begin
+			if (output_data !== clked_in>>clked_shift_amount) begin
 				$display("ERROR: Logical Shift Right Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h",
-									output_data,input_data,shift_amount);
+				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
+									output_data,clked_in,clked_shift_amount,clked_in>>clked_shift_amount);
 				$stop;
 			end
 		end
 		// arithmetic shift right
 		else begin
-			if (output_data !== input_data>>>shift_amount) begin
+			if (output_data !== clked_in>>>clked_shift_amount) begin
 				$display("ERROR: Arithmetic Shift Right Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h",
-									output_data,input_data,shift_amount);
+				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
+									output_data,clked_in,clked_shift_amount,clked_in>>>clked_shift_amount);
 				$stop;
 			end
 		end
