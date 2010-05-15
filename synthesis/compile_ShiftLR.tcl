@@ -15,7 +15,7 @@ set my_toplevel ShiftLR
 
 #/* The name of the clock pin. If no clock-pin     */
 #/* exists, pick anything                          */
-set my_clock_pin clk
+set my_clock_pin clock
 
 #/* Target frequency in MHz for optimization       */
 set my_clk_freq_MHz 700
@@ -32,7 +32,8 @@ set my_output_delay_ns 0.1
 #/**************************************************/
 set current_dir ./
 set verilog_path ../verilog
-set search_path [concat  $search_path  $current_dir $verilog_path ]
+set PDK_DIR /usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/refRF/
+set search_path [concat  $search_path  $current_dir $verilog_path $PDK_DIR]
 set alib_library_analysis_path $current_dir
 
 set link_library [set target_library cp65npksdst_tt1p2v25c.db]
@@ -62,7 +63,8 @@ if {  $find_clock != [list] } {
    create_clock -period $my_period -name $clk_name
 }
 
-set_driving_cell  -lib_cell INVX1  [all_inputs]
+# this driving cell cannot be found, should ask Robin about this
+set_driving_cell  -lib_cell SEN_INV_1  [all_inputs]
 set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
 set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]
 

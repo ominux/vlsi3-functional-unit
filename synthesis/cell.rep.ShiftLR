@@ -1,0 +1,642 @@
+ 
+****************************************
+Report : cell
+Design : ShiftLR
+Version: B-2008.09-SP1
+Date   : Sat May 15 09:14:55 2010
+****************************************
+
+Attributes:
+    b - black box (unknown)
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    u - contains unmapped logic
+
+Cell                      Reference       Library             Area  Attributes
+--------------------------------------------------------------------------------
+U224                      SEN_NR2_1       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U225                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U226                      SEN_OAI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U227                      SEN_INV_2       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U228                      SEN_AOI22_0P75  cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U229                      SEN_INV_2       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U230                      SEN_ND2_0P8     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U231                      SEN_EO2_1       cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U232                      SEN_AN2_S_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U233                      SEN_OAI222_1    cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U234                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U235                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U236                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U237                      SEN_AN2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U238                      SEN_OA2BB2_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U239                      SEN_NR2_S_2     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U240                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U241                      SEN_AN2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U242                      SEN_INV_2       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U243                      SEN_EO2_1       cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U244                      SEN_AO21B_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U245                      SEN_ND3_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U246                      SEN_NR3_G_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U247                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U248                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U249                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U250                      SEN_BUF_2       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U251                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U252                      SEN_NR2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U253                      SEN_NR2_S_2     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U254                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U255                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U256                      SEN_NR3_G_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U257                      SEN_AN2_S_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U258                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U259                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U260                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U261                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U262                      SEN_OAI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U263                      SEN_AO221_1     cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U264                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U265                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U266                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U267                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U268                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U269                      SEN_AN2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U270                      SEN_NR3_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U271                      SEN_OAI211_1    cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U272                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U273                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U274                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U275                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U276                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U277                      SEN_AOI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U278                      SEN_OA2BB2_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U279                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U280                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U281                      SEN_AOI22_0P75  cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U282                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U283                      SEN_ND2_S_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U284                      SEN_OAI222_0P5  cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U285                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U286                      SEN_AN2_S_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U287                      SEN_AN2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U288                      SEN_NR2_S_0P65  cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U289                      SEN_NR2_1       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U290                      SEN_NR2_S_5     cp65npksdst_tt1p2v25c
+                                                          4.320000  
+U291                      SEN_AN2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U292                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U293                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U294                      SEN_NR3_G_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U295                      SEN_BUF_3       cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U296                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U297                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U298                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U299                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U300                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U301                      SEN_OAI22_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U302                      SEN_ND2_3       cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U303                      SEN_AN2_3       cp65npksdst_tt1p2v25c
+                                                          4.680000  
+U304                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U305                      SEN_ND2_T_2     cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U306                      SEN_AN2_S_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U307                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U308                      SEN_OAI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U309                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U310                      SEN_ND2_1P5     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U311                      SEN_ND2_4       cp65npksdst_tt1p2v25c
+                                                          4.320000  
+U312                      SEN_ND2_S_4     cp65npksdst_tt1p2v25c
+                                                          4.320000  
+U313                      SEN_INV_0P8     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U314                      SEN_AO22_8      cp65npksdst_tt1p2v25c
+                                                          19.799999 
+U315                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U316                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U317                      SEN_AN2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U318                      SEN_NR3_G_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U319                      SEN_OAI22_T_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U320                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U321                      SEN_OR2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U322                      SEN_OA2BB2_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U323                      SEN_OR2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U324                      SEN_OR2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U325                      SEN_ND3_S_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U326                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U327                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U328                      SEN_BUF_1       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U329                      SEN_AOI22_0P75  cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U330                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U331                      SEN_NR2_1       cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U332                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U333                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U334                      SEN_INV_S_2     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U335                      SEN_INV_4       cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U336                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U337                      SEN_AN2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U338                      SEN_OAI22_T_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U339                      SEN_OR3_1       cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U340                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U341                      SEN_OA21_1      cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U342                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U343                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U344                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U345                      SEN_NR2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U346                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U347                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U348                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U349                      SEN_AN2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U350                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U351                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U352                      SEN_OAI22_T_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U353                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U354                      SEN_OAI21_T_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U355                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U356                      SEN_NR2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U357                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U358                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U359                      SEN_AOI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U360                      SEN_OA222_0P5   cp65npksdst_tt1p2v25c
+                                                          4.320000  
+U361                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U362                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U363                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U364                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U365                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U366                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U367                      SEN_OR2_1       cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U368                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U369                      SEN_AOI22_T_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U370                      SEN_AOI22_0P75  cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U371                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U372                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U373                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U374                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U375                      SEN_AOI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U376                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U377                      SEN_OAI21_G_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U378                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U379                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U380                      SEN_AOI222_0P5  cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U381                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U382                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U383                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U384                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U385                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U386                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U387                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U388                      SEN_OAI22_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U389                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U390                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U391                      SEN_AOI222_0P5  cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U392                      SEN_OR2_DG_1    cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U393                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U394                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U395                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U396                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U397                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U398                      SEN_NR2_T_1     cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U399                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U400                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U401                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U402                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U403                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U404                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U405                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U406                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U407                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U408                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U409                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U410                      SEN_OA22_1      cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U411                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U412                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U413                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U414                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U415                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U416                      SEN_OA2BB2_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U417                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U418                      SEN_ND2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U419                      SEN_OAI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U420                      SEN_OAI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U421                      SEN_OAI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U422                      SEN_OA22_1      cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U423                      SEN_OA22_1      cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U424                      SEN_OAI211_0P5  cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U425                      SEN_AOI21B_0P5  cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U426                      SEN_AOI21B_0P5  cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U427                      SEN_AOI21B_0P5  cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U428                      SEN_AOI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U429                      SEN_BUF_S_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U430                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U431                      SEN_BUF_S_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U432                      SEN_AOI22_0P5   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U433                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U434                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U435                      SEN_INV_S_0P5   cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U436                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U437                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U438                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U439                      SEN_OAI222_1    cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U440                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U441                      SEN_OAI21_S_0P5 cp65npksdst_tt1p2v25c
+                                                          2.160000  
+U442                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U443                      SEN_OAI221_0P5  cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U444                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U445                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U446                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U447                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U448                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U449                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U450                      SEN_AO221_1     cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U451                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U452                      SEN_AOI22_S_1   cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U453                      SEN_OAI222_1    cp65npksdst_tt1p2v25c
+                                                          3.960000  
+U454                      SEN_ND2_G_1     cp65npksdst_tt1p2v25c
+                                                          1.440000  
+U455                      SEN_OA222_0P5   cp65npksdst_tt1p2v25c
+                                                          4.320000  
+U456                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U457                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U458                      SEN_OAI211_1    cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U459                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U460                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U461                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U462                      SEN_OA22_DG_1   cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U463                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U464                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U465                      SEN_OA21_1      cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U466                      SEN_INV_1       cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U467                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U468                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U469                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U470                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U471                      SEN_EO2_S_0P5   cp65npksdst_tt1p2v25c
+                                                          2.880000  
+U472                      SEN_AO21B_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U473                      SEN_AO21B_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U474                      SEN_AO21B_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U475                      SEN_AO21B_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U476                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U477                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U478                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U479                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U480                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U481                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U482                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U483                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U484                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U485                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U486                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U487                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U488                      SEN_OAI221_1    cp65npksdst_tt1p2v25c
+                                                          3.240000  
+U489                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U490                      SEN_AOI22_1     cp65npksdst_tt1p2v25c
+                                                          2.520000  
+U491                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U492                      SEN_AOI222_1    cp65npksdst_tt1p2v25c
+                                                          3.600000  
+U493                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U494                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+U495                      SEN_INV_S_1     cp65npksdst_tt1p2v25c
+                                                          1.080000  
+clocked_input_reg[0]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[1]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[2]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[3]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[4]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[5]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[6]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[7]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[8]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[9]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[10]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[11]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[12]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[13]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[14]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[15]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[16]     SEN_FDPQB_D_1   cp65npksdst_tt1p2v25c
+                                                          7.200000  n
+clocked_input_reg[17]     SEN_FDPQB_D_1   cp65npksdst_tt1p2v25c
+                                                          7.200000  n
+clocked_input_reg[18]     SEN_FDPQB_D_1   cp65npksdst_tt1p2v25c
+                                                          7.200000  n
+clocked_input_reg[19]     SEN_FDPQB_D_1   cp65npksdst_tt1p2v25c
+                                                          7.200000  n
+clocked_input_reg[20]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[21]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[22]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[23]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[24]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[25]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[26]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[27]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[28]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[29]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[30]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_input_reg[31]     SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_left_reg          SEN_FDPQ_2      cp65npksdst_tt1p2v25c
+                                                          9.360000  n
+clocked_log_reg           SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+clocked_shift_reg[0]      SEN_FDPQ_2      cp65npksdst_tt1p2v25c
+                                                          9.360000  n
+clocked_shift_reg[1]      SEN_FDPQ_2      cp65npksdst_tt1p2v25c
+                                                          9.360000  n
+clocked_shift_reg[2]      SEN_FDPQB_3     cp65npksdst_tt1p2v25c
+                                                          12.240000 n
+clocked_shift_reg[3]      SEN_FDPQ_2      cp65npksdst_tt1p2v25c
+                                                          9.360000  n
+clocked_shift_reg[4]      SEN_FDPQ_D_1    cp65npksdst_tt1p2v25c
+                                                          6.840000  n
+--------------------------------------------------------------------------------
+Total 311 cells                                           923.760010
+1
