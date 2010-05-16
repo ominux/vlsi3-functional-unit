@@ -5,10 +5,8 @@ This function shifts the input, X, to form the result, Z.  The type of shift
 performed is determined by the LEFT (left or right) and LOG (arithmetic
 or logical) inputs.  Arithmetic right shifts are sign extended while logical
 shifts are zero extended. The number of bits to shift X is supplied by the 
-input, S. The width of X and Z is controlled by Width.  The width of S is 
-chosen automatically to allow full shifting of X 
-(width(S)=ceil(log2(width(X)))). The logic is always optimized for minimum 
-possible delay.
+input, S. The width of X and Z are 32 bits.  The width of S is 5 bits.
+The logic is specified to create a log shifter.
 
 Function:
     Z=LEFT ? X<<S : X>>S;
@@ -23,7 +21,6 @@ Signals:
 
 Parameters:
     Name: actual module name
-    Width: width of the X and Z signals
 
 Verilog Usage:  
     Name(X,S,Z,LEFT,LOG);

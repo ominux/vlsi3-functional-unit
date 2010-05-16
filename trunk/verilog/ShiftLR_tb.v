@@ -16,7 +16,7 @@ module ShiftLR_tb();
 	// inputs to the shifter
 	reg [31:0] input_data;
 	reg [4:0] shift_amount;
-	reg shift_left,logical;
+	reg left,logical;
 
 	// outputs from the shifter
 	wire signed [31:0] output_data;
@@ -24,80 +24,83 @@ module ShiftLR_tb();
 	// create a clock to control shifting
 	reg clk;
 	// latch the data for comparison with the output data
-	reg signed [31:0] clked_in;
-	reg [4:0] clked_shift_amount;
-	reg clked_left, clked_logical;
+	reg signed [31:0] input_cg;
+	reg [4:0] shift_amount_cg;
+	reg left_cg, log_cg;
 	
 	// instantiate the barrel shifter here
 	ShiftLR inst_shift (.X(input_data),.S(shift_amount),
-											.LEFT(shift_left),.LOG(logical),
+											.LEFT(left),.LOG(logical),
 											.clock(clk), .Z(output_data));
 
 	// vary the inputs and control the outputs
 	initial begin
 		$monitor("Input data:%h, output data:%h, shift:%h, left:%b, logical:%b",
-							clked_in,output_data,clked_shift_amount,clked_left,clked_logical);
-		shift_left = 0;
+							input_cg,output_data,shift_amount_cg,left_cg,log_cg);
+		left = 0;
 		clk = 0;
 		logical = 0;
+		shift_amount = 0;
 		
 		$display("Testing Arithmetic Shift Right...");
-		#140 logical = 1;
+		#448 logical = 1;
 		$display("Testing Logical Shift Right...");
-		#140 shift_left = 1;
+		#448 left = 1;
 		$display("Testing Logical Shift Left...");
-		#140 logical = 0;
+		#448 logical = 0;
 		$display("Testing Arithmetic Shift Left...");
-		#140 $display("Shifter Test completed Successfully");
+		#448 $display("Shifter Test completed Successfully");
 		$stop;
 	end
 
 	// create the clock (700MHz ~ 1.4ns)
 	always #7 clk <= ~clk;
-
+	
 	// change the input data and shift amount to random values
 	always @ (posedge clk) begin
+		// output data will be delayed by 1 clock
+		input_cg <= input_data;
+		shift_amount_cg <= shift_amount;
+		log_cg <= logical;
+		left_cg <= left;
+	
+		// shift random data and a random amount
 		input_data <= $random;
-		shift_amount <= $random;
+		shift_amount <= shift_amount + 1'b1;
 	end
 
-	// output data will be delayed
+	// check that the shifted data is correct
 	always @ (posedge clk) begin
-		clked_in <= input_data;
-		clked_shift_amount <= shift_amount;
-		clked_logical <= logical;
-		clked_left <= shift_left;
-	end
 
-	// check that we are always doing the correct shifting
-	always @ (output_data) begin
+		// check that we are always doing the correct shifting
 		// check all left shifts
-		if (clked_left) begin
-			if (output_data !== clked_in<<clked_shift_amount) begin
+		if (left_cg) begin
+			if (output_data !== input_cg<<shift_amount_cg) begin
 				$display("ERROR: Shift Left Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
-									output_data,clked_in,clked_shift_amount,clked_in<<clked_shift_amount);
+				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
+									output_data,input_cg,shift_amount_cg,input_cg<<shift_amount_cg);
 				$stop;
 			end
 		end
 		// logical shift right
-		else if(clked_logical) begin
-			if (output_data !== clked_in>>clked_shift_amount) begin
+		else if(log_cg) begin
+			if (output_data !== input_cg>>shift_amount_cg) begin
 				$display("ERROR: Logical Shift Right Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
-									output_data,clked_in,clked_shift_amount,clked_in>>clked_shift_amount);
+				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
+									output_data,input_cg,shift_amount_cg,input_cg>>shift_amount_cg);
 				$stop;
 			end
 		end
 		// arithmetic shift right
 		else begin
-			if (output_data !== clked_in>>>clked_shift_amount) begin
+			if (output_data !== input_cg>>>shift_amount_cg) begin
 				$display("ERROR: Arithmetic Shift Right Incorrect\n");
-				$display("Output data:%h, input_data:%h, amount:%h, should be:%h",
-									output_data,clked_in,clked_shift_amount,clked_in>>>clked_shift_amount);
+				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
+									output_data,input_cg,shift_amount_cg,input_cg>>>shift_amount_cg);
 				$stop;
 			end
 		end
+		
 	end
 
 endmodule

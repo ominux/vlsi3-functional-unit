@@ -1,4 +1,9 @@
 `timescale 100ps / 10 ps
+
+// naming conventions:
+// _cg = clock gated
+// _n = inverted signal
+
 module ShiftLR( Z, X, S, LEFT, LOG , clock);
 input [31:0] X;
 input [4:0] S;
@@ -8,7 +13,6 @@ input clock;
 output [31:0] Z;
 
 // intermediate wires needed
-wire [4:0] S_FLIPPED;
 wire [4:0] shift;
 //wire [62:0] mux_in;
 reg [62:0] mux_in;
@@ -19,9 +23,10 @@ wire [32:0] shift1;
 wire [31:0] shift0;
 
 // insert these so we can use clock gating on the inputs
-reg [31:0] clocked_input;
-reg [4:0] clocked_shift;
-reg clocked_left, clocked_log;
+reg [31:0] input_cg;
+reg [4:0] shift_cg;
+wire [4:0] shift_cg_n;
+reg left_cg, log_cg;
 
 // used to assign intermediate input
 integer i;
@@ -30,10 +35,10 @@ integer i;
 // Latch the Input //
 /////////////////////
 always @ (posedge clock) begin
-	clocked_input <= X;
-	clocked_shift <= S;
-	clocked_left <= LEFT;
-	clocked_log <= LOG;
+	input_cg <= X;
+	shift_cg <= S;
+	left_cg <= LEFT;
+	log_cg <= LOG;
 end
 
 
@@ -41,14 +46,24 @@ end
 // set up inputs  to shifter //
 ///////////////////////////////
 //assign mux_in = (~LOG && ~LEFT) ? {31{X[31]},X[31:0]} : {31'b0,X[31:0]};
-always @ (X) begin
-	mux_in[31:0] = clocked_input;
-	if (~clocked_log && ~clocked_left) begin
+always @ (*) begin
+	// shift left
+	// log & arith - input is {data,31'0}
+	if(left_cg) begin
+		mux_in = {input_cg[30:0],32'b0};
+	end
+	// shift right
+	// logical - input is {31'0,data}
+	else if(log_cg) begin
+		mux_in = {31'b0,input_cg};
+	end
+	// arithmetic - {31' sign extend,data}
+	else begin
+		mux_in[31:0] = input_cg;
 		for (i=32;i<63;i=i+1) begin
-			mux_in[i]=clocked_input[31];
+			mux_in[i]=input_cg[31];
 		end
 	end
-	else mux_in[62:32] = 0;
 end
 
 ////////////////////////////////////////////
@@ -56,12 +71,21 @@ end
 // use 2's complement if LEFT is asserted //
 // else assume right shift                //
 ////////////////////////////////////////////
-assign S_FLIPPED = ~clocked_shift;
-assign shift = clocked_left ? {S_FLIPPED[4]^(&S_FLIPPED[3:0]),
-															S_FLIPPED[3]^(&S_FLIPPED[2:0]),
-															S_FLIPPED[2]^(&S_FLIPPED[1:0]),
-															S_FLIPPED[1]^S_FLIPPED[0],
-															S[0]} : S;
+assign shift_cg_n = ~shift_cg;
+assign shift = left_cg ? {shift_cg_n[4]^(&shift_cg_n[3:0]),
+															shift_cg_n[3]^(&shift_cg_n[2:0]),
+															shift_cg_n[2]^(&shift_cg_n[1:0]),
+															shift_cg_n[1]^shift_cg_n[0],
+															shift_cg[0]} : shift_cg;
+
+//initial $monitor("Shift:%h, shift_cg:%h, shift_cg_n:%h, S:%h, clock:%b",
+//									shift,shift_cg,shift_cg_n,S,clock,);
+	
+//initial $monitor("Shift_cg:%h, left:%b, shift:%h, Input_cg:%h, output:%h, logical:%b, mux_in:%h, new Input:%h",
+//									shift, left_cg, shift_cg, input_cg, Z, log_cg, mux_in, X);
+
+//initial $monitor("Shift:%h, input:%h, mux_in:%h, shift4:%h, shift3:%h, shift2:%h, shift1:%h, shift0:%h, output:%h",
+//									shift,input_cg,mux_in,shift4,shift3,shift2,shift1,shift0,Z);
 
 /////////////////
 // LOG SHIFTER //
@@ -78,5 +102,9 @@ assign shift1 = shift[1] ? shift2[34:2] : shift2[32:0];
 assign shift0 = shift[0] ? shift1[32:1] : shift1[31:0];
 
 // final output
-assign Z = shift0[31:0];
+// NOTE: Shifting the way that we do makes it impossible to shift left by 0 bits, 
+//				so this is a hack to fix that.  we could simply not support a shift left
+//				of 0 bits, and that should be considered
+assign Z = |shift ? shift0[31:0] : input_cg;
+
 endmodule
