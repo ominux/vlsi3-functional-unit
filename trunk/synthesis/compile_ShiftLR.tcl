@@ -19,6 +19,8 @@ set my_clock_pin clock
 
 #/* Target frequency in MHz for optimization       */
 set my_clk_freq_MHz 700
+#/* Target clock period in ns												*/
+set my_period 1.4
 
 #/* Delay of input signals (Clock-to-Q, Package etc.)  */
 set my_input_delay_ns 0.1
@@ -52,7 +54,7 @@ current_design $my_toplevel
 link
 uniquify
 
-set my_period [expr 1000 / $my_clk_freq_MHz]
+#set my_period [expr 1000 / $my_clk_freq_MHz]
 
 set find_clock [ find port [list $my_clock_pin] ]
 if {  $find_clock != [list] } {
@@ -84,8 +86,8 @@ write_sdc $filename
 #set filename [format "%s%s"  $my_toplevel ".db"]
 #write -f db -hier -output $filename
 
-redirect timing.rep { report_timing }
-redirect cell.rep { report_cell }
-redirect power.rep { report_power }
+redirect timing.rep.ShiftLR { report_timing }
+redirect cell.rep.ShiftLR { report_cell }
+redirect power.rep.ShiftLR { report_power }
 
 quit

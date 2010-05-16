@@ -1,19 +1,45 @@
-README file for using tcl scripts
 
-syntax:
+NOTES:
+	
+	This file gives all information necessary for using the tools required for
+	the VLSI3 Functional Unit project
 
-primetime: from the pt_scripts directory
-pt_shell -file <filename>.tcl
+Project Notes:
 
-design compiler: can compile just the ALU or the entire FU
-									execute this script from the synthesis directory
-dc_shell-t -f compile_<block>.tcl
+	PDK Database:	$PROJECT_ROOT/synthesis/cp65npksdst_tt1p2v25c.db 
+	Do not place the pdk database in the SVN repository.
 
-vcs: be sure to include your design files in the testbench file, outside the module,
-									execute this from the same directory as the design files
+TOOL LIST
 
-vcs +v2k <testbench_filename>.v
-then you can run the 'simv' executable that is placed in the same directory
+primetime: 
 
-notes:
-do not place the pdk database in the SVN repository
+	description:	Can do power analysis of an individual block or can run it on the 
+								entire functional unit.  Execute the primetime scripts from the 
+								pt_scripts directory.
+
+	syntax:				pt_shell -file <filename>.tcl
+
+	setup:				source /usr/nikola/groups/vlsi/pkgs/primetime/primetime.cshrc
+
+design compiler: 
+
+	description:	Each individual block can be compiled separately or the entire
+								functional unit can be compiled for a better synthesis. To run
+								synthesis, execute these scripts from the synthesis directory.
+
+	syntax:				dc_shell-t -f compile_<block>.tcl
+
+	setup:				source /usr/nikola/groups/vlsi/pkgs/synopsys_syn/synopsys_syn.cshrc
+
+vcs: 
+
+	description:	Run VCS from the same directory as the design files (verilog/synthesis).
+								Be sure to include your design files in the testbench file.  The simv
+								executable file is then created in that same directory.  Run simv to
+								run the testbench.
+
+	syntax:				vcs +v2k <testbench_filename>.v
+								simv
+	
+	setup:				source /usr/nikola/groups/vlsi/pkgs/vcs/vcs.cshrc
+

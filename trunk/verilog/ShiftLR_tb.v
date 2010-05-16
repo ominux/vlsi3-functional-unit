@@ -1,6 +1,8 @@
+`timescale 100ps / 10ps
 /*
 
-File: Testbench for the bi-directional shifter used in the Mosaic project
+File: Testbench for the bi-directional shifter used 
+			in the functional unit of the Mosaic project.
 
 Author: Corey Olson
 
@@ -34,6 +36,7 @@ module ShiftLR_tb();
 											.clock(clk), .Z(output_data));
 
 	// vary the inputs and control the outputs
+	// $dumpvars
 	initial begin
 		$monitor("Input data:%h, output data:%h, shift:%h, left:%b, logical:%b",
 							input_cg,output_data,shift_amount_cg,left_cg,log_cg);

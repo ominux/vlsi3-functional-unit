@@ -1,9 +1,13 @@
-`timescale 100ps / 10 ps
+/*
 
-// naming conventions:
-// _cg = clock gated
-// _n = inverted signal
+File: Bi-directional shifter used in the 
+			functional unit of the Mosaic project.
 
+Author: Corey Olson
+
+Date: 5/13/2010
+
+*/
 module ShiftLR( Z, X, S, LEFT, LOG , clock);
 input [31:0] X;
 input [4:0] S;
@@ -21,6 +25,10 @@ wire [38:0] shift3;
 wire [34:0] shift2;
 wire [32:0] shift1;
 wire [31:0] shift0;
+
+// Naming conventions:
+// _cg = clock gated
+// _n = inverted signal
 
 // insert these so we can use clock gating on the inputs
 reg [31:0] input_cg;
