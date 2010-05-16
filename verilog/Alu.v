@@ -120,6 +120,10 @@ assign Z_CarryIn__9_= ((-Z_BCARRY_)|~(-Z_ASIGN_));
 
 assign Z_CarryIn__10_= (~(-Z_CarryIn__9_));
 
+// not sure if it's necessary to have CI
+// be an input to this module
+// ALU should be able to determine
+// the value of CI based on the instruction
 assign Z_CarryIn__11_= (~CI);
 always @ (FirstCyc  or Z_CarryIn__10_ or Z_CarryIn__11_) begin
 	case (FirstCyc)
@@ -149,7 +153,7 @@ end
 
 //adder//
 //assign Z_SUM_= (Z_BI_[31:0]+Z_AI_[31:0]+Z_CarryIn_);
-adder a1(Z_AI_,Z_BI_,Z_CarryiIn_,Z_SUM_[31:0],Z_SUM_[32]);
+adder a1(Z_AI_,Z_BI_,Z_CarryIn_,Z_SUM_[31:0],Z_SUM_[32]);
 
 
 /*assign Z_Z0_= (Z_SUM_[32:0]);
