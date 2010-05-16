@@ -18,7 +18,6 @@ output [31:0] Z;
 
 // intermediate wires needed
 wire [4:0] shift;
-//wire [62:0] mux_in;
 reg [62:0] mux_in;
 wire [46:0] shift4;
 wire [38:0] shift3;
@@ -49,11 +48,9 @@ always @ (posedge clock) begin
 	log_cg <= LOG;
 end
 
-
 ///////////////////////////////
 // set up inputs  to shifter //
 ///////////////////////////////
-//assign mux_in = (~LOG && ~LEFT) ? {31{X[31]},X[31:0]} : {31'b0,X[31:0]};
 always @ (*) begin
 	// shift left
 	// log & arith - input is {data,31'0}
@@ -85,15 +82,6 @@ assign shift = left_cg ? {shift_cg_n[4]^(&shift_cg_n[3:0]),
 															shift_cg_n[2]^(&shift_cg_n[1:0]),
 															shift_cg_n[1]^shift_cg_n[0],
 															shift_cg[0]} : shift_cg;
-
-//initial $monitor("Shift:%h, shift_cg:%h, shift_cg_n:%h, S:%h, clock:%b",
-//									shift,shift_cg,shift_cg_n,S,clock,);
-	
-//initial $monitor("Shift_cg:%h, left:%b, shift:%h, Input_cg:%h, output:%h, logical:%b, mux_in:%h, new Input:%h",
-//									shift, left_cg, shift_cg, input_cg, Z, log_cg, mux_in, X);
-
-//initial $monitor("Shift:%h, input:%h, mux_in:%h, shift4:%h, shift3:%h, shift2:%h, shift1:%h, shift0:%h, output:%h",
-//									shift,input_cg,mux_in,shift4,shift3,shift2,shift1,shift0,Z);
 
 /////////////////
 // LOG SHIFTER //
