@@ -8,7 +8,7 @@ Report : power
         -analysis_effort low
 Design : ShiftLR
 Version: B-2008.09-SP1
-Date   : Sat May 15 19:55:06 2010
+Date   : Sun May 16 00:56:39 2010
 ****************************************
 
 
@@ -34,11 +34,11 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  = 585.9303 uW   (74%)
-  Net Switching Power  = 210.4970 uW   (26%)
+  Cell Internal Power  = 349.9090 uW   (77%)
+  Net Switching Power  = 104.6247 uW   (23%)
                          ---------
-Total Dynamic Power    = 796.4273 uW  (100%)
+Total Dynamic Power    = 454.5337 uW  (100%)
 
-Cell Leakage Power     =  66.5878 nW
+Cell Leakage Power     =  32.9127 nW
 
 1
