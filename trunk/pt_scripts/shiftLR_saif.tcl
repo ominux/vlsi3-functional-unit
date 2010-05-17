@@ -3,7 +3,7 @@ set power_enable_analysis TRUE
 #####################################################################
 #       link design
 #####################################################################
-set search_path   [list ./ ../synthesis]
+set search_path		[list ./ ../synthesis ../benchmark]
 set link_library	" * ../synthesis/cp65npksdst_tt1p2v25c.db "
 
 read_verilog		../synthesis/ShiftLR.vh
@@ -15,7 +15,6 @@ link
 #####################################################################
 #       clock required for average waveform
 #####################################################################
-
 read_sdc ../synthesis/ShiftLR.sdc
 #set_disable_timing [get_lib_pins ssc_core_typ/*/G]
 #set timing_save_pin_arrival_and_slack true

@@ -9,16 +9,20 @@
 #/* All verilog files, separated by spaces         */
 # for synthesis of just the ALU
 set my_verilog_files [list Alu.v]
+#set my_verilog_files [list Alu_corey.v]
 
 #/* Top-level Module                               */
 set my_toplevel Alu
 
 #/* The name of the clock pin. If no clock-pin     */
 #/* exists, pick anything                          */
-set my_clock_pin clk
+set my_clock_pin CLOCK
 
 #/* Target frequency in MHz for optimization       */
 set my_clk_freq_MHz 700
+
+#/* Target frequency in MHz for optimization       */
+set my_period 1.4
 
 #/* Delay of input signals (Clock-to-Q, Package etc.)  */
 set my_input_delay_ns 0.1
@@ -51,7 +55,7 @@ current_design $my_toplevel
 link
 uniquify
 
-set my_period [expr 1000 / $my_clk_freq_MHz]
+#set my_period [expr 1000 / $my_clk_freq_MHz]
 
 set find_clock [ find port [list $my_clock_pin] ]
 if {  $find_clock != [list] } {
@@ -62,7 +66,7 @@ if {  $find_clock != [list] } {
    create_clock -period $my_period -name $clk_name
 }
 
-set_driving_cell  -lib_cell INVX1  [all_inputs]
+set_driving_cell  -lib_cell SEN_INV_1  [all_inputs]
 set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
 set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]
 
@@ -82,8 +86,8 @@ write_sdc $filename
 #set filename [format "%s%s"  $my_toplevel ".db"]
 #write -f db -hier -output $filename
 
-redirect timing.rep { report_timing }
-redirect cell.rep { report_cell }
-redirect power.rep { report_power }
+redirect timing.rep.Alu { report_timing }
+redirect cell.rep.Alu { report_cell }
+redirect power.rep.Alu { report_power }
 
 quit
