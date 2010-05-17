@@ -1,20 +1,20 @@
-Loading db file '/atm/mead/home/jimmyxu/vlsi3/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db'
+Loading db file '/atm/mead/home/cbolson1/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db'
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: Design has unannotated primary inputs. (PWR-414)
-Warning: Design has unannotated black-box outputs. (PWR-428)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
  
 ****************************************
 Report : power
         -analysis_effort low
 Design : Alu
 Version: B-2008.09-SP1
-Date   : Wed May  5 16:49:09 2010
+Date   : Sun May 16 22:30:04 2010
 ****************************************
 
 
 Library(s) Used:
 
-    cp65npksdst_tt1p2v25c (File: /atm/mead/home/jimmyxu/vlsi3/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db)
+    cp65npksdst_tt1p2v25c (File: /atm/mead/home/cbolson1/vlsi3_FU/synthesis/cp65npksdst_tt1p2v25c.db)
 
 
 Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
@@ -25,9 +25,6 @@ Design        Wire Load Model            Library
 Alu                    B0.1X0.1          cp65npksdst_tt1p2v25c
 
 
-/////////////////////
-// ORIGINAL DESIGN //
-/////////////////////
 Global Operating Voltage = 1.2  
 Power-specific unit information :
     Voltage Units = 1V
@@ -37,30 +34,11 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  = 948.7753 uW   (55%)
-  Net Switching Power  = 763.4647 uW   (45%)
+  Cell Internal Power  = 728.3168 uW   (76%)
+  Net Switching Power  = 235.6748 uW   (24%)
                          ---------
-Total Dynamic Power    =   1.7122 mW  (100%)
+Total Dynamic Power    = 963.9916 uW  (100%)
 
-Cell Leakage Power     = 298.0184 nW
+Cell Leakage Power     = 119.6170 nW
 
-
-//////////////////////
-// STRUCTURAL ADDER //
-//////////////////////
-Global Operating Voltage = 1.2
-Power-specific unit information :
-    Voltage Units = 1V
-    Capacitance Units = 1.000000pf
-    Time Units = 1ns
-    Dynamic Power Units = 1mW    (derived from V,C,T units)
-    Leakage Power Units = 1nW
-
-
-  Cell Internal Power  = 775.8492 uW   (54%)
-  Net Switching Power  = 664.8631 uW   (46%)
-                         ---------
-Total Dynamic Power    =   1.4407 mW  (100%)
-
-Cell Leakage Power     = 211.6505 nW
-
+1

@@ -19,6 +19,7 @@ set my_clock_pin clock
 
 #/* Target frequency in MHz for optimization       */
 set my_clk_freq_MHz 700
+
 #/* Target clock period in ns												*/
 set my_period 1.4
 
@@ -65,7 +66,6 @@ if {  $find_clock != [list] } {
    create_clock -period $my_period -name $clk_name
 }
 
-# this driving cell cannot be found, should ask Robin about this
 set_driving_cell  -lib_cell SEN_INV_1  [all_inputs]
 set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
 set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]

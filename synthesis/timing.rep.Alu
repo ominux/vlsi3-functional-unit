@@ -1,0 +1,80 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : Alu
+Version: B-2008.09-SP1
+Date   : Sun May 16 22:29:53 2010
+****************************************
+
+Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: INST_qual_reg[0]
+              (rising edge-triggered flip-flop clocked by CLOCK)
+  Endpoint: FLAGS[2] (output port clocked by CLOCK)
+  Path Group: CLOCK
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Alu                B0.1X0.1              cp65npksdst_tt1p2v25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock CLOCK (rise edge)                  0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  INST_qual_reg[0]/CK (SEN_FDPQ_4)         0.00       0.00 r
+  INST_qual_reg[0]/Q (SEN_FDPQ_4)          0.06       0.06 f
+  U601/X (SEN_ND2B_3)                      0.03       0.09 r
+  U295/X (SEN_INV_S_4)                     0.02       0.12 f
+  U560/X (SEN_MUXI2_DG_3)                  0.04       0.16 r
+  U247/X (SEN_ND2_T_4)                     0.03       0.18 f
+  U363/X (SEN_INV_4)                       0.03       0.21 r
+  U333/X (SEN_ND2_12)                      0.03       0.24 f
+  U376/X (SEN_MUXI2_D_1)                   0.06       0.29 r
+  U321/X (SEN_ND2_S_2)                     0.05       0.34 f
+  U320/X (SEN_EN2_S_2)                     0.06       0.40 f
+  U492/X (SEN_INV_2)                       0.03       0.43 r
+  U394/X (SEN_ND2_T_1)                     0.03       0.46 f
+  U298/X (SEN_NR3B_3)                      0.06       0.52 r
+  U493/X (SEN_ND2_3)                       0.04       0.56 f
+  U474/X (SEN_ND2B_4)                      0.04       0.60 f
+  U374/X (SEN_ND2B_4)                      0.04       0.64 f
+  U261/X (SEN_INV_4)                       0.02       0.66 r
+  U877/X (SEN_AN3B_4)                      0.02       0.68 f
+  U563/X (SEN_OAI21_S_8)                   0.03       0.71 r
+  U461/X (SEN_INV_S_6)                     0.03       0.73 f
+  U464/X (SEN_OAI21_T_4)                   0.05       0.78 r
+  U293/X (SEN_AO21B_8)                     0.05       0.83 r
+  U467/X (SEN_AOI21B_8)                    0.03       0.86 f
+  U264/X (SEN_OA21B_8)                     0.06       0.92 f
+  U582/X (SEN_OAI21_S_8)                   0.03       0.95 r
+  U570/X (SEN_INV_6)                       0.02       0.97 f
+  U569/X (SEN_OAI21_S_8)                   0.03       1.00 r
+  U352/X (SEN_INV_6)                       0.02       1.02 f
+  U275/X (SEN_OAI21_S_8)                   0.03       1.05 r
+  U274/X (SEN_ND2_6)                       0.03       1.08 f
+  U353/X (SEN_ND2_T_5)                     0.04       1.12 r
+  U512/X (SEN_OR3B_4)                      0.03       1.15 f
+  U507/X (SEN_AOAI211_6)                   0.02       1.17 r
+  U490/X (SEN_EO2_S_3)                     0.04       1.22 r
+  U354/X (SEN_OAI21B_4)                    0.04       1.26 f
+  U565/X (SEN_NR4_3)                       0.04       1.30 r
+  FLAGS[2] (out)                           0.00       1.30 r
+  data arrival time                                   1.30
+
+  clock CLOCK (rise edge)                  1.40       1.40
+  clock network delay (ideal)              0.00       1.40
+  output external delay                   -0.10       1.30
+  data required time                                  1.30
+  -----------------------------------------------------------
+  data required time                                  1.30
+  data arrival time                                  -1.30
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1
