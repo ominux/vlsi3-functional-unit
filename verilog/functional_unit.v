@@ -6,9 +6,7 @@
  Date: 5/16/2010
 */
 
-// would like to remove CI from this level and have it
-// exist only in the ALU
-module functional_unit(Z, FLAGS, A, B, C, INST, CI, CLOCK);
+module functional_unit(Z, FLAGS, A, B, C, INST, CLOCK);
 	
 	////////
 	// IO //
@@ -17,7 +15,6 @@ module functional_unit(Z, FLAGS, A, B, C, INST, CI, CLOCK);
 	output [3:0] FLAGS;
 	input [31:0] A, B, C;
 	input [4:0] INST;
-	input CI;
 	input CLOCK;
 	
 	//////////////////////
@@ -55,7 +52,6 @@ module functional_unit(Z, FLAGS, A, B, C, INST, CI, CLOCK);
                       .B(B),
                       .DI(),
                       .INST(INST[3:0]),
-                      .CI(CI),
                       .FirstCyc(),
                       .Z(Alu_Z),
                       .DO(),
