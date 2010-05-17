@@ -8,7 +8,7 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	input FirstCyc;
 	input CLOCK;
 
-	output [31:0] Z;
+	output reg [31:0] Z;
 	output [3:0] FLAGS;
 
 	//data
@@ -22,15 +22,17 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	wire [31:0] and_AB, or_AB, xor_AB;
 	
 	//controls
-	wire control_add_c;
-	wire [1:0] control_add_a;
-	wire [1:0] control_add_b;
+	reg control_add_c;
+	reg [1:0] control_add_a;
+	reg [1:0] control_add_b;
 	wire skip_adder;
 
 	//input gating
 	wire gated_clock_adder, gated_clock_logic;
 	reg [31:0] adder_reg_A, adder_reg_B, adder_reg_C;
 	reg [31:0] logic_reg_A, logic_reg_B;
+
+	wire Cout, OVF;
 
 	// Instructions supported by this ALU
 	localparam [3:0]	add_1 = 4'b0000, sub_1 = 4'b0001, add_ab=4'b0010, sub_ab = 4'b0011,
@@ -44,14 +46,14 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	assign gated_clock_logic = (CLOCK & skip_adder);
 	
 	//input gating registers
-	always @(gated_clock_adder)
+	always @(posedge gated_clock_adder)
 	begin
 		adder_reg_A = A;
 		adder_reg_B = B;
-		adder_reg_C = C;	
+		adder_reg_C = cin;	
 	end
 
-	always @(gated_clock_logic)
+	always @(posedge gated_clock_logic)
 	begin
 		logic_reg_A = A;
 		logic_reg_B = B;	
@@ -79,7 +81,7 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 			or_ab:begin Z = or_AB; end
 			xor_ab:begin Z = xor_AB; end
 			not_b:begin Z = not_B_logic; end
-			i_a:begin Z = adder_logic_A; end
+			i_a:begin Z = logic_reg_A; end
 			not_a:begin Z = not_A_logic; end
 			i_0:begin Z = 32'b0; end
 			i_1:begin Z = 32'hFFFF; end
@@ -89,8 +91,8 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	assign not_B_adder = ~adder_reg_B;
 	assign not_A_adder = ~adder_reg_A;
 	
-	assign not_A_logic = ~adder_logic_A;
-	assign not_B_logic = ~adder_logic_B;
+	assign not_A_logic = ~logic_reg_A;
+	assign not_B_logic = ~logic_reg_B;
 
 	assign cin = (control_add_c | adder_reg_C); 
 
@@ -101,12 +103,13 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	
 	assign ain = (control_add_a == 2'b00)? adder_reg_A :  //A
 			(control_add_a == 2'b01)? not_A_adder : //-A
-			( (adder_reg_A[31])? not_A : adder_reg_A); //abs(A)
+			( (adder_reg_A[31])? not_A_adder : adder_reg_A); //abs(A)
 		
 	// get XOR and AND for free if Cin=0
-	adder a1(.A(ain),.B(bin),.Cin(cin),
-					.S(adder_out),.P(xor_AB),.G(and_AB),adder_co);
-
+	adder a1(.A(ain),.B(bin),.Cin(cin), .S(adder_out),.P(xor_AB),.G(and_AB), .Cout(Cout), .OVF(OVF));
+	
+	assign FLAGS[1] = Cout;
+	assign FLAGS[2] = OVF;
 	//logic functions
 	//assign and_AB = logic_reg_A & logic_reg_B;
 	assign or_AB = logic_reg_A | logic_reg_B;
