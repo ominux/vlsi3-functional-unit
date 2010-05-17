@@ -86,7 +86,7 @@ assign shift = left_cg ? {shift_cg_n[4]^(&shift_cg_n[3:0]),
 /////////////////
 // LOG SHIFTER //
 /////////////////
-// 0th stage, shift by 
+// 0th stage, shift by 16
 assign shift4 = shift[4] ? mux_in[62:16] : mux_in[46:0];
 // 1st stage, shift by 8
 assign shift3 = shift[3] ? shift4[46:8] : shift4[38:0];

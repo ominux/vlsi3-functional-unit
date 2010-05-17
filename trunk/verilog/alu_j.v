@@ -1,11 +1,10 @@
-`timescale 1ns / 10 ps
+//`timescale 1ns / 10 ps
 `include "adder_struct.v"
 
-module Alu( Z, A, B, CI, INST, FLAGS, FirstCyc, CLOCK);
+module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 	input [31:0] A;
 	input [31:0] B;
 	input [3:0] INST;
-	input CI;
 	input FirstCyc;
 	input CLOCK;
 
@@ -33,11 +32,11 @@ module Alu( Z, A, B, CI, INST, FLAGS, FirstCyc, CLOCK);
 	reg [31:0] adder_reg_A, adder_reg_B, adder_reg_C;
 	reg [31:0] logic_reg_A, logic_reg_B;
 
-
-	parameter [3:0] add_1 = 4'b0000, sub_1 = 4'b0001, add_ab=4'b0010, sub_ab = 4'b0011,
-			abs_a = 4'b0100, neg_a = 4'b0101, neg_b =4'b0111, and_ab = 4'b1000,
-			or_ab = 4'b1001, xor_ab = 4'b1010, not_b =4'b1011, i_a = 4'b1100,
-			not_a = 4'b1101, i_0 = 4'b1110, i_1 = 4'b1111;
+	// Instructions supported by this ALU
+	localparam [3:0]	add_1 = 4'b0000, sub_1 = 4'b0001, add_ab=4'b0010, sub_ab = 4'b0011,
+										abs_a = 4'b0100, neg_a = 4'b0101, neg_b =4'b0111, and_ab = 4'b1000,
+										or_ab = 4'b1001, xor_ab = 4'b1010, not_b =4'b1011, i_a = 4'b1100,
+										not_a = 4'b1101, i_0 = 4'b1110, i_1 = 4'b1111;
 	
 	assign skip_adder = ~(INST==add_1 | INST==sub_1 | INST==add_ab | INST==sub_ab | INST==abs_a | INST==neg_a);
 
@@ -103,14 +102,14 @@ module Alu( Z, A, B, CI, INST, FLAGS, FirstCyc, CLOCK);
 	assign ain = (control_add_a == 2'b00)? adder_reg_A :  //A
 			(control_add_a == 2'b01)? not_A_adder : //-A
 			( (adder_reg_A[31])? not_A : adder_reg_A); //abs(A)
-			
-	adder a1(ain,bin,cin,adder_out,adder_co);
+		
+	// get XOR and AND for free if Cin=0
+	adder a1(.A(ain),.B(bin),.Cin(cin),
+					.S(adder_out),.P(xor_AB),.G(and_AB),adder_co);
 
 	//logic functions
-	assign and_AB = logic_reg_A & logic_reg_B;
+	//assign and_AB = logic_reg_A & logic_reg_B;
 	assign or_AB = logic_reg_A | logic_reg_B;
-	assign xor_AB = logic_reg_A ^ logic_reg_B;
-
-	
+	//assign xor_AB = logic_reg_A ^ logic_reg_B;
 
 endmodule
