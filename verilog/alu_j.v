@@ -44,14 +44,11 @@ module Alu( Z, A, B, INST, FLAGS, FirstCyc, CLOCK);
 										or_ab = 4'b1001, xor_ab = 4'b1010, not_b =4'b1011, i_a = 4'b1100,
 										not_a = 4'b1101, i_0 = 4'b1110, i_1 = 4'b1111;
 	
-	assign skip_adder = ~(adder_inst==add_1 | adder_inst==sub_1 | adder_inst==add_ab | adder_inst==sub_ab | adder_inst==abs_a | adder_inst==neg_a | adder_inst==neg_b);
+	assign skip_adder = (adder_inst[3]);
 
 	assign gated_clock_adder = (CLOCK & ~skip_adder);
 	assign gated_clock_logic = (CLOCK & skip_adder);
 
-	//assign gated_clock_adder = (CLOCK);
-	//assign gated_clock_logic = (CLOCK);
-	
 	//input gating registers
 	always @(posedge CLOCK)
 		adder_inst = INST;		
