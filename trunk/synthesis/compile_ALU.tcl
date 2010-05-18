@@ -8,8 +8,8 @@
 
 #/* All verilog files, separated by spaces         */
 # for synthesis of just the ALU
-set my_verilog_files [list Alu.v]
-#set my_verilog_files [list Alu_corey.v]
+#set my_verilog_files [list Alu.v]
+set my_verilog_files [list Alu_corey.v]
 
 #/* Top-level Module                               */
 set my_toplevel Alu

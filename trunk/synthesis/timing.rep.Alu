@@ -6,13 +6,13 @@ Report : timing
         -max_paths 1
 Design : Alu
 Version: B-2008.09-SP1
-Date   : Sun May 16 22:29:53 2010
+Date   : Mon May 17 18:23:15 2010
 ****************************************
 
 Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
 Wire Load Model Mode: enclosed
 
-  Startpoint: INST_qual_reg[0]
+  Startpoint: INST_qual_reg[2]
               (rising edge-triggered flip-flop clocked by CLOCK)
   Endpoint: FLAGS[2] (output port clocked by CLOCK)
   Path Group: CLOCK
@@ -26,43 +26,50 @@ Wire Load Model Mode: enclosed
   -----------------------------------------------------------
   clock CLOCK (rise edge)                  0.00       0.00
   clock network delay (ideal)              0.00       0.00
-  INST_qual_reg[0]/CK (SEN_FDPQ_4)         0.00       0.00 r
-  INST_qual_reg[0]/Q (SEN_FDPQ_4)          0.06       0.06 f
-  U601/X (SEN_ND2B_3)                      0.03       0.09 r
-  U295/X (SEN_INV_S_4)                     0.02       0.12 f
-  U560/X (SEN_MUXI2_DG_3)                  0.04       0.16 r
-  U247/X (SEN_ND2_T_4)                     0.03       0.18 f
-  U363/X (SEN_INV_4)                       0.03       0.21 r
-  U333/X (SEN_ND2_12)                      0.03       0.24 f
-  U376/X (SEN_MUXI2_D_1)                   0.06       0.29 r
-  U321/X (SEN_ND2_S_2)                     0.05       0.34 f
-  U320/X (SEN_EN2_S_2)                     0.06       0.40 f
-  U492/X (SEN_INV_2)                       0.03       0.43 r
-  U394/X (SEN_ND2_T_1)                     0.03       0.46 f
-  U298/X (SEN_NR3B_3)                      0.06       0.52 r
-  U493/X (SEN_ND2_3)                       0.04       0.56 f
-  U474/X (SEN_ND2B_4)                      0.04       0.60 f
-  U374/X (SEN_ND2B_4)                      0.04       0.64 f
-  U261/X (SEN_INV_4)                       0.02       0.66 r
-  U877/X (SEN_AN3B_4)                      0.02       0.68 f
-  U563/X (SEN_OAI21_S_8)                   0.03       0.71 r
-  U461/X (SEN_INV_S_6)                     0.03       0.73 f
-  U464/X (SEN_OAI21_T_4)                   0.05       0.78 r
-  U293/X (SEN_AO21B_8)                     0.05       0.83 r
-  U467/X (SEN_AOI21B_8)                    0.03       0.86 f
-  U264/X (SEN_OA21B_8)                     0.06       0.92 f
-  U582/X (SEN_OAI21_S_8)                   0.03       0.95 r
-  U570/X (SEN_INV_6)                       0.02       0.97 f
-  U569/X (SEN_OAI21_S_8)                   0.03       1.00 r
-  U352/X (SEN_INV_6)                       0.02       1.02 f
-  U275/X (SEN_OAI21_S_8)                   0.03       1.05 r
-  U274/X (SEN_ND2_6)                       0.03       1.08 f
-  U353/X (SEN_ND2_T_5)                     0.04       1.12 r
-  U512/X (SEN_OR3B_4)                      0.03       1.15 f
-  U507/X (SEN_AOAI211_6)                   0.02       1.17 r
-  U490/X (SEN_EO2_S_3)                     0.04       1.22 r
-  U354/X (SEN_OAI21B_4)                    0.04       1.26 f
-  U565/X (SEN_NR4_3)                       0.04       1.30 r
+  INST_qual_reg[2]/CK (SEN_FDPQ_4)         0.00       0.00 r
+  INST_qual_reg[2]/Q (SEN_FDPQ_4)          0.06       0.06 r
+  U491/X (SEN_ND2B_3)                      0.04       0.10 r
+  U488/X (SEN_INV_3)                       0.02       0.11 f
+  U408/X (SEN_ND2_3)                       0.02       0.14 r
+  U339/X (SEN_AO21B_6)                     0.03       0.17 f
+  U338/X (SEN_INV_6)                       0.03       0.19 r
+  U498/X (SEN_INV_12)                      0.02       0.22 f
+  U535/X (SEN_MUXI2_DG_3)                  0.05       0.26 r
+  U311/X (SEN_ND2_T_4)                     0.04       0.30 f
+  U281/X (SEN_EN2_8)                       0.05       0.35 f
+  U280/X (SEN_INV_6)                       0.02       0.37 r
+  U382/X (SEN_ND2_4)                       0.02       0.39 f
+  U381/X (SEN_ND2_4)                       0.02       0.41 r
+  U432/X (SEN_INV_S_4)                     0.02       0.43 f
+  U363/X (SEN_NR2_4)                       0.04       0.47 r
+  U556/X (SEN_ND3_T_4)                     0.03       0.50 f
+  U430/X (SEN_INV_S_3)                     0.02       0.52 r
+  U598/X (SEN_AN3B_4)                      0.01       0.53 f
+  U422/X (SEN_ND2_S_3)                     0.03       0.56 r
+  U324/X (SEN_INV_S_3)                     0.02       0.58 f
+  U323/X (SEN_ND2_S_4)                     0.03       0.61 r
+  U582/X (SEN_OR3B_4)                      0.03       0.63 f
+  U572/X (SEN_AN2_6)                       0.04       0.67 f
+  U593/X (SEN_AO2BB2_8)                    0.03       0.71 r
+  U283/X (SEN_INV_S_6)                     0.02       0.73 f
+  U376/X (SEN_OA21B_8)                     0.05       0.78 f
+  U403/X (SEN_OAI21_S_8)                   0.03       0.80 r
+  U500/X (SEN_INV_4)                       0.02       0.83 f
+  U505/X (SEN_OA21B_4)                     0.05       0.87 f
+  U502/X (SEN_OA21B_4)                     0.05       0.92 f
+  U650/X (SEN_OAI21_S_8)                   0.03       0.95 r
+  U290/X (SEN_ND2_T_4)                     0.03       0.98 f
+  U304/X (SEN_NR2_T_3)                     0.04       1.02 r
+  U312/X (SEN_OR2_5)                       0.04       1.06 r
+  U636/X (SEN_OR4B_4)                      0.02       1.08 f
+  U635/X (SEN_OR4B_4)                      0.03       1.11 r
+  U481/X (SEN_INV_2)                       0.02       1.13 f
+  U360/X (SEN_ND2_T_1P5)                   0.03       1.15 r
+  U479/X (SEN_ND2_T_2)                     0.02       1.17 f
+  U607/X (SEN_ND2_T_2)                     0.02       1.19 r
+  U475/X (SEN_ND2_T_2)                     0.03       1.22 f
+  U427/X (SEN_INV_2)                       0.02       1.24 r
+  U594/X (SEN_AN4B_2)                      0.06       1.30 r
   FLAGS[2] (out)                           0.00       1.30 r
   data arrival time                                   1.30
 

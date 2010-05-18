@@ -50,7 +50,6 @@ module Alu_tb();
 		a_qual <= a_in;
 		b_qual <= b_in;
 		instr_qual <= instr;
-		
 	end
 
 	// test all input instructions with random data
@@ -115,10 +114,13 @@ module Alu_tb();
 	always @ (posedge clk) begin
 		// check for correct output
 		if (alu_out !== exp_output) begin
-			$display("Output of ALU doesn't match the expected value");
-			$display("Output:%h, Expected:%h, A:%h, B:%h, INSTR:%h",
+			if (instr_qual == 6) $display("Opcode=6 not supported!");
+			else begin
+				$display("Output of ALU doesn't match the expected value");
+				$display("Output:%h, Expected:%h, A:%h, B:%h, INSTR:%h",
 								alu_out,exp_output,a_qual,b_qual,instr_qual);
-			$stop;
+				$stop;
+			end
 		end
 		// check for zero bit of flags
 		else if (~(|alu_out) !==  flags[2]) begin
@@ -138,6 +140,4 @@ module Alu_tb();
 		end
 		*/
 	end
-
-	
 endmodule
