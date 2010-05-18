@@ -8,7 +8,7 @@
 module Alu_tb();
 
 	// Inputs to the ALU
-	reg [31:0]	a_in,b_in;
+	reg signed [31:0]	a_in,b_in;
 	reg [3:0]	instr;
 	reg clk;
 	
@@ -26,7 +26,7 @@ module Alu_tb();
 
 	// apply test vectors here
 	initial begin
-		$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%h\n",instr_qual,a_qual,b_qual,alu_out,flags);
+		$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%b",instr_qual,a_qual,b_qual,alu_out,flags);
 		
 		// initialize important signals
 		clk = 0;
@@ -40,7 +40,6 @@ module Alu_tb();
 		// wait 32 clock cycles
 		repeat (32) @ (posedge clk);
 		$stop;
-		
 	end
 
 	// generate the clock
@@ -51,11 +50,14 @@ module Alu_tb();
 		a_qual <= a_in;
 		b_qual <= b_in;
 		instr_qual <= instr;
+		
 	end
 
 	// test all input instructions with random data
 	always @ (posedge clk) begin
-		instr <= instr + 1'b1;
+		// instruction == 6 not supported right now
+		if (instr == 4'h5) instr <= instr + 4'h2;
+		else instr <= instr + 4'h1;
 		a_in <= $random;
 		b_in <= $random;
 	end
@@ -114,8 +116,8 @@ module Alu_tb();
 		// check for correct output
 		if (alu_out !== exp_output) begin
 			$display("Output of ALU doesn't match the expected value");
-			$display("Output:%h, A:%h, B:%h, INSTR:%h, expected output:%h",
-								alu_out,a_qual,b_qual,instr_qual,exp_output);
+			$display("Output:%h, Expected:%h, A:%h, B:%h, INSTR:%h",
+								alu_out,exp_output,a_qual,b_qual,instr_qual);
 			$stop;
 		end
 		// check for zero bit of flags

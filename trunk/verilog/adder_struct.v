@@ -22,7 +22,7 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
   always @(*)
     begin : carry_generation
       integer i;
-      carrychain[0] = P[0] + (P[0] & Cin);
+      carrychain[0] = G[0] + (P[0] & Cin);
       for(i = 1; i <= 31; i = i + 1)
         begin
           carrychain[i] = G[i] + (P[i] & carrychain[i-1]);
@@ -31,7 +31,7 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
 	
 	// Sum
   wire [32:0] shiftedcarry = {carrychain,Cin};
-  assign S = P ^ shiftedcarry;    // summation
+  assign S = P ^ shiftedcarry[31:0];    // summation
   
 	// Carry Out
 	assign Cout = shiftedcarry[32];
