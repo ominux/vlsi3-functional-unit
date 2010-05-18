@@ -53,6 +53,8 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	
 	// trick for simulation, add 0 and 0
 	initial begin
+		//$monitor("A:%h, B:%h, Cin:%h, INSTR:%h, Adder_out:%h",
+		//					ain,bin,cin,INST_qual,adder_out);
 		A_qual = 0;
 		B_qual = 0;
 		INST_qual = 4'h2;
@@ -61,8 +63,8 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	////////////////////////
 	// Intermediate Nodes //
 	////////////////////////
-	wire [31:0] adder_out, P, G;
-	wire or_AB, adder_co, overflow;
+	wire [31:0] adder_out, P, G, A_or_B;
+	wire adder_co, overflow;
 
 	///////////////////////////
 	// Modified Adder Inputs //
@@ -104,7 +106,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 			end
 			// Z = -1 * A
 			neg_a: begin
-				ain = A_qual;
+				ain = ~A_qual;
 				bin = 32'b0;
 				cin = 1'b1;
 			end
@@ -168,7 +170,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	///////////////////////////
 	// Adder and Other Logic //
 	///////////////////////////
-	assign or_AB = A_qual | B_qual;
+	assign A_or_B = A_qual | B_qual;
 	adder struct_adder (.A(ain),.B(bin),.Cin(cin),.S(adder_out),
 											.P(P),.G(G),.Cout(adder_co),.OVF(overflow));
 	
@@ -176,11 +178,11 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	// Output Mux //
 	////////////////
 	always @ (*) begin
-		Z = adder_out;
 		case (INST_qual)
 			and_ab: Z = G;
-			or_ab: Z = or_AB;
+			or_ab: Z = A_or_B;
 			xor_ab: Z = P;
+			default: Z = adder_out;
 		endcase
 	end
 
