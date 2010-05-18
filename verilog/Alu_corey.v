@@ -51,6 +51,13 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 		INST_qual <= INST;
 	end
 	
+	// trick for simulation, add 0 and 0
+	initial begin
+		A_qual = 0;
+		B_qual = 0;
+		INST_qual = 4'h2;
+	end
+	
 	////////////////////////
 	// Intermediate Nodes //
 	////////////////////////
