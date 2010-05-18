@@ -10,6 +10,7 @@
 # for synthesis of just the ALU
 #set my_verilog_files [list Alu.v]
 set my_verilog_files [list Alu_corey.v]
+#set my_verilog_files [list alu_j.v]
 
 #/* Top-level Module                               */
 set my_toplevel Alu
@@ -43,8 +44,6 @@ set link_library [set target_library cp65npksdst_tt1p2v25c.db]
 set target_library "cp65npksdst_tt1p2v25c.db"
 define_design_lib WORK -path ../WORK
 set verilogout_show_unconnected_pins "true"
-#set_ultra_optimization true
-#set_ultra_optimization -force
 
 analyze -f verilog $my_verilog_files
 

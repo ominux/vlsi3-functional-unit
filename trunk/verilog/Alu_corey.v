@@ -190,7 +190,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	// Flags //
 	///////////
 	assign FLAGS[3] = 1'b0;
-	assign FLAGS[2] = (Z == 32'b0);
+	assign FLAGS[2] = ~(|Z);			//(Z == 32'b0);
 	assign FLAGS[1] = adder_co;
 	assign FLAGS[0] = overflow;
 

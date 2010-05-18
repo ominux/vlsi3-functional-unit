@@ -1,10 +1,15 @@
 `timescale 100ps/10ps
 
-`include "Alu_corey.v"
-
 /*
  Testbench for the ALU module
 */
+
+// Files to include for simulation
+
+//`include "Alu_corey.v"
+//`include "../synthesis/Alu.vh"
+//`include "../synthesis/cp65npksdst.mv"
+
 module Alu_tb();
 
 	// Inputs to the ALU

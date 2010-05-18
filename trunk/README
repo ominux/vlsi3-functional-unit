@@ -9,6 +9,9 @@ Project Notes:
 	PDK Database:	$PROJECT_ROOT/synthesis/cp65npksdst_tt1p2v25c.db 
 	Do not place the pdk database in the SVN repository.
 
+	Standard Cell Verilog Files: on vlsi003 located in:
+		/s0/robin/cp65npksdsta03/
+
 TOOL LIST
 
 primetime: 
