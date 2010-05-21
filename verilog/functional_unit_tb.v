@@ -25,28 +25,31 @@
 module functional_unit_tb();
 
 	// inputs to the FU
-	reg [31:0] a,b,c;
-	reg [4:0] instruction;
-	reg clock;
+	reg signed [31:0] a,b,c;
+	reg [5:0] instruction;
+	reg select, clock;
 	
 	// outputs from the FU
-	wire [31:0] output_data;
-	wire [3:0]	flags;
+	wire signed [31:0] output_data;
+	wire compare;
 
 	// these are signals that are "qualified" with a clock
 	// which basically means they are the output of a register
-	reg [31:0] a_qual, b_qual, c_qual;
-	reg [4:0] instr_qual;
-	reg carry_qual;
+	reg signed [31:0] a_qual, b_qual, c_qual;
+	reg [5:0] instr_qual;
+	reg select_qual;
+	
+	// these are used to verify that the output data and comparison bit are correct
+	reg signed [31:0] expected_output;
+	reg [3:0] expected_compare;
 
-	// these are used to verify that the output data and flags are correct
-	reg [31:0] expected_output;
-	reg [3:0] expected_flags;
+	// this signal disables error checking for the first clock cycle
+	reg first_cycle;
 
 	// Device Under Test
-	functional_unit	DUT	(.Z(output_data), .FLAGS(flags), 
-											.A(a), .B(b), 
-											.C(c), .INST(instruction), 
+	functional_unit	DUT	(.Z(output_data), .COMPARE(compare), 
+											.A(a), .B(b), .C(c),
+											.INST(instruction), .SELECT(select), 
 											.CLOCK(clock));
 
 	// create the clock
@@ -123,6 +126,7 @@ module functional_unit_tb();
 		a <= $random;
 		b <= $random;
 		c <= $random;
+		select <= $random;
 	end
 	
 	// need to latch the inputs, because output is 1 clock cycle
@@ -131,6 +135,7 @@ module functional_unit_tb();
 		a_qual <= a;
 		b_qual <= b;
 		c_qual <= c;
+		select_qual <= select;
 		instr_qual <= instruction;
 	end
 	
@@ -138,37 +143,125 @@ module functional_unit_tb();
 	// based on the input data and instruction
 	always @ (posedge clock) begin
 		$display("Verifying Instruction = %h",instr_qual);
-
+		
+		// assign the expected output data
+		casez(instr_qual)
+			OP_INC_A:			expected_output = a_qual + 1'b1;
+			OP_DEC_A:			expected_output = a_qual - 1'b1;
+			OP_ADD:				expected_output = a_qual + b_qual;
+			OP_SUB:				expected_output = a_qual - b_qual;
+			OP_NEGA:			expected_output = ~a_qual + 1'b1;
+			OP_AND:				expected_output = a_qual & b_qual;
+			OP_OR:				expected_output = a_qual | b_qual;
+			OP_XOR:				expected_output = a_qual ^ b_qual;
+			OP_NOTA:			expected_output = ~a_qual;
+			OP_LT:				expected_output = a_qual - b_qual;
+			OP_LTE:				expected_output = a_qual - b_qual;
+			OP_GT:				expected_output = a_qual - b_qual;
+			OP_GTE:				expected_output = a_qual - b_qual;
+			OP_EQ:				expected_output = a_qual - b_qual;
+			OP_NEQ:				expected_output = a_qual - b_qual;
+			OP_A_EQ_0:		expected_output = a_qual - 1'b0;
+			OP_A_NEQ_0:		expected_output = a_qual - 1'b0;
+			OP_A_GT_0:		expected_output = a_qual - 1'b0;
+			OP_A_GTE_0:		expected_output = a_qual - 1'b0;
+			OP_A_LTE_0:		expected_output = a_qual - 1'b0;
+			OP_A_LT_0:		expected_output = a_qual - 1'b0;
+			OP_A_EQ_1:		expected_output = a_qual - 1'b1;
+			OP_A_NEQ_1:		expected_output = a_qual - 1'b1;
+			OP_A_GT_1:		expected_output = a_qual - 1'b1;
+			OP_A_GTE_1:		expected_output = a_qual - 1'b1;
+			OP_A_LTE_1:		expected_output = a_qual - 1'b1;
+			OP_A_LT_1:		expected_output = a_qual - 1'b1;
+			OP_SHR:				expected_output = (a_qual >> b_qual[4:0]);
+			OP_SHL:				expected_output = (a_qual << b_qual[4:0]);
+			OP_ASHR:			expected_output = (a_qual >>> b_qual[4:0]);
+			OP_ASHR_1:		expected_output = (a_qual >>> 1);
+			OP_ASHR_2:		expected_output = (a_qual >>> 2);
+			OP_ASHR_4:		expected_output = (a_qual >>> 4);
+			OP_ASHR_16:		expected_output = (a_qual >>> 16);
+			6'b1110zz:		expected_output = a_qual * b_qual;
+			6'b1111zz:		expected_output = (a_qual * b_qual) + c_qual;
+			OP_SELECT:		begin
+											if (~select_qual) expected_output = a_qual;
+											else expected_output = b_qual;
+										end
+			OP_SEL_AOR0:	begin
+											if (~select_qual) expected_output = a_qual;
+											else expected_output = 32'b0;
+										end
+			OP_SEL_AOR1:	begin
+											if (~select_qual) expected_output = a_qual;
+											else expected_output = 32'b1;
+										end
+			OP_SEL_0OR1:	begin
+											if (~select_qual) expected_output = 32'b0;
+											else expected_output = 32'b1;
+										end
+			OP_SEL_1OR0:	begin
+											if (~select_qual) expected_output = 32'b1;
+											else expected_output = 32'b0;
+										end
+		endcase
+		
+		// assign the expected comparison flag
+		case(instr_qual)
+			OP_LT:				expected_compare = (a_qual < b_qual);
+			OP_LTE:				expected_compare = (a_qual <= b_qual);
+			OP_GT:				expected_compare = (a_qual > b_qual);
+			OP_GTE:				expected_compare = (a_qual >= b_qual);
+			OP_EQ:				expected_compare = (a_qual === b_qual);
+			OP_NEQ:				expected_compare = (a_qual !== b_qual);
+			OP_A_EQ_0:		expected_compare = (a_qual === 32'b0);
+			OP_A_NEQ_0:		expected_compare = (a_qual !== 32'b0);
+			OP_A_GT_0:		expected_compare = (a_qual > 32'b0);
+			OP_A_GTE_0:		expected_compare = (a_qual >= 32'b0);
+			OP_A_LTE_0:		expected_compare = (a_qual <= 32'b0);
+			OP_A_LT_0:		expected_compare = (a_qual < 32'b0);
+			OP_A_EQ_1:		expected_compare = (a_qual === 32'b1);
+			OP_A_NEQ_1:		expected_compare = (a_qual !== 32'b1);
+			OP_A_GT_1:		expected_compare = (a_qual > 32'b1);
+			OP_A_GTE_1:		expected_compare = (a_qual >= 32'b1);
+			OP_A_LTE_1:		expected_compare = (a_qual <= 32'b1);
+			OP_A_LT_1:		expected_compare = (a_qual < 32'b1);
+			default:	expected_compare = 1'b0;
+		endcase
+		
 	end
 
 	// Verify the output data and flags
 	always @ (posedge clock) begin
-		if (output_data !== expected_output) begin
+		if (first_cycle) begin
+			$display("Error checking is disabled on the first clock cycle");
+		end
+		else if (output_data !== expected_output) begin
 			$display("Output data does not match the expected value");
 			$display("Data:%h, Exp:%h, Instruction:%h, A:%h, B:%h, C:%h",
 								output_data,expected_output,instr_qual,a_qual,b_qual,c_qual);
 			$stop;
 		end
-		else if (expected_flags !== flags) begin
-			$display("Flags do not match the expected value");
-			$display("Flags:%h, Exp:%h, Instruction:%h, A:%h, B:%h, C:%h",
-								flags,expected_flags,instr_qual,a_qual,b_qual,c_qual);
+		else if (expected_compare !== compare) begin
+			$display("Comparison does not match the expected value");
+			$display("Compare:%b, Exp:%b, Instruction:%h, A:%h, B:%h",
+								compare,expected_compare,instr_qual,a_qual,b_qual);
 			$stop;
 		end
 	end
 	
+	// enable error checking after the first clock cycle
+	always @ (posedge clock) first_cycle <= 1'b0;
+	
 	// input initialization
 	initial begin
-		clock = 0;
-		a = 0;
-		b = 0;
-		c = 0;
-		instruction = 0;
-		expected_flags = 0;
-		expected_output = 0;
+		first_cycle = 1'b1;
+		clock = 1'b0;
+		a = 32'b0;
+		b = 32'b0;
+		c = 32'b0;
+		instruction = 6'b0;
 		
-		// run for 64 instructions
-		#896 $stop;
+		// run for 128 instructions
+		#1792 $stop;
 	end
 
 endmodule
