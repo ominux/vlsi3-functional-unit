@@ -28,7 +28,7 @@ module MADD (CLK, A, B, C, Z);
 
    // Add everything up, to produce 32 bit output
    // TODO Replace with compressors and stuff, could be a for loop too
-   always @(posedge CLK) begin
+	 always @(posedge CLK) begin
       Z = C + pprow0[31:0] + {pprow1[29:0], 1'b0, A[1]} +
           {pprow1[27:0], 1'b0, A[3], 2'b0} +
           {pprow2[25:0], 1'b0, A[5], 4'b0} +
@@ -46,6 +46,9 @@ module MADD (CLK, A, B, C, Z);
           {pprow14[1:0], 1'b0, A[29], 28'b0} +
           {1'b0, A[31], 30'b0};
    end
+
+	 // trick for simulation
+	 initial Z = 32'b0;
 
 endmodule // MADD
 
