@@ -11,16 +11,16 @@
 `timescale 100ps / 10ps
 
 /* Verilog Version */
-`include "functional_unit.v"
 `include "Alu.v"
 `include "ShiftLR.v"
 `include "MADD.v"
+`include "functional_unit.v"
 
 /* Synthesized Version
-`include "functional_unit.vh"
 `include "Alu.vh"
 `include "ShiftLR.vh"
 `include "MADD.vh"
+`include "functional_unit.vh"
 */
 module functional_unit_tb();
 
@@ -28,7 +28,6 @@ module functional_unit_tb();
 	reg [31:0] a,b,c;
 	reg [4:0] instruction;
 	reg clock;
-	reg carry_in;
 	
 	// outputs from the FU
 	wire [31:0] output_data;
@@ -48,79 +47,82 @@ module functional_unit_tb();
 	functional_unit	DUT	(.Z(output_data), .FLAGS(flags), 
 											.A(a), .B(b), 
 											.C(c), .INST(instruction), 
-											.CI(carry_in), .CLOCK(clock));
+											.CLOCK(clock));
 
 	// create the clock
 	always #7 clock <= ~clock;
 	
 	// instructions
+	// notes:
+	// ~OP[5]=enable ALU
+	// OP[5],~OP[4]=enable SHIFTER
+	// OP[5],OP[4],OP[3]=enable MADD
+	// OP[5],OP[4],~OP[3]=enable MUX
 	localparam [5:0] 
+								// ALU //
 								// Arithmetic
-								OP_ADD=6'b10,
-								OP_SUB=6'b10,
-								OP_MUL=6'b00,
-								OP_MADD=6'b00,
-								OP_SHR=6'b01,
-								OP_SHL=6'b01,
-								OP_ASHR=6'b01,
-								OP_NEGA=6'b10,
-								// Comparison
-								OP_LT=6'b10,
-								OP_LTE=6'b10,
-								OP_GT=6'b10,
-								OP_GTE=6'b10,
-								OP_EQ=6'b10,
-								OP_NEQ=6'b10,
-								//OP_SELECT=6'b10,
+								OP_ADD=6'b000010,
+								OP_SUB=6'b000011,
+								OP_NEGA=6'b000101,
 								// Bitwise
-								OP_NOTA=6'b10,
-								OP_AND=6'b10,
-								OP_OR=6'b10,
-								OP_XOR=6'b10,
-								// Compare with 0
-								OP_A_EQ_0=6'b10,
-								OP_A_NEQ_0=6'b10,
-								OP_A_GT_0=6'b10,
-								OP_A_GTE_0=6'b10,
-								OP_A_LTE_0=6'b10,
-								OP_A_LT_0=6'b10,
-								// Compare with 1
-								OP_A_EQ_1=6'b10,
-								OP_A_NEQ_1=6'b10,
-								OP_A_GT_1=6'b10,
-								OP_A_GTE_1=6'b10,
-								OP_A_LTE_1=6'b10,
-								OP_A_LT_1=6'b10,
+								OP_NOTA=6'b001101,
+								OP_AND=6'b001000,
+								OP_OR=6'b001001,
+								OP_XOR=6'b001010,
 								// ALU with Immediate B
-								OP_INC_A=6'b10,
-								OP_DEC_A=6'b10,
-								OP_ASHR_1=6'b01,
-								OP_ASHR_2=6'b01,
-								OP_ASHR_4=6'b01,
-								OP_ASHR_16=6'b01,
+								OP_INC_A=6'b000000,
+								OP_DEC_A=6'b000001,
+								// Comparison
+								OP_LT=6'b001110,
+								OP_LTE=6'b001111,
+								OP_GT=6'b010110,
+								OP_GTE=6'b010111,
+								OP_EQ=6'b011110,
+								OP_NEQ=6'b011111,
+								// Compare with 0
+								OP_A_EQ_0=6'b010000,
+								OP_A_NEQ_0=6'b010001,
+								OP_A_GT_0=6'b010010,
+								OP_A_GTE_0=6'b010011,
+								OP_A_LTE_0=6'b010100,
+								OP_A_LT_0=6'b010101,
+								// Compare with 1
+								OP_A_EQ_1=6'b011000,
+								OP_A_NEQ_1=6'b011001,
+								OP_A_GT_1=6'b011010,
+								OP_A_GTE_1=6'b011011,
+								OP_A_LTE_1=6'b011100,
+								OP_A_LT_1=6'b011101,
+								
+								// SHIFTER //
+								// Shift by B[4:0]
+								OP_SHR=6'b100000,
+								OP_SHL=6'b100011,
+								OP_ASHR=6'b100101,
+								// Shift with immediate
+								OP_ASHR_1=6'b100001,
+								OP_ASHR_2=6'b100010,
+								OP_ASHR_4=6'b100100,
+								OP_ASHR_16=6'b101000,
+								
+								// MADD //
+								OP_MUL=6'b1110zz,
+								OP_MADD=6'b1111zz,
+								
+								// MUX //
+								OP_SELECT=6'b110000,
 								// Select with Immediate
-								OP_SELECT_A_OR_0=6'b,
-								OP_SELECT_A_OR_1=6'b,
-								OP_SELECT_0_OR_B=6'b,
-								OP_SELECT_1_OR_B=6'b,
-								OP_SELECT_0_OR_1=6'b,
-								OP_SELECT_1_OR_0=6'b,
-								// LUT operations
-								OP_LAND_LOR=6'b,
-								OP_LOR_LAND=6'b,
-								OP_3LOR=6'b,
-								OP_3LAND=6'b,
-								OP_LNOTA=6'b,
-								OP_LOR=6'b,
-								OP_LAND=6'b;
+								OP_SEL_AOR0=6'b110001,
+								OP_SEL_AOR1=6'b110010,
+								OP_SEL_0OR1=6'b110011,
+								OP_SEL_1OR0=6'b110100;
 	
 	// test all instructions with random data
+	always @ (negedge clock) instruction <= instruction + 1'b1;
 	always @ (posedge clock) begin
-		instruction <= instruction + 1'b1;
 		a <= $random;
 		b <= $random;
 		c <= $random;
-		carry_in <= $random;
 	end
 	
 	// need to latch the inputs, because output is 1 clock cycle
@@ -130,7 +132,6 @@ module functional_unit_tb();
 		b_qual <= b;
 		c_qual <= c;
 		instr_qual <= instruction;
-		carry_qual <= carry_in;
 	end
 	
 	// calculate the expected data and expected flags,

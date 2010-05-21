@@ -35,10 +35,11 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	////////////////////////////////////////
 	// Instructions supported by this ALU //
 	////////////////////////////////////////
-	localparam [3:0]	add_1 = 4'b0000, sub_1 = 4'b0001, add_ab=4'b0010, sub_ab = 4'b0011,
-										abs_a = 4'b0100, neg_a = 4'b0101, neg_b =4'b0111, and_ab = 4'b1000,
-										or_ab = 4'b1001, xor_ab = 4'b1010, not_b =4'b1011, i_a = 4'b1100,
-										not_a = 4'b1101, i_0 = 4'b1110, i_1 = 4'b1111;
+	localparam [3:0]	add_1 = 4'b0000,	sub_1 = 4'b0001,	add_ab=4'b0010, 
+										sub_ab = 4'b0011,	abs_a = 4'b0100,	neg_a = 4'b0101, 
+										neg_b =4'b0111,		and_ab = 4'b1000,	or_ab = 4'b1001, 
+										xor_ab = 4'b1010,	not_b =4'b1011,		i_a = 4'b1100,
+										not_a = 4'b1101,	i_0 = 4'b1110,		i_1 = 4'b1111;
 	
 	//////////////////
 	// Clock Gating //
