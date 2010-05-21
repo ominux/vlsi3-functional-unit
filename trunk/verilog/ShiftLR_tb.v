@@ -33,7 +33,7 @@ module ShiftLR_tb();
 	// instantiate the barrel shifter here
 	ShiftLR inst_shift (.X(input_data),.S(shift_amount),
 											.LEFT(left),.LOG(logical),
-											.clock(clk), .Z(output_data));
+											.CLOCK(clk), .Z(output_data));
 
 	// vary the inputs and control the outputs
 	// $dumpvars
