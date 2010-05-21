@@ -6,7 +6,7 @@
 
 // Files to include for simulation
 
-//`include "Alu_corey.v"
+`include "Alu_corey.v"
 //`include "../synthesis/Alu.vh"
 //`include "../synthesis/cp65npksdst.mv"
 
