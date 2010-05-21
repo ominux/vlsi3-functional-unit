@@ -11,13 +11,13 @@
 						with a negedge triggered FF.
 */
 
-module functional_unit(Z, FLAGS, A, B, C, INST, SELECT, CLOCK);
+module functional_unit(Z, COMPARE, A, B, C, INST, SELECT, CLOCK);
 	
 	////////
 	// IO //
 	////////
-	output reg [31:0] Z;
-	output [3:0] FLAGS;
+	output reg [31:0] Z;		// data output of the FU
+	output COMPARE;					// single bit comparison flag (only relevant for LT, GTE, ...)
 	input [31:0] A, B, C;
 	input [5:0] INST;
 	input SELECT;
@@ -37,14 +37,17 @@ module functional_unit(Z, FLAGS, A, B, C, INST, SELECT, CLOCK);
 	reg [31:0] madd_add_in;
 	
 	// need to latch MS 4 bits of instruction for the final output mux
-	reg	[4:0] INST_qual;
+	reg	[5:0] INST_qual;
 	
 	// for the instructions that select a value based on SELECT bit
 	reg [31:0] mux_a_qual, mux_b_qual, mux_a_in, mux_b_in;
 	reg [2:0] mux_inst_qual;
 	reg	select_qual;
 	
-
+	// SHIFT input to the barrel shifter is not always B[4:0]
+	reg [4:0] shift_amount;
+	// logical and left shifting dependent upon instruction
+	reg shift_log, shift_left;
 	
 	//////////////////////////////
 	// Enables for Clock Gating //
@@ -94,7 +97,7 @@ module functional_unit(Z, FLAGS, A, B, C, INST, SELECT, CLOCK);
 										OP_SHR=6'b100000,OP_SHL=6'b100011,OP_ASHR=6'b100101,
 										OP_ASHR_1=6'b100001,OP_ASHR_2=6'b100010,OP_ASHR_4=6'b100100,
 										OP_ASHR_16=6'b101000,OP_MUL=6'b1110zz,OP_MADD=6'b1111zz,
-										OP_SELECT=6'b110000,OP_SEL_AOR0=6'b110001,P_SEL_AOR1=6'b110010,
+										OP_SELECT=6'b110000,OP_SEL_AOR0=6'b110001,OP_SEL_AOR1=6'b110010,
 										OP_SEL_0OR1=6'b110011, OP_SEL_1OR0=6'b110100;
 	
 	always @ (*) begin
@@ -158,7 +161,7 @@ module functional_unit(Z, FLAGS, A, B, C, INST, SELECT, CLOCK);
 	/////////
 	// ALU //
 	/////////
-	Alu alu_inst (.Z(ALU_Z),.A(A),.B(B),.INST(alu_inst),
+	Alu ALU_inst (.Z(ALU_Z),.A(A),.B(B),.INST(alu_inst),
                 .FLAGS(FLAGS),.CLOCK(Gated_clock_ALU));
 		
 	////////////////////
@@ -185,18 +188,46 @@ module functional_unit(Z, FLAGS, A, B, C, INST, SELECT, CLOCK);
 	end
 	assign MUX_Z = select_qual ? mux_b_qual : mux_a_qual;
 
-	////////////////
-	// Output Mux //
-	////////////////
+	/////////////////////
+	// Output Data Mux //
+	/////////////////////
 	always @ (posedge CLOCK) INST_qual <= INST[5:2];
 	always @ (*) begin
 		casez(INST_qual)
-			4'b0zzz:	Z = ALU_Z;
-			4'b10zz:	Z = BS_Z;
-			4'b111z:	Z = MADD_Z;
-			4'b110z:	Z = MUX_Z;
-			default:	Z = ALU_Z;
+			6'b0zzzzz:	Z = ALU_Z;
+			6'b10zzzz:	Z = BS_Z;
+			6'b111zzz:	Z = MADD_Z;
+			6'b110zzz:	Z = MUX_Z;
+			default:		Z = ALU_Z;
 		endcase
 	end
+	
+	////////////////////////
+	// Output Control Mux //
+	////////////////////////
 
+	// Flags
+	//	0:overflow
+	//	1:carry
+	//	2:zero
+	//	3:sign
+	assign COMPARE =	(INST_qual == OP_LT) ? Z[31] ^ FLAGS[0] :
+										(INST_qual == OP_LTE) ? Z[31] ^ :
+										(INST_qual == OP_GT) ? COMPARE = :
+										(INST_qual == OP_GTE) ? COMPARE = :
+										(INST_qual == OP_EQ) ? COMPARE = :
+										(INST_qual == OP_NEQ) ? COMPARE = :
+										(INST_qual == OP_A_EQ_0) ? COMPARE = :
+										(INST_qual == OP_A_NEQ_0) ? COMPARE = :
+										(INST_qual == OP_A_GT_0) ? COMPARE = :
+										(INST_qual == OP_A_GTE_0) ? COMPARE = :
+										(INST_qual == OP_A_LTE_0) ? COMPARE = :
+										(INST_qual == OP_A_LT_0) ? COMPARE = :
+										(INST_qual == OP_A_EQ_1) ? COMPARE = :
+										(INST_qual == OP_A_NEQ_1) ? COMPARE = :
+										(INST_qual == OP_A_GT_1) ? COMPARE = :
+										(INST_qual == OP_A_GTE_1) ? COMPARE = :
+										(INST_qual == OP_A_LTE_1) ? COMPARE = :
+										(INST_qual == OP_A_LT_1) ? COMPARE = :
+										1'b0;
 endmodule
