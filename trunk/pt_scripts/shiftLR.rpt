@@ -1,60 +1,9 @@
 ****************************************
-Report : timing
-	-path_type full
-	-delay_type max
-	-max_paths 1
-Design : ShiftLR
-Version: A-2007.12-SP3
-Date   : Sun May 16 01:05:49 2010
-****************************************
-
-
-  Startpoint: shift_cg_reg[1]
-               (rising edge-triggered flip-flop clocked by clock)
-  Endpoint: Z[13] (output port clocked by clock)
-  Path Group: clock
-  Path Type: max
-
-  Point                                    Incr       Path
-  ---------------------------------------------------------------
-  clock clock (rise edge)                  0.00       0.00
-  clock network delay (ideal)              0.00       0.00
-  shift_cg_reg[1]/CK (SEN_FDPQ_D_1)        0.00       0.00 r
-  shift_cg_reg[1]/Q (SEN_FDPQ_D_1)         0.11       0.11 r
-  U454/X (SEN_NR2_S_4)                     0.03       0.15 f
-  U298/X (SEN_ND2B_V1_2)                   0.03       0.18 r
-  U375/X (SEN_ND2_T_0P5)                   0.05       0.23 f
-  U373/X (SEN_INV_1)                       0.04       0.27 r
-  U320/X (SEN_ND2_G_1)                     0.03       0.30 f
-  U319/X (SEN_ND2_G_1)                     0.08       0.38 r
-  U486/X (SEN_INV_S_0P5)                   0.11       0.49 f
-  U304/X (SEN_ND2_S_0P5)                   0.31       0.80 r
-  U359/X (SEN_OAI22_S_0P5)                 0.18       0.98 f
-  U487/X (SEN_AOI221_1)                    0.14       1.12 r
-  U383/X (SEN_INV_1)                       0.06       1.18 f
-  U524/X (SEN_AOI222_1)                    0.13       1.31 r
-  U523/X (SEN_OAI221_1)                    0.07       1.38 f
-  Z[13] (out)                              0.00       1.38 f
-  data arrival time                                   1.38
-
-  clock clock (rise edge)                  1.40       1.40
-  clock network delay (ideal)              0.00       1.40
-  output external delay                   -0.10       1.30
-  data required time                                  1.30
-  ---------------------------------------------------------------
-  data required time                                  1.30
-  data arrival time                                  -1.38
-  ---------------------------------------------------------------
-  slack (VIOLATED)                                   -0.08
-
-
-1
-****************************************
 Report : Statistical Average Power
 	-hierarchy
 Design : ShiftLR
 Version: A-2007.12-SP3
-Date   : Sun May 16 01:05:59 2010
+Date   : Thu May 20 16:57:07 2010
 ****************************************
 
 

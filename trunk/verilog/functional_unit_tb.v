@@ -53,6 +53,67 @@ module functional_unit_tb();
 	// create the clock
 	always #7 clock <= ~clock;
 	
+	// instructions
+	localparam [5:0] 
+								// Arithmetic
+								OP_ADD=6'b10,
+								OP_SUB=6'b10,
+								OP_MUL=6'b00,
+								OP_MADD=6'b00,
+								OP_SHR=6'b01,
+								OP_SHL=6'b01,
+								OP_ASHR=6'b01,
+								OP_NEGA=6'b10,
+								// Comparison
+								OP_LT=6'b10,
+								OP_LTE=6'b10,
+								OP_GT=6'b10,
+								OP_GTE=6'b10,
+								OP_EQ=6'b10,
+								OP_NEQ=6'b10,
+								//OP_SELECT=6'b10,
+								// Bitwise
+								OP_NOTA=6'b10,
+								OP_AND=6'b10,
+								OP_OR=6'b10,
+								OP_XOR=6'b10,
+								// Compare with 0
+								OP_A_EQ_0=6'b10,
+								OP_A_NEQ_0=6'b10,
+								OP_A_GT_0=6'b10,
+								OP_A_GTE_0=6'b10,
+								OP_A_LTE_0=6'b10,
+								OP_A_LT_0=6'b10,
+								// Compare with 1
+								OP_A_EQ_1=6'b10,
+								OP_A_NEQ_1=6'b10,
+								OP_A_GT_1=6'b10,
+								OP_A_GTE_1=6'b10,
+								OP_A_LTE_1=6'b10,
+								OP_A_LT_1=6'b10,
+								// ALU with Immediate B
+								OP_INC_A=6'b10,
+								OP_DEC_A=6'b10,
+								OP_ASHR_1=6'b01,
+								OP_ASHR_2=6'b01,
+								OP_ASHR_4=6'b01,
+								OP_ASHR_16=6'b01,
+								// Select with Immediate
+								OP_SELECT_A_OR_0=6'b,
+								OP_SELECT_A_OR_1=6'b,
+								OP_SELECT_0_OR_B=6'b,
+								OP_SELECT_1_OR_B=6'b,
+								OP_SELECT_0_OR_1=6'b,
+								OP_SELECT_1_OR_0=6'b,
+								// LUT operations
+								OP_LAND_LOR=6'b,
+								OP_LOR_LAND=6'b,
+								OP_3LOR=6'b,
+								OP_3LAND=6'b,
+								OP_LNOTA=6'b,
+								OP_LOR=6'b,
+								OP_LAND=6'b;
+	
 	// test all instructions with random data
 	always @ (posedge clock) begin
 		instruction <= instruction + 1'b1;
