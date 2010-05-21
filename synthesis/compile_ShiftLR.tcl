@@ -86,7 +86,7 @@ write_sdc $filename
 #set filename [format "%s%s"  $my_toplevel ".db"]
 #write -f db -hier -output $filename
 
-redirect timing.rep.ShiftLR { report_timing }
+redirect timing.rep.ShiftLR { report_timing -max_paths 10 }
 redirect cell.rep.ShiftLR { report_cell }
 redirect power.rep.ShiftLR { report_power }
 
