@@ -28,9 +28,10 @@ module functional_unit(Z, COMPARE, A, B, C, INST, SELECT, CLOCK);
 	//////////////////////
 	wire [31:0] ALU_Z, MADD_Z, BS_Z, MUX_Z;
 	wire Gated_clock_ALU, Gated_clock_BS, Gated_clock_MADD;
+	wire [3:0] FLAGS;
 	
 	// decoded instruction to be sent to the ALU
-	reg [4:0] alu_inst;
+	reg [3:0] alu_inst;
 	reg [31:0] alu_b_in;
 	
 	// third input to the MADD unit can be C or 32'b0
@@ -167,8 +168,8 @@ module functional_unit(Z, COMPARE, A, B, C, INST, SELECT, CLOCK);
 	////////////////////
 	// Barrel Shifter //
 	////////////////////
-	ShiftLR shifter_inst (.Z(BS_Z), .X(A), .S(), .LOG(), 
-												.LEFT(), .CLOCK(Gated_clock_BS));
+	ShiftLR shifter_inst (.Z(BS_Z), .X(A), .S(shift_amount), .LOG(shift_log), 
+												.LEFT(shift_left), .CLOCK(Gated_clock_BS));
 
 	//////////
 	// MADD //
@@ -211,23 +212,23 @@ module functional_unit(Z, COMPARE, A, B, C, INST, SELECT, CLOCK);
 	//	1:carry
 	//	2:zero
 	//	3:sign
-	assign COMPARE =	(INST_qual == OP_LT) ? Z[31] ^ FLAGS[0] :
-										(INST_qual == OP_LTE) ? Z[31] ^ :
-										(INST_qual == OP_GT) ? COMPARE = :
-										(INST_qual == OP_GTE) ? COMPARE = :
-										(INST_qual == OP_EQ) ? COMPARE = :
-										(INST_qual == OP_NEQ) ? COMPARE = :
-										(INST_qual == OP_A_EQ_0) ? COMPARE = :
-										(INST_qual == OP_A_NEQ_0) ? COMPARE = :
-										(INST_qual == OP_A_GT_0) ? COMPARE = :
-										(INST_qual == OP_A_GTE_0) ? COMPARE = :
-										(INST_qual == OP_A_LTE_0) ? COMPARE = :
-										(INST_qual == OP_A_LT_0) ? COMPARE = :
-										(INST_qual == OP_A_EQ_1) ? COMPARE = :
-										(INST_qual == OP_A_NEQ_1) ? COMPARE = :
-										(INST_qual == OP_A_GT_1) ? COMPARE = :
-										(INST_qual == OP_A_GTE_1) ? COMPARE = :
-										(INST_qual == OP_A_LTE_1) ? COMPARE = :
-										(INST_qual == OP_A_LT_1) ? COMPARE = :
+	assign COMPARE =	(INST_qual == OP_LT) ? (Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_LTE) ? (Z[31] ^ FLAGS[0]) | FLAGS[2] :
+										(INST_qual == OP_GT) ? (~(Z[31] ^ FLAGS[0])) ^ FLAGS[2] :
+										(INST_qual == OP_GTE) ? ~(Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_EQ) ? FLAGS[2] :
+										(INST_qual == OP_NEQ) ? ~FLAGS[2] :
+										(INST_qual == OP_A_LT_0) ? (Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_A_LTE_0) ? (Z[31] ^ FLAGS[0]) | FLAGS[2] :
+										(INST_qual == OP_A_GT_0) ? (~(Z[31] ^ FLAGS[0])) ^ FLAGS[2] :
+										(INST_qual == OP_A_GTE_0) ? ~(Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_A_EQ_0) ? FLAGS[2] :
+										(INST_qual == OP_A_NEQ_0) ? ~FLAGS[2] :
+										(INST_qual == OP_A_LT_1) ? (Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_A_LTE_1) ? (Z[31] ^ FLAGS[0]) | FLAGS[2] :
+										(INST_qual == OP_A_GT_1) ? (~(Z[31] ^ FLAGS[0])) ^ FLAGS[2] :
+										(INST_qual == OP_A_GTE_1) ? ~(Z[31] ^ FLAGS[0]) :
+										(INST_qual == OP_A_EQ_1) ? FLAGS[2] :
+										(INST_qual == OP_A_NEQ_1) ? ~FLAGS[2] :
 										1'b0;
 endmodule

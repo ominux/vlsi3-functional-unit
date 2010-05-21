@@ -8,12 +8,12 @@ Author: Corey Olson
 Date: 5/13/2010
 
 */
-module ShiftLR( Z, X, S, LEFT, LOG , clock);
+module ShiftLR( Z, X, S, LEFT, LOG , CLOCK);
 input [31:0] X;
 input [4:0] S;
 input LEFT;
 input LOG;
-input clock;
+input CLOCK;
 output [31:0] Z;
 
 // intermediate wires needed
@@ -41,7 +41,7 @@ integer i;
 /////////////////////
 // Latch the Input //
 /////////////////////
-always @ (posedge clock) begin
+always @ (posedge CLOCK) begin
 	input_cg <= X;
 	shift_cg <= S;
 	left_cg <= LEFT;
