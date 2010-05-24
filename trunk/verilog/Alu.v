@@ -1,7 +1,8 @@
 /*
 
 File:		ALU for the Functional Unit of the Mosaic project.  The
-				main block of this ALU is the adder (adder_struct.v)
+				main block of this ALU is the adder (adder_struct.v).  This block
+				is purely combinational.
 
 Author: Corey Olson
 
@@ -20,7 +21,7 @@ Notes:
 
 */
 `include "adder_struct.v"
-module Alu( Z, A, B, INST, FLAGS, CLOCK);
+module Alu( Z, A, B, INST, FLAGS);
 	
 	////////
 	// IO //
@@ -28,7 +29,6 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	input		[31:0]	A;			// First Input Data, subtract is A-B
 	input		[31:0]	B;			// Second Input Data, this is added to or subtracted from A
 	input		[3:0]		INST;		// Instructions are defined in the localparam sectionnnnn
-	input						CLOCK;	// obviously a clock
 	output	[31:0]	Z;			// output data
 	output	[3:0]		FLAGS;	// Flags = {reserved,Zero,CarryOut,Overflow}
 
@@ -44,22 +44,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	//////////////////
 	// Clock Gating //
 	//////////////////
-	reg [31:0] A_qual, B_qual, Z;
-	reg [3:0] INST_qual;
-	always @ (posedge CLOCK) begin
-		A_qual <= A;
-		B_qual <= B;
-		INST_qual <= INST;
-	end
-	
-	// trick for simulation, add 0 and 0
-	initial begin
-		//$monitor("A:%h, B:%h, Cin:%h, INSTR:%h, Adder_out:%h",
-		//					ain,bin,cin,INST_qual,adder_out);
-		A_qual = 0;
-		B_qual = 0;
-		INST_qual = 4'h2;
-	end
+	reg [31:0] Z;
 	
 	////////////////////////
 	// Intermediate Nodes //
@@ -73,97 +58,80 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	reg [31:0] ain, bin;
 	reg cin;
 	always @ (*) begin
-		case (INST_qual)
+		// defaults
+		ain = A;
+		bin = B;
+		cin = 1'b0;
+		
+		case (INST)
 			// Z = A + 1
 			add_1: begin
-				ain = A_qual;
 				bin = 32'b0;
 				cin = 1'b1;
 			end
 			// Z = A - 1
 			sub_1: begin
-				ain = A_qual;
 				bin = 32'hFFFFFFFF;
-				cin = 1'b0;
 			end
 			// Z = A + B
 			add_ab:	begin
-				ain = A_qual;
-				bin = B_qual;
-				cin = 1'b0;
 			end
 			// Z = A - B
 			sub_ab: begin
-				ain = A_qual;
-				bin = ~B_qual;
+				bin = ~B;
 				cin = 1'b1;
 			end
 			// Z = abs(A)
 			abs_a: begin
-				if (A_qual[31]) ain = ~A_qual;
-				else ain = A_qual;
+				if (A[31]) ain = ~A;
+				else ain = A;
 				bin = 32'b0;
-				cin = A_qual[31];
+				cin = A[31];
 			end
 			// Z = -1 * A
 			neg_a: begin
-				ain = ~A_qual;
+				ain = ~A;
 				bin = 32'b0;
 				cin = 1'b1;
 			end
 			// Z = -1 * B
 			neg_b: begin
 				ain = 32'b0;
-				bin = ~B_qual;
+				bin = ~B;
 				cin = 1'b1;
 			end
 			// Z = A & B
 			and_ab: begin
-				ain = A_qual;
-				bin = B_qual;
-				cin = 1'b0;
 			end
 			// Z = A ^ B
 			xor_ab: begin
-				ain = A_qual;
-				bin = B_qual;
-				cin = 1'b0;
 			end
 			// Z = ~B
 			not_b: begin
 				ain = 32'b0;
-				bin = ~B_qual;
-				cin = 1'b0;
+				bin = ~B;
 			end
 			// Z = A
 			i_a: begin
-				ain = A_qual;
 				bin = 32'b0;
-				cin = 1'b0;
 			end
 			// Z = ~A
 			not_a: begin
-				ain = ~A_qual;
+				ain = ~A;
 				bin = 32'b0;
-				cin = 1'b0;
 			end
 			// Z = 32'h0
 			i_0: begin
 				ain = 32'b0;
 				bin = 32'b0;
-				cin = 1'b0;
 			end
 			// Z = 32'hFFFFFFFF
 			i_1: begin
 				ain = 32'hFFFFFFFF;
 				bin = 32'b0;
-				cin = 1'b0;
 			end
 			// let the synthesis tool optimize the other cases
 			default begin
-				ain = 32'bx;
-				bin = 32'bx;
-				cin = 1'bx;
 			end
 		endcase
 	end
@@ -171,7 +139,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	///////////////////////////
 	// Adder and Other Logic //
 	///////////////////////////
-	assign A_or_B = A_qual | B_qual;
+	assign A_or_B = A | B;
 	adder struct_adder (.A(ain),.B(bin),.Cin(cin),.S(adder_out),
 											.P(P),.G(G),.Cout(adder_co),.OVF(overflow));
 	
@@ -179,7 +147,7 @@ module Alu( Z, A, B, INST, FLAGS, CLOCK);
 	// Output Mux //
 	////////////////
 	always @ (*) begin
-		case (INST_qual)
+		case (INST)
 			and_ab: Z = G;
 			or_ab: Z = A_or_B;
 			xor_ab: Z = P;

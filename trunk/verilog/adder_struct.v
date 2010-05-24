@@ -30,7 +30,9 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
     end
 	
 	// Sum
-  wire [32:0] shiftedcarry = {carrychain,Cin};
+  wire [32:0] shiftedcarry;
+
+	assign shiftedcarry = {carrychain,Cin};
   assign S = P ^ shiftedcarry[31:0];    // summation
   
 	// Carry Out
