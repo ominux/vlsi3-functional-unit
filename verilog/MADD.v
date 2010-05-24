@@ -22,34 +22,57 @@ module MADD (CLK, A, B, C, Z);
    //assign Z = (A * B) + C;
 
    // Get partial product rows
-   BoothMult bmul (A, B, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5,pprow6,
+   
+	 BoothMult bmul (A, B, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5,pprow6,
                    pprow7, pprow8, pprow9, pprow10, pprow11, pprow12, pprow13,
                    pprow14, pprow15);
 
    // Add everything up, to produce 32 bit output
    // TODO Replace with compressors and stuff, could be a for loop too
-	 always @(posedge CLK) begin
-      Z = C + pprow0[31:0] + {pprow1[29:0], 1'b0, A[1]} +
-          {pprow1[27:0], 1'b0, A[3], 2'b0} +
-          {pprow2[25:0], 1'b0, A[5], 4'b0} +
-          {pprow3[23:0], 1'b0, A[7], 6'b0} +
-          {pprow4[21:0], 1'b0, A[9], 8'b0} +
-          {pprow5[19:0], 1'b0, A[11], 10'b0} +
-          {pprow6[17:0], 1'b0, A[13], 12'b0} +
-          {pprow7[15:0], 1'b0, A[15], 14'b0} +
-          {pprow8[13:0], 1'b0, A[17], 16'b0} +
-          {pprow9[11:0], 1'b0, A[19], 18'b0} +
-          {pprow10[9:0], 1'b0, A[21], 20'b0} +
-          {pprow11[7:0], 1'b0, A[23], 22'b0} +
-          {pprow12[5:0], 1'b0, A[25], 24'b0} +
-          {pprow13[3:0], 1'b0, A[27], 26'b0} +
-          {pprow14[1:0], 1'b0, A[29], 28'b0} +
+   reg [35:0] pprow0_qual, pprow14_qual;
+   reg [34:0] pprow1_qual, pprow2_qual, pprow3_qual, pprow4_qual, pprow5_qual, pprow6_qual, pprow7_qual,
+                 pprow8_qual, pprow9_qual, pprow10_qual, pprow11_qual, pprow12_qual, pprow13_qual;
+   reg [33:0] pprow15_qual;
+	 
+	 always @ (posedge CLK) begin
+		pprow0_qual <= pprow0;
+		pprow1_qual <= pprow1;
+		pprow2_qual <= pprow2;
+		pprow3_qual <= pprow3;
+		pprow4_qual <= pprow4;
+		pprow5_qual <= pprow5;
+		pprow6_qual <= pprow6;
+		pprow7_qual <= pprow7;
+		pprow8_qual <= pprow8;
+		pprow9_qual <= pprow9;
+		pprow10_qual <= pprow10;
+		pprow11_qual <= pprow11;
+		pprow12_qual <= pprow12;
+		pprow13_qual <= pprow13;
+		pprow14_qual <= pprow14;
+		pprow15_qual <= pprow15;
+	 end
+	 
+	 //always @(posedge CLK) begin
+   always @ (*) begin
+			Z = C + pprow0_qual[31:0] + {pprow1_qual[29:0], 1'b0, A[1]} +
+          {pprow1_qual[27:0], 1'b0, A[3], 2'b0} +
+          {pprow2_qual[25:0], 1'b0, A[5], 4'b0} +
+          {pprow3_qual[23:0], 1'b0, A[7], 6'b0} +
+          {pprow4_qual[21:0], 1'b0, A[9], 8'b0} +
+          {pprow5_qual[19:0], 1'b0, A[11], 10'b0} +
+          {pprow6_qual[17:0], 1'b0, A[13], 12'b0} +
+          {pprow7_qual[15:0], 1'b0, A[15], 14'b0} +
+          {pprow8_qual[13:0], 1'b0, A[17], 16'b0} +
+          {pprow9_qual[11:0], 1'b0, A[19], 18'b0} +
+          {pprow10_qual[9:0], 1'b0, A[21], 20'b0} +
+          {pprow11_qual[7:0], 1'b0, A[23], 22'b0} +
+          {pprow12_qual[5:0], 1'b0, A[25], 24'b0} +
+          {pprow13_qual[3:0], 1'b0, A[27], 26'b0} +
+          {pprow14_qual[1:0], 1'b0, A[29], 28'b0} +
           {1'b0, A[31], 30'b0};
    end
-
-	 // trick for simulation
-	 initial Z = 32'b0;
-
+	 
 endmodule // MADD
 
 // Generates 2's comp of A, using or -> xor tree
@@ -61,40 +84,40 @@ module Fast2sComp (A, Z);
 
    wire [31:0]   wOrRes;
 
-   assign wOrRes[0] = A[0]; // Low bit has nothing to or with
+	 assign wOrRes[0] = 1'b0; // Low bit has nothing to or with
    // Rest of bits just build an or tree, so every bit is ored with all lower
    // TODO If synth tool is dumb, I might have to make a tree here by hand
-   assign wOrRes[1] = |A[1:0];
-   assign wOrRes[2] = |A[2:0];
-   assign wOrRes[3] = |A[3:0];
-   assign wOrRes[4] = |A[4:0];
-   assign wOrRes[5] = |A[5:0];
-   assign wOrRes[6] = |A[6:0];
-   assign wOrRes[7] = |A[7:0];
-   assign wOrRes[8] = |A[8:0];
-   assign wOrRes[9] = |A[9:0];
-   assign wOrRes[10] = |A[10:0];
-   assign wOrRes[11] = |A[11:0];
-   assign wOrRes[12] = |A[12:0];
-   assign wOrRes[13] = |A[13:0];
-   assign wOrRes[14] = |A[14:0];
-   assign wOrRes[15] = |A[15:0];
-   assign wOrRes[16] = |A[16:0];
-   assign wOrRes[17] = |A[17:0];
-   assign wOrRes[18] = |A[18:0];
-   assign wOrRes[19] = |A[19:0];
-   assign wOrRes[20] = |A[20:0];
-   assign wOrRes[21] = |A[21:0];
-   assign wOrRes[22] = |A[22:0];
-   assign wOrRes[23] = |A[23:0];
-   assign wOrRes[24] = |A[24:0];
-   assign wOrRes[25] = |A[25:0];
-   assign wOrRes[26] = |A[26:0];
-   assign wOrRes[27] = |A[27:0];
-   assign wOrRes[28] = |A[28:0];
-   assign wOrRes[29] = |A[29:0];
-   assign wOrRes[30] = |A[30:0];
-   assign wOrRes[31] = |A[31:0];
+	 assign wOrRes[1] = ~(|A[1:0]);
+   assign wOrRes[2] = ~(|A[2:0]);
+   assign wOrRes[3] = ~(|A[3:0]);
+   assign wOrRes[4] = ~(|A[4:0]);
+   assign wOrRes[5] = ~(|A[5:0]);
+   assign wOrRes[6] = ~(|A[6:0]);
+   assign wOrRes[7] = ~(|A[7:0]);
+   assign wOrRes[8] = ~(|A[8:0]);
+   assign wOrRes[9] = ~(|A[9:0]);
+   assign wOrRes[10] = ~(|A[10:0]);
+   assign wOrRes[11] = ~(|A[11:0]);
+   assign wOrRes[12] = ~(|A[12:0]);
+   assign wOrRes[13] = ~(|A[13:0]);
+   assign wOrRes[14] = ~(|A[14:0]);
+   assign wOrRes[15] = ~(|A[15:0]);
+   assign wOrRes[16] = ~(|A[16:0]);
+   assign wOrRes[17] = ~(|A[17:0]);
+   assign wOrRes[18] = ~(|A[18:0]);
+   assign wOrRes[19] = ~(|A[19:0]);
+   assign wOrRes[20] = ~(|A[20:0]);
+   assign wOrRes[21] = ~(|A[21:0]);
+   assign wOrRes[22] = ~(|A[22:0]);
+   assign wOrRes[23] = ~(|A[23:0]);
+   assign wOrRes[24] = ~(|A[24:0]);
+   assign wOrRes[25] = ~(|A[25:0]);
+   assign wOrRes[26] = ~(|A[26:0]);
+   assign wOrRes[27] = ~(|A[27:0]);
+   assign wOrRes[28] = ~(|A[28:0]);
+   assign wOrRes[29] = ~(|A[29:0]);
+   assign wOrRes[30] = ~(|A[30:0]);
+   assign wOrRes[31] = ~(|A[31:0]);
    
    // Final stage, just xor to get result
    assign Z = A ^ wOrRes;
@@ -228,7 +251,8 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    wire          one6, two6, neg6, one7, two7, neg7, one8, two8, neg8;
    wire          one9, two9, neg9, one10, two10, neg10, one11, two11, neg11;
    wire          one12, two12, neg12, one13, two13, neg13, one14, two14, neg14;
-   
+   wire					 one15, two15, neg15;
+
    // Could replace with generate, but what parts are v-2001???
    ModBoothEnc enc0 ({X[1:0], 1'b0}, one0, two0, neg0);
    ModBoothEnc enc1 (X[3:1], one1, two1, neg1);

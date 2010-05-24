@@ -21,6 +21,8 @@ module MADD_tb();
 	reg signed [31:0]	a_in,b_in, c_in;
 	reg clk;
 	
+  reg firstclk;
+
 	// Outputs from the MADD to check
 	wire [31:0]	madd_out;
 
@@ -43,7 +45,8 @@ module MADD_tb();
 		a_qual = 32'b0;
 		b_qual = 32'b0;
 		c_qual = 32'b0;
-		
+		firstclk = 1'b1;
+
 		// wait 32 clock cycles
 		repeat (32) @ (posedge clk);
 		$stop;
@@ -61,9 +64,13 @@ module MADD_tb();
 
 	// test all input instructions with random data
 	always @ (posedge clk) begin
+    // Don't deal with signs right now
 		a_in <= $random;
+    a_in[31:8] <= 24'b0;
 		b_in <= $random;
+    b_in[31:8] <= 24'b0;
 		c_in <= $random;
+    c_in[31:8] <= 24'b0;
 	end
 
 	// Specify what the correct outputs should be
@@ -73,11 +80,15 @@ module MADD_tb();
 
 	// check for correct output of the MADD
 	always @ (posedge clk) begin
-		if (madd_out !== exp_output) begin
+		if (madd_out !== exp_output && ~firstclk) begin
 			$display("Output of MADD doesn't match the expected value");
 			$display("Output:%h, Expected:%h, A:%h, B:%h, C:%h",
 							madd_out,exp_output,a_qual,b_qual,c_qual);
 			$stop;
 		end
 	end
+
+	always @ (posedge clk)
+		firstclk <= 1'b0;
+
 endmodule

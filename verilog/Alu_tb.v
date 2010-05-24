@@ -6,7 +6,7 @@
 
 // Files to include for simulation
 
-`include "Alu_corey.v"
+`include "Alu.v"
 //`include "../synthesis/Alu.vh"
 //`include "../synthesis/cp65npksdst.mv"
 
@@ -22,40 +22,31 @@ module Alu_tb();
 	wire [3:0]	flags;
 
 	// signals for the testbench
-	reg signed [31:0] a_qual, b_qual, exp_output;
-	reg [3:0] instr_qual, exp_flags;
+	reg signed [31:0] exp_output;
+	reg [3:0] exp_flags;
 	
 	// Instantiate the ALU which is the device under test
 	Alu ALU_inst (.A(a_in),.B(b_in),.INST(instr),
-								.Z(alu_out),.FLAGS(flags), .CLOCK(clk));
+								.Z(alu_out),.FLAGS(flags));
 
 	// apply test vectors here
 	initial begin
-		$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%b",instr_qual,a_qual,b_qual,alu_out,flags);
+		$monitor("Instruction=%h,A=%h,B=%h,Output=%h,Flags=%b",instr,a_in,b_in,alu_out,flags);
 		
 		// initialize important signals
 		clk = 0;
 		instr = 4'h0;
 		a_in = 32'b0;
 		b_in = 32'b0;
-		a_qual = 32'b0;
-		b_qual = 32'b0;
-		instr_qual = 4'h2;
 		
 		// wait 32 clock cycles
-		repeat (32) @ (posedge clk);
+		repeat (256) @ (posedge clk);
+		$display("ALU test completed successfully!");
 		$stop;
 	end
 
-	// generate the clock
-	always #7 clk <= ~clk;
-
-	// inputs to the ALU are latched inside the ALU
-	always @ (posedge clk) begin
-		a_qual <= a_in;
-		b_qual <= b_in;
-		instr_qual <= instr;
-	end
+	// generate the clock, want 1GHz clock
+	always #5 clk <= ~clk;
 
 	// test all input instructions with random data
 	always @ (posedge clk) begin
@@ -96,34 +87,35 @@ module Alu_tb();
 										INVA=4'hD, ZEROES=4'hE, ONES=4'hF;
 	// Check for correct outputs and flags from the ALU here
 	always @ (*) begin
-		case (instr_qual)
-			INCA:		exp_output = a_qual + 1'b1;
-			DECA:		exp_output = a_qual - 1'b1;
-			ADD:		exp_output = a_qual + b_qual;
-			SUB:		exp_output = a_qual - b_qual;
-			ABS:		if (a_qual[31]) exp_output = ~a_qual + 1'b1;
-							else exp_output = a_qual;
-			NEGA:		exp_output = ~a_qual + 1'b1;
-			NEGB:		exp_output = ~b_qual + 1'b1;
-			AND:		exp_output = a_qual & b_qual;
-			OR:			exp_output = a_qual | b_qual;
-			XOR:		exp_output = a_qual ^ b_qual;
-			INVB:		exp_output = ~b_qual;
-			PASSA:	exp_output = a_qual;
-			INVA:		exp_output = ~a_qual;
+		case (instr)
+			INCA:		exp_output = a_in + 1'b1;
+			DECA:		exp_output = a_in - 1'b1;
+			ADD:		exp_output = a_in + b_in;
+			SUB:		exp_output = a_in - b_in;
+			ABS:		if (a_in[31]) exp_output = ~a_in + 1'b1;
+							else exp_output = a_in;
+			NEGA:		exp_output = ~a_in + 1'b1;
+			NEGB:		exp_output = ~b_in + 1'b1;
+			AND:		exp_output = a_in & b_in;
+			OR:			exp_output = a_in | b_in;
+			XOR:		exp_output = a_in ^ b_in;
+			INVB:		exp_output = ~b_in;
+			PASSA:	exp_output = a_in;
+			INVA:		exp_output = ~a_in;
 			ZEROES:	exp_output = 32'b0;
 			ONES:		exp_output = 32'hFFFFFFFF;
+			default: exp_output = 32'bx;
 		endcase
 	end
 
 	always @ (posedge clk) begin
 		// check for correct output
 		if (alu_out !== exp_output) begin
-			if (instr_qual == 6) $display("Opcode=6 not supported!");
+			if (instr == 6) $display("Opcode=6 not supported!");
 			else begin
 				$display("Output of ALU doesn't match the expected value");
 				$display("Output:%h, Expected:%h, A:%h, B:%h, INSTR:%h",
-								alu_out,exp_output,a_qual,b_qual,instr_qual);
+								alu_out,exp_output,a_in,b_in,instr);
 				$stop;
 			end
 		end
@@ -134,15 +126,5 @@ module Alu_tb();
 								alu_out,flags);
 			$stop;
 		end
-		/* assume the flag bits are correct
-		// check for overflow bit of flags
-		else if () begin
-
-		end
-		// check for carry bit of flags
-		else if () begin
-
-		end
-		*/
 	end
 endmodule
