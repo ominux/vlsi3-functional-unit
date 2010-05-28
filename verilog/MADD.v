@@ -11,68 +11,174 @@ module MADD (CLK, A, B, C, Z);
    input [31:0]  A;
    input [31:0]  B;
    input [31:0]  C;
-   output reg [31:0] Z;
+   output [31:0] Z;
 
    wire [35:0]   pprow0, pprow14;
    wire [34:0]   pprow1, pprow2, pprow3, pprow4, pprow5, pprow6, pprow7,
                  pprow8, pprow9, pprow10, pprow11, pprow12, pprow13;
    wire [33:0]   pprow15;
 
+   reg [35:0]    pprow0r, pprow14r;
+   reg [34:0]    pprow1r, pprow2r, pprow3r, pprow4r, pprow5r, pprow6r, pprow7r,
+                 pprow8r, pprow9r, pprow10r, pprow11r, pprow12r, pprow13r;
+   reg [33:0]    pprow15r;
+   reg [31:0]    rA, rC;
+
    // Totally behavioral way of doing things, about 2ns too slow
    //assign Z = (A * B) + C;
 
    // Get partial product rows
-   
-	 BoothMult bmul (A, B, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5,pprow6,
+   BoothMult bmul (A, B, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5,pprow6,
                    pprow7, pprow8, pprow9, pprow10, pprow11, pprow12, pprow13,
                    pprow14, pprow15);
 
+   // Register A, C and all the row computations, to compute output
+   always @* begin
+      rA <= A;
+      rC <= C;
+   end
+
+   always @* begin
+      pprow0r <= pprow0;
+      pprow1r <= pprow1;
+      pprow2r <= pprow2;
+      pprow3r <= pprow3;
+      pprow4r <= pprow4;
+      pprow5r <= pprow5;
+      pprow6r <= pprow6;
+      pprow7r <= pprow7;
+      pprow8r <= pprow8;
+      pprow9r <= pprow9;
+      pprow10r <= pprow10;
+      pprow11r <= pprow11;
+      pprow12r <= pprow12;
+      pprow13r <= pprow13;
+      pprow14r <= pprow14;
+      pprow15r <= pprow15;
+   end
+
+
    // Add everything up, to produce 32 bit output
    // TODO Replace with compressors and stuff, could be a for loop too
-   reg [35:0] pprow0_qual, pprow14_qual;
-   reg [34:0] pprow1_qual, pprow2_qual, pprow3_qual, pprow4_qual, pprow5_qual, pprow6_qual, pprow7_qual,
-                 pprow8_qual, pprow9_qual, pprow10_qual, pprow11_qual, pprow12_qual, pprow13_qual;
-   reg [33:0] pprow15_qual;
-	 
-	 always @ (posedge CLK) begin
-		pprow0_qual <= pprow0;
-		pprow1_qual <= pprow1;
-		pprow2_qual <= pprow2;
-		pprow3_qual <= pprow3;
-		pprow4_qual <= pprow4;
-		pprow5_qual <= pprow5;
-		pprow6_qual <= pprow6;
-		pprow7_qual <= pprow7;
-		pprow8_qual <= pprow8;
-		pprow9_qual <= pprow9;
-		pprow10_qual <= pprow10;
-		pprow11_qual <= pprow11;
-		pprow12_qual <= pprow12;
-		pprow13_qual <= pprow13;
-		pprow14_qual <= pprow14;
-		pprow15_qual <= pprow15;
-	 end
-	 
-	 //always @(posedge CLK) begin
-   always @ (*) begin
-			Z = C + pprow0_qual[31:0] + {pprow1_qual[29:0], 1'b0, A[1]} +
-          {pprow1_qual[27:0], 1'b0, A[3], 2'b0} +
-          {pprow2_qual[25:0], 1'b0, A[5], 4'b0} +
-          {pprow3_qual[23:0], 1'b0, A[7], 6'b0} +
-          {pprow4_qual[21:0], 1'b0, A[9], 8'b0} +
-          {pprow5_qual[19:0], 1'b0, A[11], 10'b0} +
-          {pprow6_qual[17:0], 1'b0, A[13], 12'b0} +
-          {pprow7_qual[15:0], 1'b0, A[15], 14'b0} +
-          {pprow8_qual[13:0], 1'b0, A[17], 16'b0} +
-          {pprow9_qual[11:0], 1'b0, A[19], 18'b0} +
-          {pprow10_qual[9:0], 1'b0, A[21], 20'b0} +
-          {pprow11_qual[7:0], 1'b0, A[23], 22'b0} +
-          {pprow12_qual[5:0], 1'b0, A[25], 24'b0} +
-          {pprow13_qual[3:0], 1'b0, A[27], 26'b0} +
-          {pprow14_qual[1:0], 1'b0, A[29], 28'b0} +
-          {1'b0, A[31], 30'b0};
+/*   assign Z = rC + pprow0r[31:0] + {pprow1r[29:0], 1'b0, rA[1]} +
+              {pprow2r[27:0], 1'b0, rA[3], 2'b0} +
+              {pprow3r[25:0], 1'b0, rA[5], 4'b0} +
+              {pprow4r[23:0], 1'b0, rA[7], 6'b0} +
+              {pprow5r[21:0], 1'b0, rA[9], 8'b0} +
+              {pprow6r[19:0], 1'b0, rA[11], 10'b0} +
+              {pprow7r[17:0], 1'b0, rA[13], 12'b0} +
+              {pprow8r[15:0], 1'b0, rA[15], 14'b0} +
+              {pprow9r[13:0], 1'b0, rA[17], 16'b0} +
+              {pprow10r[11:0], 1'b0, rA[19], 18'b0} +
+              {pprow11r[9:0], 1'b0, rA[21], 20'b0} +
+              {pprow12r[7:0], 1'b0, rA[23], 22'b0} +
+              {pprow13r[5:0], 1'b0, rA[25], 24'b0} +
+              {pprow14r[3:0], 1'b0, rA[27], 26'b0} +
+              {pprow15r[1:0], 1'b0, rA[29], 28'b0} +
+              {1'b0, rA[31], 30'b0};
+ */
+
+   // Carry save tree version
+   wire [31:0] sum0, sum1, sum2, sum3, sum4, sum5;
+   wire [31:0] cout0, cout1, cout2, cout3, cout4, cout5;
+
+   csa32 add0 (.A(32'b0/*rC*/), .B({pprow8r[15:0], 1'b0, rA[15], 14'b0}), .C({1'b0, rA[31], 30'b0}), .S(sum0), .Cout(cout0)); // Total bits 50
+   csa32 add1 (.A(pprow0r[31:0]), .B({pprow9r[13:0], 1'b0, rA[17], 16'b0}), .C({pprow15r[1:0], 1'b0, rA[29], 28'b0}), .S(sum1), .Cout(cout1)); // Total bits 51
+   csa32 add2 (.A({pprow1r[29:0], 1'b0, rA[1]}), .B({pprow10r[11:0], 1'b0, rA[19], 18'b0}), .C({pprow14r[3:0], 1'b0, rA[27], 26'b0}), .S(sum2), .Cout(cout2)); // Total bits 53
+   csa32 add3 (.A({pprow2r[27:0], 1'b0, rA[3], 2'b0}), .B({pprow7r[17:0], 1'b0, rA[13], 12'b0}), .C({pprow13r[5:0], 1'b0, rA[25], 24'b0}), .S(sum3), .Cout(cout3)); // Total bits 55
+   csa32 add4 (.A({pprow3r[25:0], 1'b0, rA[5], 4'b0}), .B({pprow6r[19:0], 1'b0, rA[11], 10'b0}), .C({pprow12r[7:0], 1'b0, rA[23], 22'b0}), .S(sum4), .Cout(cout4)); // Total bits 57 
+   csa32 add5 (.A({pprow4r[23:0], 1'b0, rA[7], 6'b0}), .B({pprow5r[21:0], 1'b0, rA[9], 8'b0}), .C({pprow11r[9:0], 1'b0, rA[21], 20'b0}), .S(sum5), .Cout(cout5)); // Total bits 59
+
+   // Later stages, sums the 12 outputs from first stage
+   wire [31:0] sum6, sum7, sum8, sum9, sum10, sum11, sum12, sum13, sum14, sum15, sum16;
+   wire [31:0] cout6, cout7, cout8, cout9, cout10, cout11, cout12, cout13, cout14, cout15, cout16;
+
+   // Stage 2
+   csa32 add6 (.A(sum0), .B(sum5), .C({cout2[30:0], 1'b0}), .S(sum6), .Cout(cout6));
+   csa32 add7 (.A(sum1), .B(sum4), .C({cout3[30:0], 1'b0}), .S(sum7), .Cout(cout7));
+   csa32 add8 (.A(sum2), .B({cout0[30:0], 1'b0}), .C({cout5[30:0], 1'b0}), .S(sum8), .Cout(cout8));
+   csa32 add9 (.A(sum3), .B({cout1[30:0], 1'b0}), .C({cout4[30:0], 1'b0}), .S(sum9), .Cout(cout9));
+
+   reg [31:0]  rsum6, rsum7, rsum8, rsum9;
+   reg [31:0]  rcout6, rcout7, rcout8, rcout9;
+   // Register between stage 2 and stage 3
+   always @(posedge CLK) begin
+      rsum6 <= sum6;
+      rsum7 <= sum7;
+      rsum8 <= sum8;
+      rsum9 <= sum9;
+      rcout6 <= cout6;
+      rcout7 <= cout7;
+      rcout8 <= cout8;
+      rcout9 <= cout9;
    end
-	 
+
+   // Stage 3
+   csa32 add10 (.A(rsum6), .B(rsum9), .C({rcout7[30:0], 1'b0}), .S(sum10), .Cout(cout10));
+   csa32 add11 (.A(rsum7), .B({rcout6[30:0], 1'b0}), .C({rcout9[30:0], 1'b0}), .S(sum11), .Cout(cout11));
+   csa32 add12 (.A(rsum8), .B({rcout8[30:0], 1'b0}), .C(rC/*32'b0*/), .S(sum12), .Cout(cout12));
+
+   // Stage 4
+   csa32 add13 (.A(sum10), .B(sum12), .C({cout11[30:0], 1'b0}), .S(sum13), .Cout(cout13));
+   csa32 add14 (.A(sum11), .B({cout10[30:0], 1'b0}), .C({cout12[30:0], 1'b0}), .S(sum14), .Cout(cout14));
+
+   // Stage 5
+   csa32 add15 (.A(sum13), .B(sum14), .C({cout13[30:0], 1'b0}), .S(sum15), .Cout(cout15));
+
+   // Stage 6
+   csa32 add16 (.A({cout14[30:0], 1'b0}), .B(sum15), .C({cout15[30:0], 1'b0}), .S(sum16), .Cout(cout16));
+
+   // Final adder
+   adder_fast finadd(.A(sum16), .B({cout16[30:0], 1'b0}), .Cin(1'b0), .S(Z));
+   
+   // Use adder tree instead
+   /*
+   wire [31:0] adder_r15_r0,adder_r13_c,adder_r12_r1,adder_r11_r2;
+   wire [31:0] adder_r10_r3,adder_r9_r4,adder_r8_r5, adder_r7_r6, adder_r15_r0_r14;
+   wire [31:0] adder_rc0, adder_rc1, adder_rc2, adder_rc3, adder_rc4, adder_rc5;
+   adder_fast adder0(.A({1'b0, A[31] , 30'b0}), .B(pprow0[31:0]), .Cin(1'b0), .S(adder_r15_r0));
+   adder_fast adder1(.A({pprow13[3:0], 1'b0, A[27], 26'b0}), .B(C), .Cin(1'b0), .S(adder_r13_c));
+   adder_fast adder2(.A({pprow12[5:0], 1'b0, A[25], 24'b0}), .B({pprow1[27:0], 1'b0, A[3], 2'b0}), .Cin(1'b0), .S(adder_r12_r1));
+   adder_fast adder3(.A({pprow11[7:0], 1'b0, A[23], 22'b0}), .B({pprow2[25:0], 1'b0, A[5], 4'b0}), .Cin(1'b0), .S(adder_r11_r2));
+   adder_fast adder4(.A({pprow10[9:0], 1'b0, A[21], 20'b0}), .B({pprow3[23:0], 1'b0, A[7], 6'b0}), .Cin(1'b0), .S(adder_r10_r3));
+   adder_fast adder5(.A({pprow9[11:0], 1'b0, A[19], 18'b0}), .B({pprow4[21:0], 1'b0, A[9], 8'b0}), .Cin(1'b0), .S(adder_r9_r4));
+   adder_fast adder6(.A({pprow8[13:0], 1'b0, A[17], 16'b0}), .B({pprow5[19:0], 1'b0, A[11], 10'b0}), .Cin(1'b0), .S(adder_r8_r5));
+   adder_fast adder7(.A({pprow7[15:0], 1'b0, A[15], 14'b0}), .B({pprow6[17:0], 1'b0, A[13], 12'b0}), .Cin(1'b0), .S(adder_r7_r6));
+   adder_fast adder8(.A({pprow14[1:0], 1'b0, A[29], 28'b0}), .B(adder_r15_r0), .Cin(1'b0), .S(adder_r15_r0_r14));
+    */
+   /*
+   reg [31:0]  rAdder_r15_r0_r7,rAdder_r14_c,rAdder_r13_r1,rAdder_r12_r2;
+   reg [31:0]  rAdder_r11_r3,rAdder_r10_r4,rAdder_r9_r5, rAdder_r8_r6;
+   
+   always @(posedge CLK) begin
+      rAdder_r15_r0_r7 <= adder_r15_r0_r7;
+      rAdder_r14_c <= adder_r14_c;
+      rAdder_r13_r1 <= adder_r13_r1;
+      rAdder_r12_r2 <= adder_r12_r2;
+      rAdder_r11_r3 <= adder_r11_r3;
+      rAdder_r10_r4 <= adder_r10_r4;
+      rAdder_r9_r5 <= adder_r9_r5;
+      rAdder_r8_r6 <= adder_r8_r6;
+   end
+   */
+   /*
+   adder_fast adder9(.A(adder_r15_r0_r14), .B(adder_r7_r6), .Cin(1'b0), .S(adder_rc0));
+   adder_fast adder10(.A(adder_r13_c), .B(adder_r8_r5), .Cin(1'b0), .S(adder_rc1));
+   adder_fast adder11(.A(adder_r12_r1), .B(adder_r9_r4), .Cin(1'b0), .S(adder_rc2));
+   adder_fast adder12(.A(adder_r11_r2), .B(adder_r10_r3), .Cin(1'b0), .S(adder_rc3));
+
+   reg [31:0]  rAdder_rc0, rAdder_rc1, rAdder_rc2, rAdder_rc3;
+   always @* begin //@(posedge CLK) begin
+      rAdder_rc0 <= adder_rc0;
+      rAdder_rc1 <= adder_rc1;
+      rAdder_rc2 <= adder_rc2;
+      rAdder_rc3 <= adder_rc3;
+   end
+
+   adder_fast adder13(.A(rAdder_rc0), .B(rAdder_rc3), .Cin(1'b0), .S(adder_rc4));
+   adder_fast adder14(.A(rAdder_rc1), .B(rAdder_rc2), .Cin(1'b0), .S(adder_rc5));
+   adder_fast adder15(.A(adder_rc4), .B(adder_rc5), .Cin(1'b0), .S(Z));
+    */
 endmodule // MADD
 
 // Generates 2's comp of A, using or -> xor tree
@@ -84,40 +190,40 @@ module Fast2sComp (A, Z);
 
    wire [31:0]   wOrRes;
 
-	 assign wOrRes[0] = 1'b0; // Low bit has nothing to or with
+   assign wOrRes[0] = A[0]; // Low bit has nothing to or with
    // Rest of bits just build an or tree, so every bit is ored with all lower
    // TODO If synth tool is dumb, I might have to make a tree here by hand
-	 assign wOrRes[1] = ~(|A[1:0]);
-   assign wOrRes[2] = ~(|A[2:0]);
-   assign wOrRes[3] = ~(|A[3:0]);
-   assign wOrRes[4] = ~(|A[4:0]);
-   assign wOrRes[5] = ~(|A[5:0]);
-   assign wOrRes[6] = ~(|A[6:0]);
-   assign wOrRes[7] = ~(|A[7:0]);
-   assign wOrRes[8] = ~(|A[8:0]);
-   assign wOrRes[9] = ~(|A[9:0]);
-   assign wOrRes[10] = ~(|A[10:0]);
-   assign wOrRes[11] = ~(|A[11:0]);
-   assign wOrRes[12] = ~(|A[12:0]);
-   assign wOrRes[13] = ~(|A[13:0]);
-   assign wOrRes[14] = ~(|A[14:0]);
-   assign wOrRes[15] = ~(|A[15:0]);
-   assign wOrRes[16] = ~(|A[16:0]);
-   assign wOrRes[17] = ~(|A[17:0]);
-   assign wOrRes[18] = ~(|A[18:0]);
-   assign wOrRes[19] = ~(|A[19:0]);
-   assign wOrRes[20] = ~(|A[20:0]);
-   assign wOrRes[21] = ~(|A[21:0]);
-   assign wOrRes[22] = ~(|A[22:0]);
-   assign wOrRes[23] = ~(|A[23:0]);
-   assign wOrRes[24] = ~(|A[24:0]);
-   assign wOrRes[25] = ~(|A[25:0]);
-   assign wOrRes[26] = ~(|A[26:0]);
-   assign wOrRes[27] = ~(|A[27:0]);
-   assign wOrRes[28] = ~(|A[28:0]);
-   assign wOrRes[29] = ~(|A[29:0]);
-   assign wOrRes[30] = ~(|A[30:0]);
-   assign wOrRes[31] = ~(|A[31:0]);
+   assign wOrRes[1] = |A[1:0];
+   assign wOrRes[2] = |A[2:0];
+   assign wOrRes[3] = |A[3:0];
+   assign wOrRes[4] = |A[4:0];
+   assign wOrRes[5] = |A[5:0];
+   assign wOrRes[6] = |A[6:0];
+   assign wOrRes[7] = |A[7:0];
+   assign wOrRes[8] = |A[8:0];
+   assign wOrRes[9] = |A[9:0];
+   assign wOrRes[10] = |A[10:0];
+   assign wOrRes[11] = |A[11:0];
+   assign wOrRes[12] = |A[12:0];
+   assign wOrRes[13] = |A[13:0];
+   assign wOrRes[14] = |A[14:0];
+   assign wOrRes[15] = |A[15:0];
+   assign wOrRes[16] = |A[16:0];
+   assign wOrRes[17] = |A[17:0];
+   assign wOrRes[18] = |A[18:0];
+   assign wOrRes[19] = |A[19:0];
+   assign wOrRes[20] = |A[20:0];
+   assign wOrRes[21] = |A[21:0];
+   assign wOrRes[22] = |A[22:0];
+   assign wOrRes[23] = |A[23:0];
+   assign wOrRes[24] = |A[24:0];
+   assign wOrRes[25] = |A[25:0];
+   assign wOrRes[26] = |A[26:0];
+   assign wOrRes[27] = |A[27:0];
+   assign wOrRes[28] = |A[28:0];
+   assign wOrRes[29] = |A[29:0];
+   assign wOrRes[30] = |A[30:0];
+   assign wOrRes[31] = |A[31:0];
    
    // Final stage, just xor to get result
    assign Z = A ^ wOrRes;
@@ -251,7 +357,7 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    wire          one6, two6, neg6, one7, two7, neg7, one8, two8, neg8;
    wire          one9, two9, neg9, one10, two10, neg10, one11, two11, neg11;
    wire          one12, two12, neg12, one13, two13, neg13, one14, two14, neg14;
-   wire					 one15, two15, neg15;
+   wire          one15, two15, neg15;
 
    // Could replace with generate, but what parts are v-2001???
    ModBoothEnc enc0 ({X[1:0], 1'b0}, one0, two0, neg0);
@@ -290,3 +396,33 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    PPGenLast ppgen15 (Y, one15, two15, neg15, pprow15);
 
 endmodule // BoothMult
+
+module adder_fast (A, B, Cin, S);
+
+   input [31:0]  A, B;
+   input         Cin;
+   output [31:0] S;
+
+   assign S = A + B;
+   
+endmodule // adder_fast
+
+module csa (A, B, C, S, Cout);
+
+   input  A, B, C;
+   output S, Cout;
+   
+   assign S = A ^ B ^ C;
+   assign Cout = (A & B) | (A & C) | (B & C);
+
+endmodule // csa
+
+module csa32 (A, B, C, S, Cout);
+
+   input [31:0]  A, B, C;
+   output [31:0] S, Cout;
+   
+   assign S = A ^ B ^ C;
+   assign Cout = (A & B) | (A & C) | (B & C);
+
+endmodule // csa32
