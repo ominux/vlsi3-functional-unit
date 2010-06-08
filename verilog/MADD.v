@@ -82,7 +82,9 @@ module MADD (CLK, A, B, C, Z);
    wire [31:0] sum0, sum1, sum2, sum3, sum4, sum5;
    wire [31:0] cout0, cout1, cout2, cout3, cout4, cout5;
 
-   csa32 add0 (.A(32'b0/*rC*/), .B({pprow8r[15:0], 1'b0, rA[15], 14'b0}), .C({1'b0, rA[31], 30'b0}), .S(sum0), .Cout(cout0)); // Total bits 50
+//   csa32 add0 (.A(32'b0/*rC*/), .B({pprow8r[15:0], 1'b0, rA[15], 14'b0}), .C({1'b0, rA[31], 30'b0}), .S(sum0), .Cout(cout0)); // Total bits 50
+   assign sum0 = {pprow8r[15:0], 1'b0, rA[15], 14'b0};
+   assign cout0 = 32'b0;
    csa32 add1 (.A(pprow0r[31:0]), .B({pprow9r[13:0], 1'b0, rA[17], 16'b0}), .C({pprow15r[1:0], 1'b0, rA[29], 28'b0}), .S(sum1), .Cout(cout1)); // Total bits 51
    csa32 add2 (.A({pprow1r[29:0], 1'b0, rA[1]}), .B({pprow10r[11:0], 1'b0, rA[19], 18'b0}), .C({pprow14r[3:0], 1'b0, rA[27], 26'b0}), .S(sum2), .Cout(cout2)); // Total bits 53
    csa32 add3 (.A({pprow2r[27:0], 1'b0, rA[3], 2'b0}), .B({pprow7r[17:0], 1'b0, rA[13], 12'b0}), .C({pprow13r[5:0], 1'b0, rA[25], 24'b0}), .S(sum3), .Cout(cout3)); // Total bits 55
@@ -131,54 +133,6 @@ module MADD (CLK, A, B, C, Z);
    // Final adder
    adder_fast finadd(.A(sum16), .B({cout16[30:0], 1'b0}), .Cin(1'b0), .S(Z));
    
-   // Use adder tree instead
-   /*
-   wire [31:0] adder_r15_r0,adder_r13_c,adder_r12_r1,adder_r11_r2;
-   wire [31:0] adder_r10_r3,adder_r9_r4,adder_r8_r5, adder_r7_r6, adder_r15_r0_r14;
-   wire [31:0] adder_rc0, adder_rc1, adder_rc2, adder_rc3, adder_rc4, adder_rc5;
-   adder_fast adder0(.A({1'b0, A[31] , 30'b0}), .B(pprow0[31:0]), .Cin(1'b0), .S(adder_r15_r0));
-   adder_fast adder1(.A({pprow13[3:0], 1'b0, A[27], 26'b0}), .B(C), .Cin(1'b0), .S(adder_r13_c));
-   adder_fast adder2(.A({pprow12[5:0], 1'b0, A[25], 24'b0}), .B({pprow1[27:0], 1'b0, A[3], 2'b0}), .Cin(1'b0), .S(adder_r12_r1));
-   adder_fast adder3(.A({pprow11[7:0], 1'b0, A[23], 22'b0}), .B({pprow2[25:0], 1'b0, A[5], 4'b0}), .Cin(1'b0), .S(adder_r11_r2));
-   adder_fast adder4(.A({pprow10[9:0], 1'b0, A[21], 20'b0}), .B({pprow3[23:0], 1'b0, A[7], 6'b0}), .Cin(1'b0), .S(adder_r10_r3));
-   adder_fast adder5(.A({pprow9[11:0], 1'b0, A[19], 18'b0}), .B({pprow4[21:0], 1'b0, A[9], 8'b0}), .Cin(1'b0), .S(adder_r9_r4));
-   adder_fast adder6(.A({pprow8[13:0], 1'b0, A[17], 16'b0}), .B({pprow5[19:0], 1'b0, A[11], 10'b0}), .Cin(1'b0), .S(adder_r8_r5));
-   adder_fast adder7(.A({pprow7[15:0], 1'b0, A[15], 14'b0}), .B({pprow6[17:0], 1'b0, A[13], 12'b0}), .Cin(1'b0), .S(adder_r7_r6));
-   adder_fast adder8(.A({pprow14[1:0], 1'b0, A[29], 28'b0}), .B(adder_r15_r0), .Cin(1'b0), .S(adder_r15_r0_r14));
-    */
-   /*
-   reg [31:0]  rAdder_r15_r0_r7,rAdder_r14_c,rAdder_r13_r1,rAdder_r12_r2;
-   reg [31:0]  rAdder_r11_r3,rAdder_r10_r4,rAdder_r9_r5, rAdder_r8_r6;
-   
-   always @(posedge CLK) begin
-      rAdder_r15_r0_r7 <= adder_r15_r0_r7;
-      rAdder_r14_c <= adder_r14_c;
-      rAdder_r13_r1 <= adder_r13_r1;
-      rAdder_r12_r2 <= adder_r12_r2;
-      rAdder_r11_r3 <= adder_r11_r3;
-      rAdder_r10_r4 <= adder_r10_r4;
-      rAdder_r9_r5 <= adder_r9_r5;
-      rAdder_r8_r6 <= adder_r8_r6;
-   end
-   */
-   /*
-   adder_fast adder9(.A(adder_r15_r0_r14), .B(adder_r7_r6), .Cin(1'b0), .S(adder_rc0));
-   adder_fast adder10(.A(adder_r13_c), .B(adder_r8_r5), .Cin(1'b0), .S(adder_rc1));
-   adder_fast adder11(.A(adder_r12_r1), .B(adder_r9_r4), .Cin(1'b0), .S(adder_rc2));
-   adder_fast adder12(.A(adder_r11_r2), .B(adder_r10_r3), .Cin(1'b0), .S(adder_rc3));
-
-   reg [31:0]  rAdder_rc0, rAdder_rc1, rAdder_rc2, rAdder_rc3;
-   always @* begin //@(posedge CLK) begin
-      rAdder_rc0 <= adder_rc0;
-      rAdder_rc1 <= adder_rc1;
-      rAdder_rc2 <= adder_rc2;
-      rAdder_rc3 <= adder_rc3;
-   end
-
-   adder_fast adder13(.A(rAdder_rc0), .B(rAdder_rc3), .Cin(1'b0), .S(adder_rc4));
-   adder_fast adder14(.A(rAdder_rc1), .B(rAdder_rc2), .Cin(1'b0), .S(adder_rc5));
-   adder_fast adder15(.A(adder_rc4), .B(adder_rc5), .Cin(1'b0), .S(Z));
-    */
 endmodule // MADD
 
 // Generates 2's comp of A, using or -> xor tree
@@ -188,9 +142,10 @@ module Fast2sComp (A, Z);
    input [31:0]  A;
    output [31:0] Z;
 
+   /*
    wire [31:0]   wOrRes;
 
-   assign wOrRes[0] = A[0]; // Low bit has nothing to or with
+   assign wOrRes[0] = 0; // Low bit has nothing to or with
    // Rest of bits just build an or tree, so every bit is ored with all lower
    // TODO If synth tool is dumb, I might have to make a tree here by hand
    assign wOrRes[1] = |A[1:0];
@@ -227,6 +182,8 @@ module Fast2sComp (A, Z);
    
    // Final stage, just xor to get result
    assign Z = A ^ wOrRes;
+    */
+   assign Z = ~A + 1'b1;
 
 endmodule // Fast2sComp
 
@@ -241,6 +198,19 @@ module ModBoothEnc (X, one, two, neg);
    assign neg = X[2];
    
 endmodule // ModBoothEnc
+
+// Modified booth encoder, this isn't really required
+module ModBoothEncLast (X, posone, negone, postwo, negtwo);
+
+   input [2:0] X;
+   output      posone, negone, postwo, negtwo;
+
+   assign posone = ~(~(X[0] ^ X[1]) | X[2]);
+   assign negone = ~(~(X[0] ^ X[1]) | ~X[2]);
+   assign postwo = ~(~(X[0] & X[1]) | X[2]);
+   assign negtwo = ~((X[0] | X[1]) | ~X[2]);
+
+endmodule // ModBoothEncLast
 
 // Partial product generation for norma (not first or last) lines
 module PPGenNorm (Y, one, two, neg, pp);
@@ -319,10 +289,10 @@ module PPGenPenult (Y, one, two, neg, pp);
 endmodule // PPGenPenult
 
 // Final is the crazy 2's comp one
-module PPGenLast (Y, one, two, neg, pp);
+module PPGenLast (Y, posone, negone, postwo, negtwo, pp);
    
    input [31:0]  Y;
-   input         one, two, neg;
+   input         posone, negone, postwo, negtwo;
    output [33:0] pp;
 
    wire [32:0]   plustwo, plusone, minustwo, minusone;
@@ -331,14 +301,14 @@ module PPGenLast (Y, one, two, neg, pp);
    Fast2sComp twoscomper (Y, twoscomp);
 
    // Mux the possible combinations
-   assign plustwo = (two & ~neg) ? {Y, 1'b0} : 32'b0;
-   assign plusone = (one & ~neg) ? {Y[31], Y} : 32'b0;
-   assign minustwo = (two & neg) ? {twoscomp, 1'b0} : 32'b0;
-   assign minusone = (one & neg) ? {twoscomp[31], twoscomp} : 32'b0;
+   assign plustwo = postwo ? {Y, 1'b0} : 32'b0;
+   assign plusone = posone ? {Y[31], Y} : 32'b0;
+   assign minustwo = negtwo ? {twoscomp, 1'b0} : 32'b0;
+   assign minusone = negone ? {twoscomp[31], twoscomp} : 32'b0;
 
    assign pp[32:0] = plustwo | plusone | minustwo | minusone;
    assign pp[33] = ~pp[32];
-   
+
 endmodule // PPGenLast
 
 // Combine all partial products into rows (16 total)
@@ -357,7 +327,7 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    wire          one6, two6, neg6, one7, two7, neg7, one8, two8, neg8;
    wire          one9, two9, neg9, one10, two10, neg10, one11, two11, neg11;
    wire          one12, two12, neg12, one13, two13, neg13, one14, two14, neg14;
-   wire          one15, two15, neg15;
+   wire          posone15, negone15, postwo15, negtwo15;
 
    // Could replace with generate, but what parts are v-2001???
    ModBoothEnc enc0 ({X[1:0], 1'b0}, one0, two0, neg0);
@@ -375,7 +345,7 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    ModBoothEnc enc12 (X[25:23], one12, two12, neg12);
    ModBoothEnc enc13 (X[27:25], one13, two13, neg13);
    ModBoothEnc enc14 (X[29:27], one14, two14, neg14);
-   ModBoothEnc enc15 (X[31:29], one15, two15, neg15);
+   ModBoothEncLast enc15 (X[31:29], posone15, negone15, postwo15, negtwo15);
 
    // Generate partial products, again, could use generate, but whatever
    PPGenFirst ppgen0 (Y, one0, two0, neg0, pprow0);
@@ -393,7 +363,7 @@ module BoothMult (X, Y, pprow0, pprow1, pprow2, pprow3, pprow4, pprow5, pprow6,
    PPGenNorm ppgen12 (Y, one12, two12, neg12, pprow12);
    PPGenNorm ppgen13 (Y, one13, two13, neg13, pprow13);
    PPGenPenult ppgen14 (Y, one14, two14, neg14, pprow14);
-   PPGenLast ppgen15 (Y, one15, two15, neg15, pprow15);
+   PPGenLast ppgen15 (Y, posone15, negone15, postwo15, negtwo15, pprow15);
 
 endmodule // BoothMult
 
