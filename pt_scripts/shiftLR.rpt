@@ -3,7 +3,7 @@ Report : Statistical Average Power
 	-hierarchy
 Design : ShiftLR
 Version: A-2007.12-SP3
-Date   : Thu May 20 16:57:07 2010
+Date   : Thu May 27 19:45:44 2010
 ****************************************
 
 
@@ -11,5 +11,5 @@ Date   : Thu May 20 16:57:07 2010
                                       Switch   Int      Leak      Total
 Hierarchy                             Power    Power    Power     Power    %
 --------------------------------------------------------------------------------
-ShiftLR                               2.67e-04 5.04e-04 3.29e-08  7.71e-04 100.0
+ShiftLR                               3.54e-04 2.58e-04 2.82e-08  6.12e-04 100.0
 1
