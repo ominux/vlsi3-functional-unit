@@ -10,6 +10,9 @@
 # for synthesis of the entire FU
 set my_verilog_files [list MADD.v ]
 
+#/* To synthesize to different corners */
+set corner	"_tt1p2v25c"
+
 #/* Top-level Module                               */
 set my_toplevel MADD
 
@@ -53,8 +56,8 @@ elaborate $my_toplevel
 current_design $my_toplevel
 
 link
-set_flatten true -effort high
 uniquify
+set_flatten true -effort high -minimize multiple_output
 
 set my_period [expr 1000 / $my_clk_freq_MHz]
 
@@ -71,9 +74,15 @@ set_driving_cell  -lib_cell SEN_INV_1  [all_inputs]
 set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
 set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]
 
-compile -ungroup_all -map_effort high
+# Constrain for power
+set_max_dynamic_power 5 mW
+#set_power_driven_clock_gating
 
-compile -incremental_mapping -map_effort high
+#compile -ungroup_all -map_effort low -power_effort high
+compile_ultra -gate_clock
+
+#compile -incremental_mapping -map_effort low -power_effort high
+compile_ultra -incremental
 
 check_design
 report_constraint -all_violators
