@@ -1,11 +1,11 @@
-* Path, Component, Release: cmos10lpe/rel/HSPICE/models/design.inc, 10lpe_models, mod_cmos10lpe
-* CMVC Revision: 1.1.1.12 07/12/14 14:46:59
+* Path, Component, Release: cmos10lpe/relRF/HSPICE/models/design_model.inc, 10lpe_models, mod_cmos10lpe
+* CMVC Revision: 1.6 08/03/28 17:00:54
 ***********************************************************************
 *
 *   Licensed Materials - Property of IBM
 *
 *   IBM CONFIDENTIAL
-*   (C) 2007 IBM Corporation 
+*   (C) 2008 IBM Corporation 
 *
 *   US Government Users Restricted Rights - Use, duplication
 *   or disclosure restricted by GSA ADP Schedule contract with
@@ -49,20 +49,6 @@
 *             FET type, ACWV is determined by chip mean delta W for that FET type and
 *             dopant density matching is determined by chip mean vt variation for that
 *             FET type.
-*gwells=0:
-*           Disable the well proximity model, regardless if a FET netlist call has or has not
-*           provided the well proximity effect instance parameters
-*           (Well proximity effect instance inputs refer to layout parameters
-*           PANW1, PANW2,...,PANW10 in a fet model call)
-*gwells=1: (default)
-*           Default to no well proximity effect if there are no instance parameters are
-*           provided in a FET netlist call. If the instance parameters are provided in
-*           the FET netlist, the well proximity effect is calculated using the provided
-*           instance parameters.
-*gwells=2: If no well proximity effect instance parameters are provided in a FET netlist call, 
-*            nwell proximity effect will be determined by L , W and nf instance parameters. 
-*            If the nwell instance parameters (panw1-panw10) are provided in the FET netlist,
-*            the well proximity effect is calculated using the provided instance parameters.       
 * gstis      Switch to enable the STI stress model
 * gstis=0   Disable the STI stress effect model, regardless if a FET netlist call has
 *           or has not provided STI stress instance parameters
@@ -73,6 +59,15 @@
 *           STI stress effect instance parameters are provided in a FET netlist call.
 *           Otherwise STI stress effect is calculated using the provided instance parameters
 *           if provided.
+* gwells      Switch to enable well proximity model
+* gwells=0  Disable the well proximity model, regardless if a FET netlist call has
+*           or has not provided well proximity effect instance parameters
+* gwells=1(default)--Default to no well proximity effect if there are no instance parameters
+*           provided.If instance parameters are provided, well proximity is calculated
+*           using the provided instance parameters.
+* gwells=2  Set well proximity parameters to GR minimum for if no well proximity instance
+*           parameters are provided.Otherwise well proximity effect is calculated using the
+*           provided instance parameters.
 * fet_dop_mm  This switch enables variation of FET Vt and conductance due to random
 *             variation in the number of dopant atoms under the channel between instances
 *             of the same FET type.
@@ -142,16 +137,10 @@
 * cor_pc  : Small gate length for NFETs, PFETs (high current)
 *              (works in concert with xcor_nmos and xcorpmos)
 * cor_rx  : Large width for for NFETs, PFETs (high current)
-* cor_res : Nwell Rs, OP P+ Rs and Rend, OP N+ diffusion Rs and Rend, etc.
-* cor_cap : NW-sub, Pwell-Nband, Nband-Sub junction cap, MIMCAP, etc.
-* cor_wirerc : Metal (M1, M2, ...) wire thickness, Rs, and image bias/tol.
-* cor_acv_corr : Corner inputs for aclv nest, orient, and dist. (Correlated components)
-* cor_acv_uncorr :Corner inputs for aclv random, and acv corners for mismatch
-* pre_layout_sw : default =0  sets rgatemod = 0 , no added capacitance for pc-ca
-* pre_layout_sw =1 sets rgatemod =1, add pc_ca_cap to cf bsim parameter.
+* cor_acv : ACV corner parameter, aclv,acwv,vt mismatch
 ******************************************************************************
 * -----------------------------------------
-* ESD Global switches: 
+* ESD Global switches:
 * --------------------------
 * esd_event = global parameter used for esd event switching
 *             esd_event=0 esd high current features disabled
@@ -216,7 +205,7 @@
 ***************************************
 *** BEOL wiring option.  must be set according to wiring option in use
 *** as numbered in table in DM section 2
-+ wireopt	  = 1		
++ wireopt	  = 1
 + cor_sub         = cor_wirerc
 + cor_nw          = cor_res
 + cor_nband       = cor_wirerc
@@ -244,7 +233,9 @@
 + cor_ea          = cor_wirerc
 + cor_eb          = cor_wirerc
 + cor_lb          = cor_wirerc
-+ cor_ol          = cor_wirerc
++ cor_ld          = cor_wirerc
++ cor_oa          = cor_wirerc
++ cor_oi          = cor_wirerc
 + cor_sub_pc      = cor_wirerc
 + cor_diff_m1     = cor_wirerc
 + cor_v1	  = cor_wirerc
@@ -259,11 +250,16 @@
 + cor_w1	  = cor_wirerc
 + cor_w2	  = cor_wirerc
 + cor_yt	  = cor_wirerc
++ cor_nt	  = cor_wirerc
 + cor_ya	  = cor_wirerc
++ cor_jq	  = cor_wirerc
++ cor_jt	  = cor_wirerc
 + cor_vv	  = cor_wirerc
 ****************************************
 * cor_xfet parameters
 .param
++    cor_adnfet = 0
++    cor_adpfet = 0
 +    cor_dgnfet = 0
 +    cor_dgpfet = 0
 +    cor_dgvnfet = 0
@@ -302,50 +298,42 @@
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/diode_param.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esd_param.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/mosvar_param.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/havar_param.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/resistor_param.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/vpnp_param.inc'
-*** Fet includes
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgxnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgxpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/hvtnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/hvtpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/natdgnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/natnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/nfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpdanfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpdbnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpdcnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpddnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpganfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpgbnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpgcnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpgdnfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpuapfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpubpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpucpfet.inc'
-.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/srpudpfet.inc'
+.lib '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lib.models.10lpe' 10lpe_models
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/nfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtnfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtpfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/hvtnfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/hvtpfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgnfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgpfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvnfet_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvpfet_rf.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgnfettw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvnfettw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/hvtnfettw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtnfettw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/nfettw.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgnfettw_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgvnfettw_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/lvtnfettw_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/nfettw_rf.inc'
 **** Passive includes
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/vpnp.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/ngrvpnp.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/vncap.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/mimcap.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/ncap.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/dgncap.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pcap.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/havar.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/efuse.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/nwres.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/opppcres.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/oprppres.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/opndres.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/sblkndres.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/sblkpdres.inc'
@@ -354,6 +342,11 @@
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdvnpn.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdscr_dw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdscr_tw.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdvpnp_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdndsx_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdvnpn_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdscr_dw_rf.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/esdscr_tw_rf.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/diodenwx.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/diodenx.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/diodepnw.inc'
@@ -363,7 +356,17 @@
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/tdpdnw.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/indstack.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/symindp.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/indp.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/inds.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/bondpad.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pex_res.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pex_cap.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/pexwirecap.inc'
 .inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/subc.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/single_RC.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/singlecpw.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/singlewire.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/coupled_RC.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/coupledcpw.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/coupledwires.inc'
+.inc '/usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/HSPICE/models/rfline.inc'
