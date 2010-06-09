@@ -9,8 +9,10 @@
 .GLOBAL vdd
 .GLOBAL vdd!
 
-vdd vdd gnd DC=my_vdd
-vdd! vdd! gnd! DC=my_vdd
+*vdd vdd gnd DC=my_vdd
+*vdd! vdd! gnd! DC=my_vdd
+vddConst vddConst gnd DC=my_vdd
+
 vss vss gnd DC=0V
 
 *****************************Simulation settings ******************************
@@ -31,6 +33,11 @@ vss vss gnd DC=0V
 .INCLUDE "Alu.sp"
 *.INCLUDE "minbuf.sp"
 .INCLUDE "cp65npksdst.lvs"
+
+*vddConst is powered by dc voltage, but vdd is driven by VDDPFET
+Vpd PD gnd pulse (0V my_vdd 10ps 10ps 10ps 7.49ns 15ns)
+MPFET vdd PD vddConst vddConst pfet L=0.06u W=0.6u
+MBPFET vdd! PD vddConst vddConst pfet L=0.06u W=0.6u
 
 .vec alu.vec
 
