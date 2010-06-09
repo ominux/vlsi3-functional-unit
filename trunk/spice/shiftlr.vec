@@ -1,0 +1,18 @@
+radix 		44444444      14              1               1
+vname 		X<[31:0]>     S<[4:0]>        LEFT            LOG
+period 1.0ns
+tfall .02
+trise .02
+vih 1.2
+vil 0
+
+;for delay sim
+;	 	  X               S            LEFT           LOG
+           00000078              00               0             0
+           FFFFFFFF              01               0             0
+           00000339              06               0             0
+           000003FF              10               0             0
+           00000000              0F               0             0
+           000002D4              3B               0             0
+           00000005              0A               0             0
+           00000078              07               0             0

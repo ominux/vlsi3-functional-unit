@@ -29,6 +29,7 @@ vdd! vdd! gnd! DC=my_vdd
 
 .INCLUDE "MADD.sp"
 *.INCLUDE "minbuf.sp"
+.INCLUDE "cp65npksdst.lvs"
 
 .vec madd.vec
 
@@ -144,6 +145,18 @@ Vclk CLK gnd pulse (0V my_vdd 30ps 20ps 20ps 1.2ns 2.4ns)
 
 * clock input
 *xclk vdd gnd inclk CLK minbuff
+
+*****************************CELL UNDER TEST ***************************
+xmadd CLK A<31> A<30> A<29> A<28> A<27> A<26> A<25> A<24> A<23> A<22> 
++ A<21> A<20> A<19> A<18> A<17> A<16> A<15> A<14> A<13> A<12> A<11> A<10> A<9> 
++ A<8> A<7> A<6> A<5> A<4> A<3> A<2> A<1> A<0> B<31> B<30> B<29> B<28> B<27> 
++ B<26> B<25> B<24> B<23> B<22> B<21> B<20> B<19> B<18> B<17> B<16> B<15> B<14> 
++ B<13> B<12> B<11> B<10> B<9> B<8> B<7> B<6> B<5> B<4> B<3> B<2> B<1> B<0> 
++ C<31> C<30> C<29> C<28> C<27> C<26> C<25> C<24> C<23> C<22> C<21> C<20> C<19> 
++ C<18> C<17> C<16> C<15> C<14> C<13> C<12> C<11> C<10> C<9> C<8> C<7> C<6> 
++ C<5> C<4> C<3> C<2> C<1> C<0> Z<31> Z<30> Z<29> Z<28> Z<27> Z<26> Z<25> Z<24> 
++ Z<23> Z<22> Z<21> Z<20> Z<19> Z<18> Z<17> Z<16> Z<15> Z<14> Z<13> Z<12> Z<11> 
++ Z<10> Z<9> Z<8> Z<7> Z<6> Z<5> Z<4> Z<3> Z<2> Z<1> Z<0> MADD
 
 *****************************OUTPUTS ***********************************
 
