@@ -21,7 +21,12 @@ set my_toplevel MADD
 set my_clock_pin CLK
 
 #/* Target frequency in MHz for optimization       */
+#set my_clk_freq_MHz 700
 set my_clk_freq_MHz 1000
+
+#/* Target clock period in ns												*/
+#set my_period 1.4
+set my_period 1.0
 
 #/* Delay of input signals (Clock-to-Q, Package etc.)  */
 set my_input_delay_ns 0.0
@@ -59,7 +64,7 @@ link
 uniquify
 set_flatten true -effort high -minimize multiple_output
 
-set my_period [expr 1000 / $my_clk_freq_MHz]
+#set my_period [expr 1000 / $my_clk_freq_MHz]
 
 set find_clock [ find port [list $my_clock_pin] ]
 if {  $find_clock != [list] } {

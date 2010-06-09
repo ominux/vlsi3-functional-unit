@@ -46,3 +46,46 @@ vcs:
 	
 	setup:				source /usr/nikola/groups/vlsi/pkgs/vcs/vcs.cshrc
 
+encounter:
+
+	description:	Run Encounter from the schematic directory.  You can then import a
+								design and specify all the necessary files relative to that schematic
+								directory.  If you are missing any files, you can get them from the 
+								locations specified below in ~cbolson1/vlsi_fu/.
+
+	demo:					/s0/robin/cp65npksdsta03/demo/pnr/soce/
+
+	syntax:				encounter
+
+	setup:				source /usr/nikola/groups/vlsi/pkgs/cadence_soc/soc.cshrc
+
+	locations:		lib:	$ROOT/schematic/lib/
+								db:		$ROOT/synthesis/db/
+								sdb:	$ROOT/synthesis/sdb/
+								lef:	$ROOT/schematic/lef/
+
+	uncertain:		capTable = "captables/${mStack}/${mStack}_captables.dat" 
+								coreOr = aspect
+
+	steps:				design->import_design
+								floorplan->specify floorplan->Ratio,coreUtilization,core_to_boundary, Advanced->Row Height
+								floorplan->connect global nets
+								power->power planning->add rings (use M4/5 width=8,space=1,offset=1)
+								power->power planning->add stripes (M5,horizontal,width=8,space=1,Y offset from bottom=5)
+								route->special route-> deselect pad pins
+								place->standard cells and blocks
+								place->filler->add filler
+								route->NanoRoute->route
+								verify->verify geometery
+								save -> gds
+
+V2LVS
+	
+	
+	setup:				source /usr/nikola/groups/pkgs/calibre/calibre.cshrc
+
+	syntax:				v2lvs -v ../synthesis/<cell_name>.vh > -o <cell_name>.sp
+								.inc /usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relCP/HSPICE/models/design.inc
+								.inc <VLSI3_ROOT>/ schematic/cp65npksdst.extracted
+	
+	standard cell data is all on vlsi003

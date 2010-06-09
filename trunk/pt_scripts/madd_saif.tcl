@@ -3,15 +3,11 @@ set power_enable_analysis TRUE
 #####################################################################
 #       link design
 #####################################################################
-set search_path		[list ./ ../synthesis ../synthesis/db ../benchmark]
+set search_path		[list ./ ../synthesis ../benchmark]
 set link_library	" * cp65npksdst_tt1p2v25c.db "
 
-##########################################################
-# Change this to switch between new design and benchmark #
-read_verilog		../synthesis/ShiftLR.vh
-#read_verilog		../benchmark/ShiftLR.vrl
-##########################################################
-current_design		ShiftLR
+read_verilog			../synthesis/MADD.vh
+current_design		MADD
 link
 
 
@@ -19,15 +15,11 @@ link
 #       clock required for average waveform
 #####################################################################
 
-
-##########################################################
-# Change this to switch between new design and benchmark #
-read_sdc ../synthesis/ShiftLR.sdc
+read_sdc ../synthesis/MADD.sdc
 # for a design without a clock input
 #create_clock -name clock -period 1.4
 # for a design with an input clock port
 #create_clock -period 1.4 [get_port CLOCK]
-##########################################################
 
 
 # set the wire load model
@@ -58,17 +50,16 @@ read_sdc ../synthesis/ShiftLR.sdc
 #read_saif "none.saif" -strip_path Alu
 #report_switching_activity -list_not_annotated
 
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 LEFT
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 LOG
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 X
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 S
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 A
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 B
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 C
 
 #####################################################################
 #       check/update/report power
 #####################################################################
 check_power
 update_power
-report_power -hierarchy > shiftLR.rpt
+report_power -hierarchy > madd.rpt
 
 # This is an optional step
 #create_power_waveforms -output saif
