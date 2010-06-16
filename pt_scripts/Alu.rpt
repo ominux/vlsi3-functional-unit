@@ -1,96 +1,32 @@
 ****************************************
-Report : timing
-	-path_type full
-	-delay_type max
-	-max_paths 1
-Design : Alu
-Version: A-2007.12-SP3
-Date   : Thu May 27 19:48:08 2010
-****************************************
-
-
-  Startpoint: INST[0] (input port clocked by vclk)
-  Endpoint: FLAGS[0] (output port clocked by vclk)
-  Path Group: vclk
-  Path Type: max
-
-  Point                                    Incr       Path
-  ---------------------------------------------------------------
-  clock vclk (rise edge)                   0.00       0.00
-  clock network delay (ideal)              0.00       0.00
-  input external delay                     0.00       0.00 r
-  INST[0] (in)                             0.02       0.02 r
-  U845/X (SEN_BUF_8)                       0.06       0.07 r
-  U906/X (SEN_INV_3)                       0.03       0.10 f
-  U982/X (SEN_AN2_6)                       0.04       0.14 f
-  U741/X (SEN_ND3_T_1P5)                   0.03       0.18 r
-  U660/X (SEN_ND2_3)                       0.04       0.22 f
-  U533/X (SEN_INV_6)                       0.03       0.25 r
-  U555/X (SEN_INV_S_8)                     0.03       0.28 f
-  U553/X (SEN_MUXI2_S_4)                   0.03       0.31 r
-  U835/X (SEN_ND2_T_2)                     0.03       0.34 f
-  U663/X (SEN_INV_1)                       0.06       0.40 r
-  U549/X (SEN_EN2_S_4)                     0.06       0.46 r
-  U519/X (SEN_AOI211_G_5)                  0.04       0.50 f
-  U601/X (SEN_INV_3)                       0.03       0.53 r
-  U860/X (SEN_ND2_4)                       0.02       0.55 f
-  U722/X (SEN_ND2_T_6)                     0.03       0.58 r
-  U703/X (SEN_ND2_8)                       0.03       0.61 f
-  U994/X (SEN_ND2_6)                       0.02       0.63 r
-  U961/X (SEN_INV_S_8)                     0.02       0.65 f
-  U851/X (SEN_ND2_6)                       0.02       0.67 r
-  U857/X (SEN_ND4B_4)                      0.05       0.72 f
-  U856/X (SEN_ND3_T_4)                     0.04       0.76 r
-  U1050/X (SEN_NR2_T_2)                    0.03       0.79 f
-  U725/X (SEN_NR2_T_4)                     0.03       0.82 r
-  U724/X (SEN_ND2_T_6)                     0.03       0.85 f
-  U489/X (SEN_ND2_1P5)                     0.04       0.88 r
-  U836/X (SEN_OR4B_4)                      0.04       0.93 f
-  U1116/X (SEN_INV_0P65)                   0.06       0.98 r
-  U853/X (SEN_AO2BB2_2)                    0.04       1.03 f
-  U852/X (SEN_EN2_S_1)                     0.05       1.08 f
-  FLAGS[0] (out)                           0.00       1.08 f
-  data arrival time                                   1.08
-
-  clock vclk (rise edge)                   1.40       1.40
-  clock network delay (ideal)              0.00       1.40
-  output external delay                    0.00       1.40
-  data required time                                  1.40
-  ---------------------------------------------------------------
-  data required time                                  1.40
-  data arrival time                                  -1.08
-  ---------------------------------------------------------------
-  slack (MET)                                         0.32
-
-
-1
-****************************************
 Report : Statistical Average Power
-	-hierarchy
 Design : Alu
 Version: A-2007.12-SP3
-Date   : Thu May 27 19:48:17 2010
+Date   : Wed Jun  9 09:00:33 2010
 ****************************************
 
 
 
-                                      Switch   Int      Leak      Total
-Hierarchy                             Power    Power    Power     Power    %
+  Attributes
+  ----------
+      i  -  Including register clock pin internal power
+      u  -  User defined power group
+
+                        Internal  Switching  Leakage    Total
+Power Group             Power     Power      Power      Power   (     %)  Attrs
 --------------------------------------------------------------------------------
-Alu                                   1.28e-03 1.26e-03 1.93e-07  2.54e-03 100.0
-1
-****************************************
-Report : Statistical Average Power
-	-hierarchy
-Design : Alu
-Version: A-2007.12-SP3
-Date   : Fri May 28 13:34:00 2010
-****************************************
+io_pad                     0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+memory                     0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+black_box                  0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+clock_network              0.0000    0.0000    0.0000    0.0000 ( 0.00%)  i
+register                   0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+combinational           9.606e-04 1.053e-03 1.295e-07 2.014e-03 (100.00%) 
+sequential                 0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
 
+  Net Switching Power  = 1.053e-03   (52.30%)
+  Cell Internal Power  = 9.606e-04   (47.70%)
+  Cell Leakage Power   = 1.295e-07   ( 0.01%)
+                         ---------
+Total Power            = 2.014e-03  (100.00%)
 
-
-                                      Switch   Int      Leak      Total
-Hierarchy                             Power    Power    Power     Power    %
---------------------------------------------------------------------------------
-Alu                                   3.93e-03 4.36e-03 5.30e-07  8.29e-03 100.0
 1

@@ -28,6 +28,22 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
           carrychain[i] = G[i] + (P[i] & carrychain[i-1]);
         end
     end
+
+	/* should redo this so we don't get a ripple carry adder
+	// 8 4-bit CLAs that interface directly with the bits
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+	CLA cla_0 ();
+		
+	// 2 MS 4-bit CLAs that interface with the lower level CLAs
+	CLA cla_0 ();
+	CLA cla_0 ();
+	*/
 	
 	// Sum
   wire [32:0] shiftedcarry;
@@ -42,3 +58,25 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
 	assign OVF = shiftedcarry[32] ^ shiftedcarry[31];
 
 endmodule
+
+/* not currently used
+// Carry Look-Ahead Unit
+module CLA (P, G, C, Cout, Pin, Gin, Cin);
+
+	// I/O
+	output	[3:0] C;
+	output				Cout, P, G;
+	input		[3:0] Pin, Gin;
+	input					Cin;
+	
+	assign C[0] = Cin;
+	assign C[1] = Gin[0] + (Pin[0] & Cin);
+	assign C[2] = Gin[1] + (Pin[1] & Gin[0]) + (Pin[1] & Pin[0] & Cin);
+	assign C[3] = Gin[2] + (Pin[2] & Gin[1]) + (Pin[2] & Pin[1] & Gin[0]) + (Pin[2] & Pin[1] & Pin[0] & Cin);
+	assign Cout = Gin[3] + (Pin[3] & Gin[2]) + (Pin[3] & Pin[2] & Gin[1]) + (Pin[3] & Pin[2] & Pin[1] & Gin[0]) + (Pin[3] & Pin[2] & Pin[1] & Pin[0] & Cin);
+	
+	assign P = &Pin;
+	assign G = Gin[3] + Pin[3] & Gin[2] + Pin[3] & Pin[2] & Gin[1] + Pin[3] & Pin[2] & Pin[1] & Gin[0];
+	
+endmodule
+*/

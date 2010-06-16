@@ -8,8 +8,8 @@ set link_library	" * cp65npksdst_tt1p2v25c.db "
 
 ##########################################################
 # Change this to switch between new design and benchmark #
-#read_verilog		../synthesis/Alu.vh
-read_verilog		../benchmark/Alu.vrl
+read_verilog		../synthesis/Alu.vh
+#read_verilog		../benchmark/Alu.vrl
 ##########################################################
 current_design		Alu
 link
@@ -24,9 +24,9 @@ link
 # Change this to switch between new design and benchmark #
 #read_sdc ../synthesis/Alu.sdc
 # for a design without a clock input
-#create_clock -name clock -period 1.0
+create_clock -name clock -period 1.0
 # for a design with an input clock port
-create_clock -period 1.0 [get_port CLOCK]
+#create_clock -period 1.0 [get_port CLOCK]
 ##########################################################
 
 
@@ -59,9 +59,9 @@ set_switching_activity -toggle_count 0.25 -static_probability 0.5 INST
 
 ##########################################################
 # Change this to switch between new design and benchmark #
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 DI
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 CI
-set_switching_activity -toggle_count 0.25 -static_probability 0.5 FirstCyc
+#set_switching_activity -toggle_count 0.25 -static_probability 0.5 DI
+#set_switching_activity -toggle_count 0.25 -static_probability 0.5 CI
+#set_switching_activity -toggle_count 0.25 -static_probability 0.5 FirstCyc
 ##########################################################
 
 
@@ -71,7 +71,8 @@ set_switching_activity -toggle_count 0.25 -static_probability 0.5 FirstCyc
 #####################################################################
 check_power
 update_power
-report_power -hierarchy > Alu.rpt
+#report_power -hierarchy > Alu.rpt
+report_power > Alu.rpt
 
 # This is an optional step
 #create_power_waveforms -output saif
