@@ -81,11 +81,6 @@ encounter:
 
 V2LVS
 	
-	
 	setup:				source /usr/nikola/groups/pkgs/calibre/calibre.cshrc
 
-	syntax:				v2lvs -v ../synthesis/<cell_name>.vh > -o <cell_name>.sp
-								.inc /usr/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relCP/HSPICE/models/design.inc
-								.inc <VLSI3_ROOT>/ schematic/cp65npksdst.extracted
-	
-	standard cell data is all on vlsi003
+	syntax:				v2lvs -i -v ../synthesis/<cellname>.vh -s0 VSS -s1 VDD -s design_model.inc -o <cellname>.sp -lsr cp65npksdst.lvs

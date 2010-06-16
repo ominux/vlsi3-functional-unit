@@ -3,7 +3,7 @@
 
 *****************************parameter settings *******************************
 .param my_vdd=1.2V
-.param my_sim_time=15ns
+.param my_sim_time=10ns
 
 *****************************power rails **************************************
 .GLOBAL vdd
@@ -35,18 +35,19 @@ vss vss gnd DC=0V
 .INCLUDE "cp65npksdst.lvs"
 
 *vddConst is powered by dc voltage, but vdd is driven by VDDPFET
-Vpd PD gnd pulse (0V my_vdd 10ps 10ps 10ps 7.49ns 15ns)
-MPFET vdd PD vddConst vddConst pfet L=0.06u W=0.6u
-MBPFET vdd! PD vddConst vddConst pfet L=0.06u W=0.6u
+Vpd PD gnd pulse (0V my_vdd 1.0ns 10ps 10ps 4.99ns 10ns)
+MPFET vdd PD vddConst vddConst pfet L=0.06u W=6u M=120
+MBPFET vdd! PD vddConst vddConst pfet L=0.06u W=6u M=120
 
 .vec alu.vec
 
 *****************************get the energy ***********************************
 
-.meas tran Qtot integral i(vdd!) from=10ps to=my_sim_time
-.meas tran Qtot2 integral i(vdd) from=10ps to=my_sim_time
-.meas Etot param='my_vdd*(Qtot+Qtot2)
-.meas Pav param='my_vdd/my_sim_time*(Qtot+Qtot2)
+*.meas tran Qtot integral i(vdd!) from=10ps to=my_sim_time
+*.meas tran Qtot2 integral i(vdd) from=10ps to=my_sim_time
+*.meas Etot param='my_vdd*(Qtot+Qtot2)
+.meas tran Qtot integral i(vddConst) from=10ps to=my_sim_time
+.meas Etot param='my_vdd*(Qtot)
 
 *****************************Clock define *************************************
 

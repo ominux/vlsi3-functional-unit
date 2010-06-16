@@ -1,0 +1,545 @@
+\o Program:		@(#)$CDS: icfb.exe version 5.1.0 01/19/2010 03:52 (cicln04) $
+\o Hierarchy:		/afs/ee.washington.edu/nikola/groups/vlsi/.ws30-ia32/pkgs/cadence_ic/.5.1.41.usr6/tools.lnx86/dfII/
+\o Sub version:		sub-version 5.10.41.500.6.141 (32-bit addresses)
+\o Host name (type):	acme22 (x86_64)
+\o Operating system:	Linux 2.6.9-89.0.23.ELsmp #1 SMP Fri Mar 5 23:27:13 EST 2010
+\o X display name:	localhost:10.0
+\o X server:		Colin Harrison
+\o Depth of Visual (Root):	24 (24)
+\o Number of Planes Used:	24
+\o X version:		11.0 (vendor release 60900031)
+\o Window Manager:	other
+\o User Name:		cbolson1
+\o Working Directory:	acme22:/atm/mead/home/cbolson1/vlsi3_FU/schematic
+\o Process Id:		24162
+\o 
+\o COPYRIGHT © 1992-2009  CADENCE DESIGN SYSTEMS INC.  ALL RIGHTS RESERVED.
+\o           © 1992-2009  UNIX SYSTEMS Laboratories INC.,
+\o                          Reproduced with permission.
+\o 
+\o This Cadence Design Systems program and online documentation are
+\o proprietary/confidential information and may be disclosed/used only
+\o as authorized in a license agreement controlling such use and disclosure.
+\o 
+\o           RESTRICTED RIGHTS NOTICE (SHORT FORM)
+\o Use/reproduction/disclosure is subject to restriction
+\o set forth at FAR 1252.227-19 or its equivalent.
+\p > 
+\o 8-bit PseudoColor Visual is not available (default Visual option).
+\o Using 24-bit TrueColor Visual.
+\o The program xdpyinfo can be used to verify the Visuals available
+\o for your display.
+\o Loading PRshare.cxt 
+\o Loading LVS.cxt 
+\o Loading layerProc.cxt 
+\o Loading ams.cxt 
+\o Loading acv.cxt 
+\o Loading auCore.cxt 
+\o Loading schView.cxt 
+\o Loading selectSv.cxt 
+\o Loading seismic.cxt 
+\o 
+\o END OF SITE CUSTOMIZATION
+\o Loading ./.cdsinit init file from the site init file.
+\o END OF USER CUSTOMIZATION
+\o //
+\o //  Calibre Skill Interface * (v2007.1_31.29) *
+\o //
+\o //                 Copyright Mentor Graphics Corporation 2005
+\o //                             All Rights Reserved.
+\o //         THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+\o //            WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION
+\o //              OR ITS LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+\o //
+\o //
+\i ddsWhatsNew()
+\p > 
+\o Initializing IBM_PDK functions
+\o IBM_PDK skill procedures for Cadence 5.1.0 - Version: 1.491.7.28 07/09/17
+\o Licensed Materials - Property of IBM - All Rights Reserved 
+\o Copyright: International Business Machines Corporation, 2010
+\o This Material may not be copied without the written consent of 
+\o Semiconductor Research and Development Center, IBM Corp., Essex Junction, VT 05452-4299.
+\o  Default set for Left & Right WindowCoordIBM
+\o System hardware set for Linux IBM_PDK procedures
+\o Loading IBM PDK cmos10lpe Procedures for Cadence Version "5.1.0"
+\o cmos10lpe setting techfile rules
+\o setting table for cmos10lpe with /afs/ee.washington.edu/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/V1.2.0.3RF/Calibre/
+\o cmos10lpe setting ibmPdkUpdateCallbacks table
+\o cmos10lpe setting techfile rules
+\o cmos10lpe IBM_PDK menus set
+\o Using menu definition file: /afs/ee.washington.edu/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/V1.2.0.3RF/cdslib51/cmos10lpe/ibmPdkMenu.def
+\o Added CIW menu.
+\w *WARNING* No user triggers registered for viewType schematic.
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiResizeWindow(window(2) list(1018:-60 1608:440))
+\r t
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiResizeWindow(window(2) list(1018:-60 1608:440))
+\r t
+\a hiResizeWindow(window(2) list(1018:-60 1608:440))
+\r t
+\a hiResizeWindow(window(2) list(1018:-60 1608:440))
+\r t
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiCloseWindow(window(2))
+\r t
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiResizeWindow(window(1) list(884:-1057 1609:-896))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a ddsOpenLibManager()
+\w *WARNING* No user triggers registered for viewType schematicSymbol.
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\i ddsServOpen("FU_Alu" "Alu" "layout" "edit")
+\o Loading le.cxt 
+\o Loading subx.cxt 
+\o Loading layers.cxt 
+\o Loading oasis.cxt 
+\o Loading asimenv.cxt 
+\o Loading analog.cxt 
+\o Loading alvs.cxt 
+\o Loading lo.cxt 
+\o Loading techComp.cxt 
+\i ddsWhatsNew(nil 'Layout)
+\a hiSetCurrentWindow(window(3))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(248:-200 1148:490))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(4) list(1018:-60 1608:440))
+\r t
+\a hiResizeWindow(window(3) list(248:-200 1148:490))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(4) list(1018:-60 1608:440))
+\r t
+\a hiCloseWindow(window(4))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(3) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leHiEditDisplayOptions()
+\p > 
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leDisplayOptionsForm->stop->value = 32 
+\r 32
+\a hiFormDone(leDisplayOptionsForm)
+\r t
+\r t
+\a mouseSingleSelectPt
+\i 148.6:80.2
+\r nil
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leiMouseToggleLayerVisible(63)
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a mouseSingleSelectPt
+\i 11.3:89.7
+\r nil
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leiMouseToggleLayerVisible(63)
+\r t
+\a leiMouseSetEntryLayer(64)
+\r t
+\a leiMouseSetEntryLayer(89)
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a mouseSingleSelectPt
+\i -6.2:75.6
+\r nil
+\a hiZoomIn()
+\i 12.6:89.7
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i 96.2:13.3
+\r t
+\r t
+\a hiZoomIn()
+\i 18.5:83.8
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i 91.8:18.6
+\r t
+\r t
+\a mouseSingleSelectPt
+\i 24.59:79.945
+\r t
+\a mouseSingleSelectPt
+\i 20.95:81.25
+\r t
+\a leHiDescend()
+\r t
+\a mouseSingleSelectPt
+\i 6.5:2.9
+\r nil
+\a mouseSingleSelectPt
+\i 7.1:-0.6
+\r nil
+\a mouseSingleSelectPt
+\i 2.895:-0.4
+\r t
+\a mouseSingleSelectPt
+\i 2.895:-0.4
+\r t
+\a mouseSingleSelectPt
+\i 2.895:-0.4
+\r t
+\a mouseSingleSelectPt
+\i 2.895:-0.4
+\r t
+\a mouseSingleSelectPt
+\i 2.635:0.84
+\r t
+\a mouseSingleSelectPt
+\i 2.635:0.84
+\r t
+\a mouseSingleSelectPt
+\i 2.895:2.2
+\r t
+\a mouseSingleSelectPt
+\i 6.5:-1
+\r nil
+\a mouseSingleSelectPt
+\i 6.5:-1
+\r nil
+\a leSelBoxOrStretch()
+\i 27.8:-3.7
+\i 27.8:-3.7
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i -2.4:5.5
+\r t
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a mouseSingleSelectPt
+\i 13.7:3.5
+\r nil
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leSetAllLayerVisible(nil)
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a mouseSingleSelectPt
+\i 5.2:5.8
+\r nil
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a leSetAllLayerVisible(t)
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a mouseSingleSelectPt
+\i 5.8:7.2
+\r nil
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a mouseSingleSelectPt
+\i 7.6:4
+\r nil
+\a geReturnToLevel()
+\p > 
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a leSetLSWBBox(list(5:469 155:1169))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a geReturnToLevelLB->value = list(1 "0  FU_Alu Alu layout") 
+\r (1 "0  FU_Alu Alu layout")
+\a hiListBoxDone(geReturnToLevelLB)
+\r t
+\r nil
+\a mouseSingleSelectPt
+\i 52.23:66.245
+\r t
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a hiResizeWindow(window(3) list(0:56 1600:1200))
+\r t
+\a hiResizeWindow(window(3) list(0:56 1600:1200))
+\r t
+\a leSetLSWBBox(list(0:500 150:1200))
+\r t
+\a hiResizeWindow(window(1) list(0:1039 725:1200))
+\r t
+\a hiResizeWindow(window(1) list(0:1039 725:1200))
+\r t
+\a hiResizeWindow(window(1) list(0:1039 725:1200))
+\r t
+\a leSetLSWBBox(list(0:500 150:1200))
+\r t
+\a hiResizeWindow(window(1) list(0:1039 725:1200))
+\r t
+\a hiResizeWindow(window(1) list(0:1039 725:1200))
+\r t
+\a leSetLSWBBox(list(0:500 150:1200))
+\r t
+\a leSetLSWBBox(list(0:500 150:1200))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiZoomIn()
+\i 15.9:87.5
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i 92.6:17.2
+\r t
+\r t
+\a hiZoomIn()
+\i 16.1:83.6
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i 92.5:18.2
+\r t
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a mouseSingleSelectPt
+\i 14.6:60.4
+\r t
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a hiResizeWindow(window(3) list(0:4 1600:1148))
+\r t
+\a hiCloseWindow(window(3))
+\r t
+\i ddsServOpen("v_test" "ShiftLR" "schematic" "edit")
+\o Loading schematic.cxt 
+\a hiResizeWindow(window(5) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(5) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(5) list(0:4 1600:1148))
+\r t
+\a schSingleSelectPt()
+\i 308.5625:100.5625
+\r nil
+\a schZoomFit(1.0 0.9)
+\r t
+\a hiResizeWindow(window(5) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(5) list(0:4 1600:1148))
+\r t
+\a hiResizeWindow(window(5) list(0:4 1600:1148))
+\r t
+\a hiCloseWindow(window(5))
+\r t
+\i ddsServOpen("FU_ShiftLR" "ShiftLR" "layout" "edit")
+\a hiResizeWindow(window(6) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(6) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(6) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(6) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(6) list(248:-200 1148:490))
+\r t
+\a hiResizeWindow(window(6) list(0:4 1600:1148))
+\r t
+\a mouseSingleSelectPt
+\i 91:58.4
+\r nil
+\a hiZoomAbsoluteScale(hiGetCurrentWindow() 0.9)
+\r t
+\a mouseSingleSelectPt
+\i 43.4:61.7
+\r nil
+\a hiZoomIn()
+\i 15:55.5
+\p > 
+\a addPoint(hiGetCommandPoint())
+\i 62.9:16.9
+\r t
+\r t
+\a hiResizeWindow(window(6) list(0:4 1600:1148))
+\r t
+\a hiCloseWindow(window(6))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiQuit()
+\p > 
+\a hiResizeWindow(window(1) list(870:-427 1595:-266))
+\r t
+\a hiDBoxOK(hiQuitDBox) 
+\r t
+\o 

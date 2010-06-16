@@ -1,0 +1,8 @@
+################################################
+#                                              #
+# Silicon Perspective, A Cadence Company       #
+# FirstEncounter Design Restore script         #
+#    for design session: /atm/mead/home/cbolson1/vlsi3_FU/schematic/MADD.enc                     
+#                                              #
+################################################
+restoreDesign /atm/mead/home/cbolson1/vlsi3_FU/schematic/MADD.enc.dat MADD

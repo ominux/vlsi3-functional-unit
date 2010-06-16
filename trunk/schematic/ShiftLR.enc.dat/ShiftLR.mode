@@ -1,0 +1,13 @@
+setCteReport
+setAnalysisMode  -allClockDomain -setup -skew -noUsefulSkew -log -warn -caseAnalysis -noSequentialConstProp -moduleIOCstr -noClockTree -noClkSrcPath -timingSelfLoopsSkew -async -useOutputPinCap -latch -latchDelayCalIteration 2 -timeBorrowing -latchFastDelayCal -clockGatingCheck -enableMultipleDriveNet -bcWc -nocppr -markClkNetsBeforeConstProp -noHonorCDTV
+setOptMode -mediumEffort -leakagePowerEffort none -yieldEffort none -addPortAsNeeded -setupTargetSlack 0.000  -holdTargetSlack 0.000  -drcMargin 0.00  -maxDensity 0.95  -fixDrc -noFixFanoutLoad -addInst -deleteInst -downsizeInst -optimizeFF -optimizeConstantNet -noSimplifyNetlist -optimizeNetsAcrossDiffVoltPDs -rebuffer -noBufferAssignNets -noResizeShifterAndIsoInsts
+setExtractRCMode -default
+setDelayCalMode  -default 
+setNanoRouteMode -quiet -routeSiEffort "low"
+setNanoRouteMode -quiet -routeWithSiDriven false
+setNanoRouteMode -quiet -routeWithTimingDriven false
+
+setPlaceMode -noTimingDriven -ignoreScan -noTimingdriven
+setScanReorderMode  -mediumEffort
+setUsefulSkewMode -noMaxSkew -boundary -noEcoRoute -noMaxAllowedDelay  -noAllNegEndPoints
+setRCFactor -detclockcap 1.000000

@@ -1,0 +1,14 @@
+DEFINE analogLib $CDS/tools/dfII/etc/cdslib/artist/analogLib
+DEFINE sbaLib $CDS/tools/dfII/etc/cdslib/artist/sbaLib
+DEFINE basic $CDS/tools/dfII/etc/cdslib/basic
+DEFINE sample $CDS/tools/dfII/samples/cdslib/sample
+DEFINE US_8ths $CDS/tools/dfII/etc/cdslib/sheets/US_8ths
+DEFINE cmos10lpe /afs/ee.washington.edu/nikola/groups/vlsi/data/cmos10lpe/IBM_PDK/cmos10lpe/relRF/cdslib51/cmos10lpe
+#Removed by ddDeleteObj: DEFINE FU /n/mead/home-cbolson1/vlsi3_FU/schematic/FU
+#Removed by ddDeleteObj: DEFINE FU_Alu /n/mead/home-cbolson1/vlsi3_FU/schematic/FU_Alu
+#Removed by ddDeleteObj: DEFINE FU /n/mead/home-cbolson1/vlsi3_FU/schematic/FU
+#Removed by ddDeleteObj: DEFINE FU_Alu /n/mead/home-cbolson1/vlsi3_FU/schematic/FU_Alu
+DEFINE FU_Alu /n/mead/home-cbolson1/vlsi3_FU/schematic/FU_Alu
+DEFINE FU_ShiftLR /n/mead/home-cbolson1/vlsi3_FU/schematic/FU_ShiftLR
+DEFINE FU_MADD /n/mead/home-cbolson1/vlsi3_FU/schematic/FU_MADD
+DEFINE v_test /n/mead/home-cbolson1/vlsi3_FU/schematic/v_test

@@ -1,0 +1,21 @@
+\o Program:		@(#)$CDS: libManager.exe version Exp 03/23/2009 19:17 (ocelot-linux) $
+\o Sub version:		sub-version none
+\o Arguments:		-unmapped -mpssession icfb24162 -mpshost acme22 
+\o Working Directory:	acme22:/atm/mead/home/cbolson1/vlsi3_FU/schematic
+\o Cell filter set to ""
+\o View filter set to ""
+No main selection
+\o Library Manager customization server connected.
+MPS service: map window
+\o Log file is "/atm/mead/home/cbolson1/vlsi3_FU/schematic/./libManager.log".
+Opening libManager window.
+Main selection: FU_Alu Alu layout
+\o Opening design file through session server.
+MPS request: edit design
+Main selection: v_test ShiftLR schematic
+\o Opening design file through session server.
+MPS request: edit design
+Main selection: FU_ShiftLR ShiftLR layout
+\o Opening design file through session server.
+MPS request: edit design
+\o libManager is exiting.

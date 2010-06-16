@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Wed May 26 12:48:58 2010
+# Created by write_sdc on Wed Jun  9 05:28:11 2010
 
 ###################################################################
 set sdc_version 1.7
@@ -74,7 +74,7 @@ set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[3]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[2]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[1]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[0]}]
-create_clock -name vclk  -period 1.4  -waveform {0 0.5}
+create_clock -name vclk  -period 1  -waveform {0 0.5}
 set_input_delay -clock vclk  0  [get_ports {A[31]}]
 set_input_delay -clock vclk  0  [get_ports {A[30]}]
 set_input_delay -clock vclk  0  [get_ports {A[29]}]
