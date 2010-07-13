@@ -6,7 +6,7 @@ Report : timing
         -max_paths 1
 Design : Alu
 Version: B-2008.09-SP1
-Date   : Tue Jul 13 11:52:58 2010
+Date   : Tue Jul 13 14:03:05 2010
 ****************************************
 
 Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c

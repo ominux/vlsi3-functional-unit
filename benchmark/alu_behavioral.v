@@ -1,7 +1,7 @@
 module Alu( Z, A, B, INST, SEL);
 output [31:0] Z;
-input [31:0] A;
-input [31:0] B;
+input signed [31:0] A;
+input signed [31:0] B;
 input [3:0] INST;
 input SEL;
 

@@ -7,7 +7,7 @@ Report : power
         -analysis_effort low
 Design : Alu
 Version: B-2008.09-SP1
-Date   : Tue Jul 13 11:50:14 2010
+Date   : Tue Jul 13 13:21:26 2010
 ****************************************
 
 
@@ -33,11 +33,11 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  = 255.0590 uW   (50%)
-  Net Switching Power  = 260.0221 uW   (50%)
+  Cell Internal Power  = 420.9495 uW   (49%)
+  Net Switching Power  = 438.0555 uW   (51%)
                          ---------
-Total Dynamic Power    = 515.0810 uW  (100%)
+Total Dynamic Power    = 859.0051 uW  (100%)
 
-Cell Leakage Power     =  70.0905 nW
+Cell Leakage Power     = 105.6037 nW
 
 1
