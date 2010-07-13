@@ -1,6 +1,6 @@
 ###################################################################
 
-# Created by write_sdc on Wed Jun  9 05:28:11 2010
+# Created by write_sdc on Tue Jul 13 11:52:58 2010
 
 ###################################################################
 set sdc_version 1.7
@@ -74,6 +74,7 @@ set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[3]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[2]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[1]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {INST[0]}]
+set_driving_cell -lib_cell SEN_INV_1 [get_ports SEL]
 create_clock -name vclk  -period 1  -waveform {0 0.5}
 set_input_delay -clock vclk  0  [get_ports {A[31]}]
 set_input_delay -clock vclk  0  [get_ports {A[30]}]
@@ -143,6 +144,7 @@ set_input_delay -clock vclk  0  [get_ports {INST[3]}]
 set_input_delay -clock vclk  0  [get_ports {INST[2]}]
 set_input_delay -clock vclk  0  [get_ports {INST[1]}]
 set_input_delay -clock vclk  0  [get_ports {INST[0]}]
+set_input_delay -clock vclk  0  [get_ports SEL]
 set_output_delay -clock vclk  0  [get_ports {Z[31]}]
 set_output_delay -clock vclk  0  [get_ports {Z[30]}]
 set_output_delay -clock vclk  0  [get_ports {Z[29]}]
@@ -175,7 +177,3 @@ set_output_delay -clock vclk  0  [get_ports {Z[3]}]
 set_output_delay -clock vclk  0  [get_ports {Z[2]}]
 set_output_delay -clock vclk  0  [get_ports {Z[1]}]
 set_output_delay -clock vclk  0  [get_ports {Z[0]}]
-set_output_delay -clock vclk  0  [get_ports {FLAGS[3]}]
-set_output_delay -clock vclk  0  [get_ports {FLAGS[2]}]
-set_output_delay -clock vclk  0  [get_ports {FLAGS[1]}]
-set_output_delay -clock vclk  0  [get_ports {FLAGS[0]}]
