@@ -1,0 +1,74 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : Alu
+Version: B-2008.09-SP1
+Date   : Tue Jul 13 11:52:58 2010
+****************************************
+
+Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: INST[0] (input port clocked by vclk)
+  Endpoint: Z[0] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Alu                B0.1X0.1              cp65npksdst_tt1p2v25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 f
+  INST[0] (in)                             0.01       0.01 f
+  U749/X (SEN_BUF_S_6)                     0.04       0.05 f
+  U883/X (SEN_INV_2)                       0.03       0.09 r
+  U588/X (SEN_ND2_3)                       0.03       0.11 f
+  U705/X (SEN_ND2_S_2)                     0.03       0.15 r
+  U665/X (SEN_NR2_T_4)                     0.03       0.17 f
+  U664/X (SEN_OAI21_8)                     0.04       0.21 r
+  U662/X (SEN_INV_10)                      0.02       0.24 f
+  U681/X (SEN_INV_5)                       0.03       0.27 r
+  U375/X (SEN_MUXI2_DG_5)                  0.04       0.31 f
+  U814/X (SEN_INV_4)                       0.02       0.33 r
+  U540/X (SEN_ND2_3)                       0.03       0.35 f
+  U871/X (SEN_ND2_2)                       0.03       0.38 r
+  U635/X (SEN_ND3_T_2)                     0.04       0.42 f
+  U503/X (SEN_INV_2)                       0.03       0.45 r
+  U709/X (SEN_ND3_2)                       0.03       0.48 f
+  U500/X (SEN_ND2_T_2)                     0.03       0.51 r
+  U690/X (SEN_OAI21_5)                     0.04       0.55 f
+  U693/X (SEN_ND2_2)                       0.03       0.58 r
+  U495/X (SEN_ND2_4)                       0.03       0.60 f
+  U694/X (SEN_ND2_2)                       0.03       0.64 r
+  U754/X (SEN_EO2_2)                       0.05       0.68 r
+  U451/X (SEN_ND2_S_2)                     0.04       0.72 f
+  U487/X (SEN_NR3_T_2)                     0.05       0.77 r
+  U757/X (SEN_ND4_S_4)                     0.03       0.80 f
+  U827/X (SEN_NR2_T_3)                     0.03       0.84 r
+  U793/X (SEN_ND3_T_4)                     0.03       0.87 f
+  U702/X (SEN_NR4_6)                       0.04       0.91 r
+  U704/X (SEN_ND3_T_2)                     0.03       0.94 f
+  U673/X (SEN_OAI211_1)                    0.03       0.97 r
+  U670/X (SEN_ND3_T_1)                     0.03       1.00 f
+  Z[0] (out)                               0.00       1.00 f
+  data arrival time                                   1.00
+
+  clock vclk (rise edge)                   1.00       1.00
+  clock network delay (ideal)              0.00       1.00
+  output external delay                    0.00       1.00
+  data required time                                  1.00
+  -----------------------------------------------------------
+  data required time                                  1.00
+  data arrival time                                  -1.00
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1

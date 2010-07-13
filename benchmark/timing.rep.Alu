@@ -1,0 +1,61 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : Alu
+Version: B-2008.09-SP1
+Date   : Tue Jul 13 11:50:04 2010
+****************************************
+
+Operating Conditions: TT1P2V25C   Library: cp65npksdst_tt1p2v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: B[19] (input port clocked by vclk)
+  Endpoint: Z[0] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Alu                B0.1X0.1              cp65npksdst_tt1p2v25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.00       0.00 r
+  B[19] (in)                               0.04       0.04 r
+  U557/X (SEN_INV_2)                       0.04       0.07 f
+  cmp6_10_0/U70/X (SEN_EN2_0P5)            0.08       0.16 f
+  cmp6_10_0/U68/X (SEN_NR2_G_1)            0.08       0.24 r
+  U339/X (SEN_OAI21_G_1)                   0.04       0.28 f
+  U340/X (SEN_AOI211_G_1)                  0.08       0.36 r
+  U341/X (SEN_ND3B_1)                      0.08       0.44 f
+  cmp6_10_0/U41/X (SEN_OAI21_G_1)          0.07       0.51 r
+  U592/X (SEN_AOI21_T_1)                   0.05       0.56 f
+  U513/X (SEN_OAI21_S_1P5)                 0.05       0.61 r
+  U574/X (SEN_AOI21_G_2)                   0.04       0.64 f
+  U424/X (SEN_OAI21_S_2)                   0.04       0.69 r
+  U511/X (SEN_AOI21_G_2)                   0.04       0.72 f
+  U571/X (SEN_OAI21_S_3)                   0.04       0.77 r
+  U366/X (SEN_AOI22_0P5)                   0.06       0.82 f
+  U368/X (SEN_AOAI211_0P5)                 0.09       0.92 r
+  U780/X (SEN_ND3_1)                       0.06       0.97 f
+  U801/X (SEN_ND2_G_1)                     0.03       1.00 r
+  Z[0] (out)                               0.00       1.00 r
+  data arrival time                                   1.00
+
+  clock vclk (rise edge)                   1.00       1.00
+  clock network delay (ideal)              0.00       1.00
+  output external delay                    0.00       1.00
+  data required time                                  1.00
+  -----------------------------------------------------------
+  data required time                                  1.00
+  data arrival time                                  -1.00
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1

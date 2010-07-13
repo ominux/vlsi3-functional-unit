@@ -158,7 +158,7 @@ module Alu( Z, A, B, INST, SEL);
 	///////////////////////////
 	assign A_or_B = A | B;
 	adder struct_adder (.A(ain),.B(bin),.Cin(cin),.S(adder_out),
-											.P(P),.G(G),.Cout(adder_co),.OVF(overflow));
+											.P(P),.G(G),.OVF(overflow));
 	
 	////////////////
 	// Output Mux //

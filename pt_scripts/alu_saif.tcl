@@ -9,7 +9,7 @@ set link_library	" * cp65npksdst_tt1p2v25c.db "
 ##########################################################
 # Change this to switch between new design and benchmark #
 read_verilog		../synthesis/Alu.vh
-#read_verilog		../benchmark/Alu.vrl
+#read_verilog		../benchmark/alu_behavioral.vh
 ##########################################################
 current_design		Alu
 link
@@ -56,6 +56,7 @@ create_clock -name clock -period 1.0
 set_switching_activity -toggle_count 0.25 -static_probability 0.5 A
 set_switching_activity -toggle_count 0.25 -static_probability 0.5 B
 set_switching_activity -toggle_count 0.25 -static_probability 0.5 INST
+set_switching_activity -toggle_count 0.25 -static_probability 0.5 SEL
 
 ##########################################################
 # Change this to switch between new design and benchmark #
@@ -71,7 +72,6 @@ set_switching_activity -toggle_count 0.25 -static_probability 0.5 INST
 #####################################################################
 check_power
 update_power
-#report_power -hierarchy > Alu.rpt
 report_power > Alu.rpt
 
 # This is an optional step

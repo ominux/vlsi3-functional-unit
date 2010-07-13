@@ -1,5 +1,5 @@
 // carry look ahead adder
-module adder (A, B, Cin, S, P, G, Cout, OVF);
+module adder (A, B, Cin, S, P, G, OVF);
 
 	////////
 	// IO //
@@ -7,7 +7,7 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
   input  [31:0]  A, B;
   input          Cin;
   output [31:0]	 S, P, G;
-  output Cout, OVF;
+  output OVF;
 
 	////////////////////
 	// Internal Nodes //
@@ -19,7 +19,7 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
   assign P = A ^ B; // carry propagate
   
 	// Carry Chain
-  always @(*)
+	always @(*)
     begin : carry_generation
       integer i;
       carrychain[0] = G[0] + (P[0] & Cin);
@@ -28,10 +28,10 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
           carrychain[i] = G[i] + (P[i] & carrychain[i-1]);
         end
     end
-
-	/* should redo this so we don't get a ripple carry adder
+	
+	/*
 	// 8 4-bit CLAs that interface directly with the bits
-	CLA cla_0 ();
+	CLA cla_0 (P, G, C, Cout, Pin, Gin, Cin);
 	CLA cla_0 ();
 	CLA cla_0 ();
 	CLA cla_0 ();
@@ -59,7 +59,7 @@ module adder (A, B, Cin, S, P, G, Cout, OVF);
 
 endmodule
 
-/* not currently used
+/*
 // Carry Look-Ahead Unit
 module CLA (P, G, C, Cout, Pin, Gin, Cin);
 
@@ -78,5 +78,4 @@ module CLA (P, G, C, Cout, Pin, Gin, Cin);
 	assign P = &Pin;
 	assign G = Gin[3] + Pin[3] & Gin[2] + Pin[3] & Pin[2] & Gin[1] + Pin[3] & Pin[2] & Pin[1] & Gin[0];
 	
-endmodule
-*/
+endmodule*/
