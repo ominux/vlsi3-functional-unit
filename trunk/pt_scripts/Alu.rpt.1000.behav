@@ -2,7 +2,7 @@
 Report : Statistical Average Power
 Design : Alu
 Version: A-2007.12-SP3
-Date   : Tue Jul 13 12:09:10 2010
+Date   : Tue Jul 13 13:24:44 2010
 ****************************************
 
 
@@ -20,13 +20,13 @@ memory                     0.0000    0.0000    0.0000    0.0000 ( 0.00%)
 black_box                  0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
 clock_network              0.0000    0.0000    0.0000    0.0000 ( 0.00%)  i
 register                   0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
-combinational           5.731e-04 6.578e-04 7.007e-08 1.231e-03 (100.00%) 
+combinational           8.897e-04 1.078e-03 1.063e-07 1.968e-03 (100.00%) 
 sequential                 0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
 
-  Net Switching Power  = 6.578e-04   (53.44%)
-  Cell Internal Power  = 5.731e-04   (46.55%)
-  Cell Leakage Power   = 7.007e-08   ( 0.01%)
+  Net Switching Power  = 1.078e-03   (54.79%)
+  Cell Internal Power  = 8.897e-04   (45.20%)
+  Cell Leakage Power   = 1.063e-07   ( 0.01%)
                          ---------
-Total Power            = 1.231e-03  (100.00%)
+Total Power            = 1.968e-03  (100.00%)
 
 1

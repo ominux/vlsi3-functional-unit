@@ -6,8 +6,8 @@
 
 // Files to include for simulation
 
-//`include "Alu.v"
-`include "../benchmark/alu_behavioral.v"
+`include "Alu.v"
+//`include "../benchmark/alu_behavioral.v"
 //`include "../synthesis/Alu.vh"
 //`include "../synthesis/cp65npksdst.mv"
 
@@ -36,9 +36,9 @@ module Alu_tb();
 		// initialize important signals
 		clk = 0;
 		instr = 4'h0;
-		a_in = 32'b0;
-		b_in = 32'b0;
-		select = 1'b0;
+		a_in = $random;
+		b_in = $random;
+		select = $random;
 		
 		// wait 32 clock cycles
 		repeat (1024) @ (posedge clk);
@@ -117,6 +117,12 @@ module Alu_tb();
 			$display("Output of ALU doesn't match the expected value");
 			$display("Output:%h, Expected:%h, A:%h, B:%h, INSTR:%h, SEL:%b",
 							alu_out,exp_output,a_in,b_in,instr,select);
+			/*$display("Propagates:%h,Generates:%h,GroupP:%h,GroupG:%h,GroupC:%h,CarryIns:%h",
+							ALU_inst.struct_adder.P,ALU_inst.struct_adder.G,ALU_inst.struct_adder.group_P,
+							ALU_inst.struct_adder.group_G,ALU_inst.struct_adder.group_Cin,ALU_inst.struct_adder.carrychain);
+			$display("GroupG for cla_2:%b, Gin:%b, Pin:%b, output:%b",ALU_inst.struct_adder.group_G[2],
+							ALU_inst.struct_adder.cla_2.Gin,ALU_inst.struct_adder.cla_2.Pin,
+							ALU_inst.struct_adder.cla_2.G);*/
 			$stop;
 		end
 	end
