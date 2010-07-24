@@ -6,11 +6,10 @@
 
 // Files to include for simulation
 
-//`include "Alu.v"
-//`include "alu_latched.v"
+`include "Alu.v"
 //`include "../benchmark/alu_behavioral.v"
-`include "../synthesis/Alu.vh"
-`include "cp65npksdst.v"
+//`include "../synthesis/Alu.vh"
+//`include "cp65npksdst.v"
 
 module Alu_tb();
 
@@ -124,6 +123,7 @@ module Alu_tb();
 			$display("GroupG for cla_2:%b, Gin:%b, Pin:%b, output:%b",ALU_inst.struct_adder.group_G[2],
 							ALU_inst.struct_adder.cla_2.Gin,ALU_inst.struct_adder.cla_2.Pin,
 							ALU_inst.struct_adder.cla_2.G);*/
+			$display("adder_output: %h, OVF: %b",ALU_inst.adder_out,ALU_inst.overflow);
 			$stop;
 		end
 	end

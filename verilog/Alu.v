@@ -1,8 +1,9 @@
 /*
 
 File:		ALU for the Functional Unit of the Mosaic project.  The
-				main block of this ALU is the adder (adder_struct.v).  This block
-				is purely combinational.
+				main block of this ALU is the adder (adder_struct.v).  This ALU cotains
+				latches to hold the inputs to the adder constant for instructions that 
+				do not require use of the adder.
 
 Author: Corey Olson
 
@@ -60,128 +61,110 @@ module Alu( Z, A, B, INST, SEL);
 	////////////////////////
 	// Intermediate Nodes //
 	////////////////////////
-	wire [31:0] adder_out, P, G, A_or_B;
-	wire adder_co, overflow, zero;
-
-	///////////////////////////
-	// Modified Adder Inputs //
-	///////////////////////////
-	reg [31:0] ain, bin;
-	reg cin;
+	reg		[31:0] adder_a, adder_b;
+	wire	[31:0] adder_out;
+	reg adder_cin;
+	
+	/////////////////////////
+	// Set up Adder inputs //
+	/////////////////////////
 	always @ (*) begin
-		// defaults
-		ain = A;
-		bin = B;
-		cin = 1'b0;
 		
 		case (INST)
-			// Z = A + B
-			add_ab:	begin
+			add_ab: begin
+				adder_a = A;
+				adder_b = B;
+				adder_cin = 1'b0;
 			end
-			// Z = -1 * A
 			neg_a: begin
-				ain = ~A;
-				bin = 32'b0;
-				cin = 1'b1;
+				adder_a = ~A;
+				adder_b = 0;
+				adder_cin = 1'b1;
 			end
-			// Z = A & B
-			and_ab: begin
+			//and_ab:// don't use adder
+			//or_ab: begin // don't use adder
+			//xor_ab:// don't use adder 
+			//inv_a: // don't use adder
+			//sel_ab: begin // don't use adder
+			//sel_ba: begin // don't use adder
+			sub_ab: begin
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = A | B
-			or_ab: begin
-			end
-			// Z = A ^ B
-			xor_ab:	begin
-			end
-			// Z = ~A
-			inv_a: begin
-				ain = ~A;
-				bin = 32'b0;
-			end
-			// Z = (~SEL & A) | (SEL & B)
-			sel_ab: begin
-				if (SEL) ain = 32'b0;
-				else bin = 32'b0;
-			end
-			// Z = (SEL & A) | (~SEL & B)
-			sel_ba: begin
-				if (SEL) bin = 32'b0;
-				else ain = 32'b0;
-			end
-			// Z = A - B
-			sub_ab:	begin
-				bin = ~B;
-				cin = 1'b1;
-			end
-			// Z = {31'b0,A<B}
 			a_lt_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,A<=B}
 			a_lte_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,A>B}
 			a_gt_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,A>=B}
 			a_gte_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,A==B}
 			a_eq_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,A!=B}
 			a_ne_b: begin
-				bin = ~B;
-				cin = 1'b1;
+				adder_a = A;
+				adder_b = ~B;
+				adder_cin = 1'b1;
 			end
-			// Z = {31'b0,SEL^B}
-			sel_xor_b: begin
-				ain = {31'b0,SEL};
-			end
-			// let the synthesis tool optimize the other cases
+			//sel_xor_b: // don't use adder
 			default: begin
+				// default latch inputs to adder
+				adder_a = adder_a;
+				adder_b = adder_b;
+				adder_cin = adder_cin;
 			end
 		endcase
 	end
-	
-	///////////////////////////
-	// Adder and Other Logic //
-	///////////////////////////
-	assign A_or_B = A | B;
-	adder struct_adder (.A(ain),.B(bin),.Cin(cin),.S(adder_out),
-											.P(P),.G(G),.OVF(overflow));
-	
+		
+	///////////
+	// Adder //
+	///////////
+	adder struct_adder (.A(adder_a),.B(adder_b),.Cin(adder_cin),.S(adder_out),
+											.OVF(overflow));
+	assign zero = ~(|adder_out);
+
 	////////////////
-	// Output Mux //
+	// Output MUX //
 	////////////////
 	always @ (*) begin
 		case (INST)
-			and_ab: Z = G;
-			or_ab: Z = A_or_B;
-			xor_ab: Z = P;
+			// add_ab: 
+			// neg_a: 
+			and_ab: Z = A & B;
+			or_ab: Z = A | B; 
+			xor_ab: Z = A ^ B;
+			inv_a: Z = ~A;
+			sel_ab:	
+				if (~SEL) Z = A;
+				else Z = B;
+			sel_ba: 
+				if (SEL) Z = A;
+				else Z = B;
+			// sub_ab: 
 			a_lt_b: Z = {31'b0,adder_out[31]^overflow};
 			a_lte_b: Z = {31'b0,(adder_out[31]^overflow)|zero};
 			a_gt_b: Z = {31'b0,~adder_out[31]^overflow};
 			a_gte_b: Z = {31'b0,(~adder_out[31]^overflow)|zero};
 			a_eq_b: Z = {31'b0,zero};
 			a_ne_b: Z = {31'b0,~zero};
-			sel_xor_b: Z = P;
-			default: Z = adder_out;
+			sel_xor_b: Z = {31'b0,SEL^B};			
+			default:	Z = adder_out;
 		endcase
 	end
-
-	///////////
-	// Flags //
-	///////////
-	assign zero = ~(|adder_out);
-
 endmodule
