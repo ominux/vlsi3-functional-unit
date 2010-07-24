@@ -58,15 +58,6 @@ set_switching_activity -toggle_count 0.25 -static_probability 0.5 B
 set_switching_activity -toggle_count 0.25 -static_probability 0.5 INST
 set_switching_activity -toggle_count 0.25 -static_probability 0.5 SEL
 
-##########################################################
-# Change this to switch between new design and benchmark #
-#set_switching_activity -toggle_count 0.25 -static_probability 0.5 DI
-#set_switching_activity -toggle_count 0.25 -static_probability 0.5 CI
-#set_switching_activity -toggle_count 0.25 -static_probability 0.5 FirstCyc
-##########################################################
-
-
-
 #####################################################################
 #       check/update/report power
 #####################################################################
