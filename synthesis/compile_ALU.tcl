@@ -44,8 +44,9 @@ set my_output_delay_ns 0.0
 set current_dir ./
 set db_path ./db
 set verilog_path ../verilog
+set benchmark_path ../benchmark
 set libName	"cp65npksdst"
-set search_path [concat  $search_path  $current_dir $verilog_path $db_path]
+set search_path [concat  $search_path  $current_dir $verilog_path $benchmark_path $db_path]
 
 set link_library  [subst {${libName}${corner}.db}]
 set target_library [subst {${libName}${corner}.db}]
@@ -81,9 +82,9 @@ set_driving_cell  -lib_cell SEN_INV_1  [all_inputs]
 set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
 set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]
 
-#compile -ungroup_all -map_effort medium
-#compile -incremental_mapping -map_effort medium
-compile_ultra -gate_clock
+set_max_dynamic_power 0.2 mW
+
+compile -ungroup_all -map_effort high -power_effort high
 compile_ultra -incremental
 
 check_design
@@ -98,6 +99,7 @@ write_sdc $filename
 #set filename [format "%s%s"  $my_toplevel ".db"]
 #write -f db -hier -output $filename
 
+# normal
 redirect timing.rep.Alu { report_timing }
 redirect cell.rep.Alu { report_cell }
 redirect power.rep.Alu { report_power }
