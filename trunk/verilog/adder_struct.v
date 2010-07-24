@@ -1,18 +1,25 @@
 // carry look ahead adder
-module adder (A, B, Cin, S, P, G, OVF);
+//module adder (A, B, Cin, S, P, G, OVF);
+module adder (A, B, Cin, S, OVF);
 
 	////////
 	// IO //
 	////////
   input  [31:0]  A, B;
   input          Cin;
-  output [31:0]	 S, P, G;
+//  output [31:0]	 S, P, G;
+  output [31:0]	 S;
   output OVF;
 	
 	// P, G
-	assign G = A & B; // carry generate
-  assign P = A ^ B; // carry propagate
-
+//	assign G = A & B; // carry generate
+//  assign P = A ^ B; // carry propagate
+	
+	// let the synthesis tools do all the work for the adder
+	assign S = A + B + Cin;
+	assign OVF = (A[31] & B[31] & ~S[31]) | (~A[31] & ~B[31] & S[31]);
+	
+	/*
 	/////////////////////////////
 	// Ripple Carry Type Adder //
 	/////////////////////////////
@@ -34,7 +41,10 @@ module adder (A, B, Cin, S, P, G, OVF);
 	
 	// Overflow
 	assign OVF = shiftedcarry[32] ^ shiftedcarry[31];
+	*/
 
+	
+	
 endmodule
 
 // End of Ripple Carry Adder
