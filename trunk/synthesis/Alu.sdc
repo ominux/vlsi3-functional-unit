@@ -1,11 +1,12 @@
 ###################################################################
 
-# Created by write_sdc on Tue Jul 13 14:03:05 2010
+# Created by write_sdc on Sat Jul 24 08:46:36 2010
 
 ###################################################################
 set sdc_version 1.7
 
 set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
+set_max_dynamic_power 200 uW
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {A[31]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {A[30]}]
 set_driving_cell -lib_cell SEN_INV_1 [get_ports {A[29]}]
