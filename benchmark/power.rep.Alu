@@ -1,13 +1,10 @@
-Loading db file '/atm/mead/home/cbolson1/vlsi3_FU/synthesis/db/cp65npksdst_tt1p2v25c.db'
-Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
-Warning: Design has unannotated primary inputs. (PWR-414)
  
 ****************************************
 Report : power
         -analysis_effort low
 Design : Alu
 Version: B-2008.09-SP1
-Date   : Tue Jul 13 13:21:26 2010
+Date   : Sat Jul 24 08:41:13 2010
 ****************************************
 
 
@@ -33,11 +30,11 @@ Power-specific unit information :
     Leakage Power Units = 1nW
 
 
-  Cell Internal Power  = 420.9495 uW   (49%)
-  Net Switching Power  = 438.0555 uW   (51%)
+  Cell Internal Power  = 297.3767 uW   (50%)
+  Net Switching Power  = 295.1012 uW   (50%)
                          ---------
-Total Dynamic Power    = 859.0051 uW  (100%)
+Total Dynamic Power    = 592.4779 uW  (100%)
 
-Cell Leakage Power     = 105.6037 nW
+Cell Leakage Power     =  89.3180 nW
 
 1
