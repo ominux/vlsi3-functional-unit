@@ -6,10 +6,11 @@
 
 // Files to include for simulation
 
-`include "Alu.v"
+//`include "Alu.v"
+//`include "alu_latched.v"
 //`include "../benchmark/alu_behavioral.v"
-//`include "../synthesis/Alu.vh"
-//`include "../synthesis/cp65npksdst.mv"
+`include "../synthesis/Alu.vh"
+`include "cp65npksdst.v"
 
 module Alu_tb();
 
