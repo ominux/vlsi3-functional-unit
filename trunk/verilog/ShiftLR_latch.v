@@ -26,6 +26,7 @@ wire [34:0] shift2;
 wire [32:0] shift1;
 wire [31:0] shift0;
 reg [31:0] X_latch;
+reg [4:0] S_latch;
 
 // Naming conventions:
 // _cg = clock gated
@@ -43,8 +44,10 @@ integer i;
 
 // Latch input
 always @*
-  if (EN)
-    X_latch <= X;
+  if (EN) begin
+     X_latch <= X;
+     S_latch <= S;
+  end
 
 always @ (*) begin
 	// shift left
@@ -71,12 +74,12 @@ end
 // use 2's complement if LEFT is asserted //
 // else assume right shift                //
 ////////////////////////////////////////////
-assign shift_n = ~S;
+assign shift_n = ~S_latch;
 assign shift = LEFT ?	{shift_n[4]^(&shift_n[3:0]),
 											shift_n[3]^(&shift_n[2:0]),
 											shift_n[2]^(&shift_n[1:0]),
 											shift_n[1]^shift_n[0],
-											S[0]} : S;
+											S_latch[0]} : S_latch;
 
 /////////////////
 // LOG SHIFTER //

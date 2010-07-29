@@ -17,7 +17,7 @@ module ShiftLR_tb();
 	
 	// inputs to the shifter
 	reg signed [31:0] input_data, input_data_latch;
-	reg [4:0] shift_amount;
+	reg [4:0] shift_amount, shift_amount_latch;
 	reg left,logical,en;
 
 	// outputs from the shifter
@@ -68,8 +68,10 @@ module ShiftLR_tb();
 	end
 
         always @*
-          if (en)
-            input_data_latch <= input_data;
+          if (en) begin
+             input_data_latch <= input_data;
+             shift_amount_latch <= shift_amount;
+          end
 
 	// check that the shifted data is correct
 	always @ (posedge clk) begin
@@ -77,7 +79,7 @@ module ShiftLR_tb();
 		// check that we are always doing the correct shifting
 		// check all left shifts
 		if (left) begin
-			if (output_data !== input_data_latch<<shift_amount) begin
+			if (output_data !== input_data_latch<<shift_amount_latch) begin
 				$display("ERROR: Shift Left Incorrect\n");
 				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
 									output_data,input_data,shift_amount,input_data<<shift_amount);
@@ -86,7 +88,7 @@ module ShiftLR_tb();
 		end
 		// logical shift right
 		else if(logical) begin
-			if (output_data !== input_data_latch>>shift_amount) begin
+			if (output_data !== input_data_latch>>shift_amount_latch) begin
 				$display("ERROR: Logical Shift Right Incorrect\n");
 				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
 									output_data,input_data,shift_amount,input_data>>shift_amount);
@@ -95,7 +97,7 @@ module ShiftLR_tb();
 		end
 		// arithmetic shift right
 		else begin
-			if (output_data !== input_data_latch>>>shift_amount) begin
+			if (output_data !== input_data_latch>>>shift_amount_latch) begin
 				$display("ERROR: Arithmetic Shift Right Incorrect\n");
 				$display("Output data:%h, input data:%h, amount:%h, should be:%h",
 									output_data,input_data,shift_amount,input_data>>>shift_amount);
